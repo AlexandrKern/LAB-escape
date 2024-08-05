@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Swarm))]
+[RequireComponent(typeof(MoveController))]
 public class SwarmInputHandler : MonoBehaviour
 {
     [SerializeField]
     private List<KeyCode> formsKeyboardKeys;
 
     private Swarm _swarm;
+    private MoveController _moveController;
 
     private void Awake()
     {
         _swarm = GetComponent<Swarm>();
+        _moveController = GetComponent<MoveController>();
     }
 
     void Update()
@@ -25,5 +28,7 @@ public class SwarmInputHandler : MonoBehaviour
                 _swarm.SetFormIndex(i);
             }
        }
+
+        _moveController.InputHorizontal = Input.GetAxis("Horizontal");
     }
 }

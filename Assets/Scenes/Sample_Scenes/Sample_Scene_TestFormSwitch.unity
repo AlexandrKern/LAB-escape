@@ -328,6 +328,8 @@ GameObject:
   - component: {fileID: 409260285}
   - component: {fileID: 409260286}
   - component: {fileID: 409260287}
+  - component: {fileID: 409260289}
+  - component: {fileID: 409260288}
   m_Layer: 0
   m_Name: Swarm
   m_TagString: Untagged
@@ -395,6 +397,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   formsKeyboardKeys: 31000000320000003300000034000000
+--- !u!114 &409260288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409260282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a21cb77c3c2314fa8d2089d590064a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HorizontalSpeed: 5
+--- !u!50 &409260289
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409260282}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &448662706
 GameObject:
   m_ObjectHideFlags: 0
