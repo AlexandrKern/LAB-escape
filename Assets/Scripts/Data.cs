@@ -86,23 +86,15 @@ public static class Data
     {
         if (File.Exists(_filePath))
         {
-            try
-            {
-                string json = File.ReadAllText(_filePath);
-                DataContainer dataContainer = JsonUtility.FromJson<DataContainer>(json);
-                HP = dataContainer.HP;
-                CheckpointNumber = dataContainer.CheckpointNumber;
-                IsHumanFormAvailable = dataContainer.IsHumanFormAvailable;
-                IsHammerFormAvailable = dataContainer.IsHammerFormAvailable;
-                IsBreakerFormAvailable = dataContainer.IsBreakerFormAvailable;
-                IsMimicFormAvailable = dataContainer.IsMimicFormAvailable;
-                IsMirrorFormAvailable = dataContainer.IsMirrorFormAvailable;
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Failed to load data: {ex.Message}");
-                SaveData(); // Save default data if loading fails
-            }
+            string json = File.ReadAllText(_filePath);
+            DataContainer dataContainer = JsonUtility.FromJson<DataContainer>(json);
+            HP = dataContainer.HP;
+            CheckpointNumber = dataContainer.CheckpointNumber;
+            IsHumanFormAvailable = dataContainer.IsHumanFormAvailable;
+            IsHammerFormAvailable = dataContainer.IsHammerFormAvailable;
+            IsBreakerFormAvailable = dataContainer.IsBreakerFormAvailable;
+            IsMimicFormAvailable = dataContainer.IsMimicFormAvailable;
+            IsMirrorFormAvailable = dataContainer.IsMirrorFormAvailable;
         }
         else
         {
