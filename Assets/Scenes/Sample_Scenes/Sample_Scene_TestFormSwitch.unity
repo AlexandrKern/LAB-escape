@@ -231,6 +231,8 @@ GameObject:
   - component: {fileID: 313176971}
   - component: {fileID: 313176973}
   - component: {fileID: 313176974}
+  - component: {fileID: 313176976}
+  - component: {fileID: 313176975}
   m_Layer: 0
   m_Name: SwarmObstacle
   m_TagString: Untagged
@@ -286,6 +288,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1843711421}
+--- !u!114 &313176975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313176970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a829be58d115443896d69674546edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &313176976
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313176970}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.55, y: 1.27}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &382374357
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +379,7 @@ GameObject:
   - component: {fileID: 409260287}
   - component: {fileID: 409260289}
   - component: {fileID: 409260288}
+  - component: {fileID: 409260290}
   m_Layer: 0
   m_Name: Swarm
   m_TagString: Untagged
@@ -397,6 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   formsKeyboardKeys: 31000000320000003300000034000000
+  interactKeyboardKey: 113
 --- !u!114 &409260288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +488,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &409260290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409260282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ec49529df02a045b74303cc222d3d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractiveCircleRadius: 2.63
+  DebugCircle: 1
 --- !u!1 &448662706
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &679483255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -983,7 +1048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &710902574
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1726,7 +1791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1488253561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1859,7 +1924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1506305807
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2077,7 +2142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1716519563
 RectTransform:
   m_ObjectHideFlags: 0
