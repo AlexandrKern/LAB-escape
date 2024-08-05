@@ -1,18 +1,19 @@
+using System;
 using System.IO;
 using UnityEngine;
 
 /// <summary>
-/// Класс для сохранения и закрузки данных
+/// Класс для сохранения и загрузки данных
 /// </summary>
 public static class Data
 {
     private static int _hp;
     private static int _checkpointNumber;
-    private static bool _isHumanFormAvaible;
-    private static bool _isHummerFormAvaible;
-    private static bool _isBreakerFormAvaible;
-    private static bool _isMimicFormAvaible;
-    private static bool _isMirrorFormAvaible;
+    private static bool _isHumanFormAvailable;
+    private static bool _isHammerFormAvailable;
+    private static bool _isBreakerFormAvailable;
+    private static bool _isMimicFormAvailable;
+    private static bool _isMirrorFormAvailable;
 
     // Путь к файлу для сохранения данных
     private static string _filePath = Path.Combine(Application.persistentDataPath, "Data.json");
@@ -29,51 +30,51 @@ public static class Data
         set => _checkpointNumber = Mathf.Max(0, value);
     }
 
-    public static bool IsHumanFormAvaible
+    public static bool IsHumanFormAvailable
     {
-        get => _isHumanFormAvaible;
-        set => _isHumanFormAvaible = value;
+        get => _isHumanFormAvailable;
+        set => _isHumanFormAvailable = value;
     }
 
-    public static bool IsHummerFormAvaible
+    public static bool IsHammerFormAvailable
     {
-        get => _isHummerFormAvaible;
-        set => _isHummerFormAvaible = value;
+        get => _isHammerFormAvailable;
+        set => _isHammerFormAvailable = value;
     }
 
-    public static bool IsBreakerFormAvaible
+    public static bool IsBreakerFormAvailable
     {
-        get => _isBreakerFormAvaible;
-        set => _isBreakerFormAvaible = value;
+        get => _isBreakerFormAvailable;
+        set => _isBreakerFormAvailable = value;
     }
 
-    public static bool IsMimicFormAvaible
+    public static bool IsMimicFormAvailable
     {
-        get => _isMimicFormAvaible;
-        set => _isMimicFormAvaible = value;
+        get => _isMimicFormAvailable;
+        set => _isMimicFormAvailable = value;
     }
 
-    public static bool IsMirrorFormAvaible
+    public static bool IsMirrorFormAvailable
     {
-        get => _isMirrorFormAvaible;
-        set => _isMirrorFormAvaible = value;
+        get => _isMirrorFormAvailable;
+        set => _isMirrorFormAvailable = value;
     }
 
     /// <summary>
-    /// Сохранаяет данные в JSON-файл
+    /// Сохраняет данные в JSON-файл
     /// </summary>
-    public static void DataSave()
+    public static void SaveData()
     {
         string json = JsonUtility.ToJson(new DataContainer
         {
-            hp = _hp,
-            checkpointNumber = _checkpointNumber,
-            isHumanFormAvaible = _isHumanFormAvaible,
-            isHummerFormAvaible = _isHummerFormAvaible,
-            isBreakerFormAvaible = _isBreakerFormAvaible,
-            isMimicFormAvaible = _isMimicFormAvaible,
-            isMirrorFormAvaible = _isMirrorFormAvaible
-        },true);
+            HP = _hp,
+            CheckpointNumber = _checkpointNumber,
+            IsHumanFormAvailable = _isHumanFormAvailable,
+            IsHammerFormAvailable = _isHammerFormAvailable,
+            IsBreakerFormAvailable = _isBreakerFormAvailable,
+            IsMimicFormAvailable = _isMimicFormAvailable,
+            IsMirrorFormAvailable = _isMirrorFormAvailable
+        }, true);
 
         File.WriteAllText(_filePath, json);
     }
@@ -81,23 +82,31 @@ public static class Data
     /// <summary>
     /// Загружает данные из JSON-файла
     /// </summary>
-    public static void DataLoad()
+    public static void LoadData()
     {
         if (File.Exists(_filePath))
         {
-            string json =  File.ReadAllText(_filePath);
-            DataContainer dataContainer = JsonUtility.FromJson<DataContainer>(json);
-            HP = dataContainer.hp;
-            CheckpointNumber = dataContainer.checkpointNumber;
-            IsHumanFormAvaible = dataContainer.isHumanFormAvaible;
-            IsHummerFormAvaible = dataContainer.isHummerFormAvaible;
-            IsBreakerFormAvaible = dataContainer.isBreakerFormAvaible;
-            IsMimicFormAvaible = dataContainer.isMimicFormAvaible;
-            IsMirrorFormAvaible = dataContainer.isMirrorFormAvaible;
+            try
+            {
+                string json = File.ReadAllText(_filePath);
+                DataContainer dataContainer = JsonUtility.FromJson<DataContainer>(json);
+                HP = dataContainer.HP;
+                CheckpointNumber = dataContainer.CheckpointNumber;
+                IsHumanFormAvailable = dataContainer.IsHumanFormAvailable;
+                IsHammerFormAvailable = dataContainer.IsHammerFormAvailable;
+                IsBreakerFormAvailable = dataContainer.IsBreakerFormAvailable;
+                IsMimicFormAvailable = dataContainer.IsMimicFormAvailable;
+                IsMirrorFormAvailable = dataContainer.IsMirrorFormAvailable;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to load data: {ex.Message}");
+                SaveData(); // Save default data if loading fails
+            }
         }
         else
         {
-           DataSave();
+            SaveData();
         }
     }
 
@@ -107,12 +116,12 @@ public static class Data
     [System.Serializable]
     private class DataContainer
     {
-        public int hp;
-        public int checkpointNumber;
-        public bool isHumanFormAvaible;
-        public bool isHummerFormAvaible;
-        public bool isBreakerFormAvaible;
-        public bool isMimicFormAvaible;
-        public bool isMirrorFormAvaible;
+        public int HP;
+        public int CheckpointNumber;
+        public bool IsHumanFormAvailable;
+        public bool IsHammerFormAvailable;
+        public bool IsBreakerFormAvailable;
+        public bool IsMimicFormAvailable;
+        public bool IsMirrorFormAvailable;
     }
 }
