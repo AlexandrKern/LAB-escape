@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Swarm))]
-[RequireComponent(typeof(MoveController))]
-[RequireComponent(typeof(InteractController))]
+[RequireComponent(typeof(Character))]
 public class SwarmInputHandler : MonoBehaviour
 {
     [SerializeField]
@@ -12,33 +10,28 @@ public class SwarmInputHandler : MonoBehaviour
     [SerializeField]
     private KeyCode interactKeyboardKey;
 
-    private Swarm _swarm;
-    private MoveController _moveController;
-    private InteractController _interactController;
+    private Character _character;
 
     private void Awake()
     {
-        _swarm = GetComponent<Swarm>();
-        _moveController = GetComponent<MoveController>();
-        _interactController = GetComponent<InteractController>();
+        _character = GetComponent<Character>();
     }
 
     void Update()
     {
        for(int i = 0; i < formsKeyboardKeys.Count; i++)
        {
-            //TODO: add form accessibility and array overrun checking
             if (Input.GetKeyDown(formsKeyboardKeys[i]))
             {
-                _swarm.SetFormIndex(i);
+                _character.ChangeForm(i);
             }
        }
 
-        _moveController.InputHorizontal = Input.GetAxis("Horizontal");
+        _character.InputHorizontal = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(interactKeyboardKey))
         {
-            _interactController.Interact();
+            _character.Interact();
         }
     }
 }

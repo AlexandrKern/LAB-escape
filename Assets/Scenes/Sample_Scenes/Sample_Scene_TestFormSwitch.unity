@@ -376,10 +376,11 @@ GameObject:
   m_Component:
   - component: {fileID: 409260285}
   - component: {fileID: 409260286}
-  - component: {fileID: 409260287}
   - component: {fileID: 409260289}
   - component: {fileID: 409260288}
   - component: {fileID: 409260290}
+  - component: {fileID: 409260292}
+  - component: {fileID: 409260291}
   m_Layer: 0
   m_Name: Swarm
   m_TagString: Untagged
@@ -434,20 +435,6 @@ MonoBehaviour:
   minSize: 0.05
   maxSize: 0.1
   maxDistance: 1
---- !u!114 &409260287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409260282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db95cd1c9b4c4104483c39a1ccb1b1dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  formsKeyboardKeys: 31000000320000003300000034000000
-  interactKeyboardKey: 113
 --- !u!114 &409260288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,6 +489,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractiveCircleRadius: 2.63
   DebugCircle: 1
+--- !u!114 &409260291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409260282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db95cd1c9b4c4104483c39a1ccb1b1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formsKeyboardKeys: 31000000320000003300000034000000
+  interactKeyboardKey: 113
+--- !u!114 &409260292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409260282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e11400a81dcc9c546a600e18f8dd1b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swarm: {fileID: 0}
+  _moveController: {fileID: 0}
+  _interactController: {fileID: 0}
 --- !u!1 &448662706
 GameObject:
   m_ObjectHideFlags: 0
