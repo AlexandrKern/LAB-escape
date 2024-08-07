@@ -424,6 +424,8 @@ MonoBehaviour:
   - {fileID: 1191449105}
   - {fileID: 1027478316}
   - {fileID: 448662707}
+  - {fileID: 448662707}
+  - {fileID: 448662707}
   maxNumberOfUnits: 500
   minNumberOfUnits: 100
   unitPrefab: {fileID: 657731969208746378, guid: 3af76e85eead18b4eb43947aeacf326f, type: 3}
@@ -435,6 +437,7 @@ MonoBehaviour:
   minSize: 0.05
   maxSize: 0.1
   maxDistance: 1
+  formOrder: 000000000100000002000000030000000400000005000000
 --- !u!114 &409260288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +504,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db95cd1c9b4c4104483c39a1ccb1b1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  formsKeyboardKeys: 31000000320000003300000034000000
+  formsKeyboardKeys:
+  - Key: 49
+    Form: 0
+  - Key: 50
+    Form: 1
+  - Key: 51
+    Form: 2
+  - Key: 52
+    Form: 3
+  - Key: 53
+    Form: 4
+  - Key: 54
+    Form: 5
   interactKeyboardKey: 113
 --- !u!114 &409260292
 MonoBehaviour:

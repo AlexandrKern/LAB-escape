@@ -1,11 +1,19 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Character))]
 public class SwarmInputHandler : MonoBehaviour
 {
+    [Serializable]
+    private struct FormKeyboardKey
+    {
+        public KeyCode Key;
+        public FormType Form;
+    }
+
     [SerializeField]
-    private List<KeyCode> formsKeyboardKeys;
+    private List<FormKeyboardKey> formsKeyboardKeys;
 
     [SerializeField]
     private KeyCode interactKeyboardKey;
@@ -21,9 +29,9 @@ public class SwarmInputHandler : MonoBehaviour
     {
        for(int i = 0; i < formsKeyboardKeys.Count; i++)
        {
-            if (Input.GetKeyDown(formsKeyboardKeys[i]))
+            if (Input.GetKeyDown(formsKeyboardKeys[i].Key))
             {
-                _character.ChangeForm(i);
+                _character.ChangeForm(formsKeyboardKeys[i].Form);
             }
        }
 

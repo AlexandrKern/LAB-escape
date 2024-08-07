@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StateMachine
 {
-    private List<StateBase> _states = new();
+    private Dictionary<FormType, StateBase> _states = new();
     private Character _context;
     private StateBase _currentState;
 
@@ -22,14 +22,16 @@ public class StateMachine
         }
     }
 
-    public StateMachine(Character context)
+    public StateMachine(Character context, FormType defaultState)
     {
         _context = context;
-        _states.Add(new StateBase(_context));
-        _states.Add(new StateBase(_context));
-        _states.Add(new StateBase(_context));
-        _states.Add(new StateBase(_context));
-        _currentState = _states[0];
+        _states.Add(FormType.Base, new BaseForm(_context));
+        _states.Add(FormType.Anthropomorphic, new AnthropomorphicForm(_context));
+        _states.Add(FormType.Hammer, new HammerForm(_context));
+        _states.Add(FormType.Burglar, new BurglarForm(_context));
+        _states.Add(FormType.Mirror, new MirrorForm(_context));
+        _states.Add(FormType.Mimicry, new MimicryForm(_context));
+        EnterState(defaultState);
     }
 
     public void Update()
@@ -42,9 +44,10 @@ public class StateMachine
         _currentState.Interact();
     }
 
-    public void EnterState(int index)
+    public void EnterState(FormType form)
     {
-        //TODO: index validity check
-        _currentState = _states[index];
+        _currentState?.OnStateExit();
+        _currentState = _states[form];
+        _currentState.OnStateEnter();
     }
 }

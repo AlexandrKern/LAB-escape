@@ -8,6 +8,8 @@ public class StateBase
     public float InputHorizontal { get; set; }
     public float InputVertical { get; set; }
 
+    virtual protected FormType StateForm => FormType.Base;
+
     public StateBase(Character context)
     {
         _context = context;
@@ -22,5 +24,15 @@ public class StateBase
     virtual public void Update()
     {
         _context._moveController.InputHorizontal = InputHorizontal;
+    }
+
+    virtual public void OnStateEnter()
+    {
+        _context._swarm.SetForm(StateForm);
+    }
+
+    virtual public void OnStateExit()
+    {
+
     }
 }
