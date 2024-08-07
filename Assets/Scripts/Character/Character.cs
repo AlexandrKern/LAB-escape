@@ -33,11 +33,9 @@ public class Character : MonoBehaviour
         _stateMachine.Interact();
     }
 
-    public void ChangeForm(int index)
+    public void ChangeForm(FormType form)
     {
-        _stateMachine.EnterState(index);
-        //TODO: transfer the forms change to states
-        _swarm.SetFormIndex(index);
+        _stateMachine.EnterState(form);
     }
     
     void Awake()
@@ -45,7 +43,7 @@ public class Character : MonoBehaviour
         _swarm = GetComponent<Swarm>();
         _moveController = GetComponent<MoveController>();
         _interactController = GetComponent<InteractController>();
-        _stateMachine = new StateMachine(this);
+        _stateMachine = new StateMachine(this, FormType.Base);
     }
 
     void Update()
