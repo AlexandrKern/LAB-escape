@@ -46,7 +46,14 @@ public class StateMachine
 
     public void EnterState(FormType form)
     {
-        _currentState?.OnStateExit();
+        if(_currentState != null)
+        {
+            if(_currentState.StateForm == form)
+            {
+                return;
+            }
+            _currentState.OnStateExit();
+        }
         _currentState = _states[form];
         _currentState.OnStateEnter();
     }

@@ -8,7 +8,7 @@ public class StateBase
     public float InputHorizontal { get; set; }
     public float InputVertical { get; set; }
 
-    virtual protected FormType StateForm => FormType.Base;
+    virtual public FormType StateForm => FormType.Base;
 
     public StateBase(Character context)
     {
