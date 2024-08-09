@@ -6,9 +6,9 @@ using UnityEngine.UI;
 /// </summary>
 public class UIAudioController : MonoBehaviour
 {
-    public Slider musicSlider, sfxSlider, masterSlider, voiceTrackSlider;
+    [SerializeField]private Slider _musicSlider, _sfxSlider, _masterSlider, _voiceTrackSlider;
 
-    public Toggle audioToggle;
+    [SerializeField] private Toggle _audioToggle;
 
     private void Start()
     {
@@ -20,13 +20,13 @@ public class UIAudioController : MonoBehaviour
     /// </summary>
     public void AudioToggle()
     {
-        AudioManager.Instance.AudioToggle(audioToggle.isOn);
+        AudioManager.Instance.AudioToggle(_audioToggle.isOn);
 
         ///¬ключает/выключает активность слайдеров
-        musicSlider.interactable = !audioToggle.isOn;
-        sfxSlider.interactable = !audioToggle.isOn;
-        masterSlider.interactable = !audioToggle.isOn;
-        voiceTrackSlider.interactable= !audioToggle.isOn;
+        _musicSlider.interactable = !_audioToggle.isOn;
+        _sfxSlider.interactable = !_audioToggle.isOn;
+        _masterSlider.interactable = !_audioToggle.isOn;
+        _voiceTrackSlider.interactable= !_audioToggle.isOn;
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public class UIAudioController : MonoBehaviour
     /// </summary>
     public void MusicVolume()
     {
-        AudioManager.Instance.MusicVolume(musicSlider.value);
+        AudioManager.Instance.MusicVolume(_musicSlider.value);
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class UIAudioController : MonoBehaviour
     /// </summary>
     public void SFXVolume()
     {
-        AudioManager.Instance.SFXVolume(sfxSlider.value);
+        AudioManager.Instance.SFXVolume(_sfxSlider.value);
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class UIAudioController : MonoBehaviour
     /// </summary>
     public void MasterVolume()
     {
-        AudioManager.Instance.MasterVolume(masterSlider.value);
+        AudioManager.Instance.MasterVolume(_masterSlider.value);
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public class UIAudioController : MonoBehaviour
     /// </summary>
     public void VoiceTrackVolume()
     {
-       AudioManager.Instance.VoiceTrackVolume(voiceTrackSlider.value);
+       AudioManager.Instance.VoiceTrackVolume(_voiceTrackSlider.value);
     }
 
     /// <summary>
@@ -68,21 +68,21 @@ public class UIAudioController : MonoBehaviour
     {
         if (AudioManager.Instance != null)
         {
-            if (musicSlider != null)
-                musicSlider.value = PlayerPrefs.GetFloat(AudioManager.MUSIC_VOLUME,1f);
+            if (_musicSlider != null)
+                _musicSlider.value = PlayerPrefs.GetFloat(AudioManager.MUSIC_VOLUME,1f);
 
-            if (sfxSlider != null)
-                sfxSlider.value = PlayerPrefs.GetFloat(AudioManager.SFX_VOLUME,1f);
+            if (_sfxSlider != null)
+                _sfxSlider.value = PlayerPrefs.GetFloat(AudioManager.SFX_VOLUME,1f);
 
-            if (masterSlider != null)
-                masterSlider.value = PlayerPrefs.GetFloat(AudioManager.MASTER_VOLUME, 1f);
+            if (_masterSlider != null)
+                _masterSlider.value = PlayerPrefs.GetFloat(AudioManager.MASTER_VOLUME, 1f);
 
-            if (voiceTrackSlider != null)
-                voiceTrackSlider.value = PlayerPrefs.GetFloat(AudioManager.VOICE_TRACK_VOLUME,1f);
+            if (_voiceTrackSlider != null)
+                _voiceTrackSlider.value = PlayerPrefs.GetFloat(AudioManager.VOICE_TRACK_VOLUME,1f);
 
-            if (audioToggle != null)
+            if (_audioToggle != null)
             {
-                audioToggle.isOn = PlayerPrefs.GetInt(AudioManager.MUTE) == 1;
+                _audioToggle.isOn = PlayerPrefs.GetInt(AudioManager.MUTE) == 1;
             }
         }
     }

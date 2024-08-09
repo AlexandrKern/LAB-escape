@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -9,8 +11,10 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    public Sound[] musicSounds, sfxSounds, voiceTrackSouns;
-    public AudioSource musicSource, sfxSource, voiceTrackSource;
+    [SerializeField] private Sound[] _musicSounds, _sfxSounds, _voiceTrackSouns;
+    [SerializeField] private AudioSource _musicSource, _sfxSource, _voiceTrackSource;
+
+    private Dictionary<string,Sound> _musicDictionary, _sfxDictionary,_voiceTrackDictionary;
 
     private float _masterVolume = 1f; // Общий уровень громкости
     private float _fadeDuration = 5; // Длительность плавности воспроизведения
@@ -41,6 +45,9 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        _musicDictionary = _musicSounds.ToDictionary(s => s.name);
+        _sfxDictionary = _sfxSounds.ToDictionary(s => s.name);
+        _voiceTrackDictionary = _voiceTrackSouns.ToDictionary(s => s.name);
         LoadAllVolumes(); 
         PlayMusic("BackGroundMusic");
     }
@@ -56,16 +63,14 @@ public class AudioManager : MonoBehaviour
     /// <param name="name">Назавние трека</param>
     public void PlayMusic(string name)
     {
-        Sound s = Array.Find(musicSounds, x => x.name == name);
-
-        if (s == null)
+        if (_musicDictionary.TryGetValue(name,out Sound s))
         {
-            Debug.Log("Sound not found"); 
+            _musicSource.clip = s.clip;
+            _musicSource.Play();
         }
         else
         {
-            musicSource.clip = s.clip; 
-            musicSource.Play();
+            Debug.Log("Sound not found");
         }
     }
 
@@ -75,15 +80,13 @@ public class AudioManager : MonoBehaviour
     /// <param name="name">Название эффекта</param>
     public void PlaySFX(string name)
     {
-        Sound s = Array.Find(sfxSounds, x => x.name == name);
-
-        if (s == null)
+        if (_sfxDictionary.TryGetValue(name,out Sound s))
         {
-            Debug.Log("SFX not found"); 
+            _sfxSource.PlayOneShot(s.clip);
         }
         else
         {
-            sfxSource.PlayOneShot(s.clip); 
+            Debug.Log("SFX not found");
         }
     }
 
@@ -93,15 +96,13 @@ public class AudioManager : MonoBehaviour
     /// <param name="name">Название дорожки</param>
     public void PlayVoiceTrack(string name)
     {
-        Sound s = Array.Find(voiceTrackSouns, x => x.name == name); 
-
-        if (s == null)
+        if (_voiceTrackDictionary.TryGetValue(name,out Sound s))
         {
-            Debug.Log("VoiceTrack not found");
+            _voiceTrackSource.PlayOneShot(s.clip);
         }
         else
         {
-            voiceTrackSource.PlayOneShot(s.clip);
+            Debug.Log("VoiceTrack not found");
         }
     }
 
@@ -111,9 +112,9 @@ public class AudioManager : MonoBehaviour
     /// <param name="mute">Состояние звука</param>
     public void AudioToggle(bool mute)
     {
-        musicSource.mute = mute;
-        sfxSource.mute = mute; 
-        voiceTrackSource.mute = mute; 
+        _musicSource.mute = mute;
+        _sfxSource.mute = mute; 
+        _voiceTrackSource.mute = mute; 
 
         if (!mute)
         {
@@ -134,7 +135,7 @@ public class AudioManager : MonoBehaviour
     public void MusicVolume(float volume)
     {
         _currentMusicVolume = volume; 
-        musicSource.volume = volume * _masterVolume; 
+        _musicSource.volume = volume * _masterVolume; 
         _musicVolume = volume; 
     }
 
@@ -144,7 +145,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="volume">Значение громкости</param>
     public void SFXVolume(float volume)
     {
-        sfxSource.volume = volume * _masterVolume; 
+        _sfxSource.volume = volume * _masterVolume; 
         _sfxVolume = volume; 
     }
 
@@ -154,7 +155,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="volume">Значение громкости</param>
     public void VoiceTrackVolume(float volume)
     {
-        voiceTrackSource.volume = volume * _masterVolume; 
+        _voiceTrackSource.volume = volume * _masterVolume; 
         _voiceVolume = volume; 
     }
 
@@ -173,9 +174,9 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     private void ApplyMasterVolume()
     {
-        musicSource.volume = _musicVolume * _masterVolume; 
-        sfxSource.volume = _sfxVolume * _masterVolume; 
-        voiceTrackSource.volume = _voiceVolume * _masterVolume; 
+        _musicSource.volume = _musicVolume * _masterVolume; 
+        _sfxSource.volume = _sfxVolume * _masterVolume; 
+        _voiceTrackSource.volume = _voiceVolume * _masterVolume; 
     }
 
     /// <summary>
@@ -185,16 +186,16 @@ public class AudioManager : MonoBehaviour
     private IEnumerator FadeIn()
     {
         float currentTime = 0f; 
-        musicSource.volume = 0f; 
+        _musicSource.volume = 0f; 
 
         while (currentTime < _fadeDuration) 
         {
             currentTime += Time.deltaTime; 
-            musicSource.volume = Mathf.Lerp(0f, _currentMusicVolume, currentTime / _fadeDuration) * _masterVolume; // Плавно увеличивае громкость
+            _musicSource.volume = Mathf.Lerp(0f, _currentMusicVolume, currentTime / _fadeDuration) * _masterVolume; // Плавно увеличивае громкость
             yield return null; // Ждет до следующего кадра
         }
 
-        musicSource.volume = _currentMusicVolume * _masterVolume; 
+        _musicSource.volume = _currentMusicVolume * _masterVolume; 
     }
 
     /// <summary>
@@ -222,28 +223,5 @@ public class AudioManager : MonoBehaviour
         _currentMusicVolume = _musicVolume; 
 
         ApplyMasterVolume(); 
-    }
-
-    /// <summary>
-    /// Для теста звуков и голоса
-    /// </summary>
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PlaySFX("SFXSound_1");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlaySFX("SFXSound_2");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlaySFX("SFXSound_3");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayVoiceTrack("Voice_track");
-        }
     }
 }
