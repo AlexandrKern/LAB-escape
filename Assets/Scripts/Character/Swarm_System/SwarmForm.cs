@@ -18,7 +18,12 @@ public class SwarmForm : SwarmFormBase
         }
 
         // Конвертация спрайта в Texture2D
-        texture = spriteRenderer.sprite.texture;
+        Rect spriteLocationInAtlas = spriteRenderer.sprite.rect;
+        texture = new Texture2D((int)spriteLocationInAtlas.width, 
+            (int)spriteLocationInAtlas.height);
+        texture.SetPixels(spriteRenderer.sprite.texture.GetPixels((int)spriteLocationInAtlas.x, 
+            (int)spriteLocationInAtlas.y, (int)spriteLocationInAtlas.width, 
+            (int)spriteLocationInAtlas.height));
 
         // Генерация точек
         GeneratePoints();
