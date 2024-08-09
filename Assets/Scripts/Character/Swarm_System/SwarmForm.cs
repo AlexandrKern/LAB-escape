@@ -48,19 +48,24 @@ public class SwarmForm : MonoBehaviour
         }
     }
 
+    private Vector3 GetBoundsSizeScaled()
+    {
+        return spriteRenderer.bounds.max - spriteRenderer.bounds.min;
+    }
+
     Vector2 GetRandomPointInSprite()
     {
         // Получаем случайную точку в пределах размеров спрайта
-        float x = Random.Range(0, spriteRenderer.sprite.bounds.size.x);
-        float y = Random.Range(0, spriteRenderer.sprite.bounds.size.y);
+        float x = Random.Range(spriteRenderer.bounds.min.x, spriteRenderer.bounds.max.x);
+        float y = Random.Range(spriteRenderer.bounds.min.y, spriteRenderer.bounds.max.y);
 
-        return new Vector2(x, y) + (Vector2)spriteRenderer.bounds.min;
+        return new Vector2(x, y);
     }
 
     bool IsPointVisible(Vector2 point)
     {
         // Преобразуем мировые координаты в пиксельные координаты текстуры
-        Vector2 localPoint = (point - (Vector2)spriteRenderer.bounds.min) / spriteRenderer.bounds.size;
+        Vector2 localPoint = (point - (Vector2)spriteRenderer.bounds.min) / GetBoundsSizeScaled();
         localPoint.x *= texture.width;
         localPoint.y *= texture.height;
 
