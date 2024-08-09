@@ -2,9 +2,9 @@
 using UnityEngine;
 
 
-public class SwarmForm : MonoBehaviour
+public class SwarmForm : SwarmFormBase
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] public SpriteRenderer spriteRenderer;
 
     private Texture2D texture;
     private List<DestinationPoint> _points = new List<DestinationPoint>();
@@ -75,7 +75,7 @@ public class SwarmForm : MonoBehaviour
         return pixelColor.a > 0;
     }
 
-    public List<DestinationPoint> GetDestenationPoints()
+    public override List<DestinationPoint> GetDestenationPoints()
     {
         return _points;
     }
