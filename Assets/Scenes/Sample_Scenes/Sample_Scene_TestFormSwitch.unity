@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 409260291}
   m_Layer: 0
   m_Name: Swarm
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -750,6 +750,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -831,6 +832,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0390c6e8d0cec4faea6fd51434f199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 409260285}
+  smoothSpeed: 0.125
+  offset: {x: 0, y: 0, z: 0}
+  minCamerabounds: {x: -100, y: 0, z: -10}
+  maxCamerabounds: {x: 100, y: 0, z: -10}
 --- !u!1 &550995246
 GameObject:
   m_ObjectHideFlags: 0
