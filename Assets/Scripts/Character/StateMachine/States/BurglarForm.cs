@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BurglarForm : StateBase
 {
-    protected override FormType StateForm => FormType.Burglar;
+    public override FormType StateForm => FormType.Burglar;
 
     public BurglarForm(Character context) : base(context)
     {

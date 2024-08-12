@@ -6,7 +6,7 @@ using UnityEngine;
 public partial class Swarm : MonoBehaviour
 {
     public const int PointCounts = 2000;
-    [SerializeReference][SerializeField] private List<SwarmForm> forms;
+    [SerializeReference][SerializeField] private List<SwarmFormBase> forms;
     [Space]
     [SerializeField, Range(100, 1000)] private int maxNumberOfUnits = 500;
     [SerializeField, Range(0, 1000)] private int minNumberOfUnits = 100;

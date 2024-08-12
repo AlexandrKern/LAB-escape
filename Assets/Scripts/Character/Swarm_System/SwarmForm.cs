@@ -2,9 +2,9 @@
 using UnityEngine;
 
 
-public class SwarmForm : MonoBehaviour
+public class SwarmForm : SwarmFormBase
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] public SpriteRenderer spriteRenderer;
 
     private Texture2D texture;
     private List<DestinationPoint> _points = new List<DestinationPoint>();
@@ -18,7 +18,12 @@ public class SwarmForm : MonoBehaviour
         }
 
         // Конвертация спрайта в Texture2D
-        texture = spriteRenderer.sprite.texture;
+        Rect spriteLocationInAtlas = spriteRenderer.sprite.rect;
+        texture = new Texture2D((int)spriteLocationInAtlas.width, 
+            (int)spriteLocationInAtlas.height);
+        texture.SetPixels(spriteRenderer.sprite.texture.GetPixels((int)spriteLocationInAtlas.x, 
+            (int)spriteLocationInAtlas.y, (int)spriteLocationInAtlas.width, 
+            (int)spriteLocationInAtlas.height));
 
         // Генерация точек
         GeneratePoints();
@@ -48,19 +53,24 @@ public class SwarmForm : MonoBehaviour
         }
     }
 
+    private Vector3 GetBoundsSizeScaled()
+    {
+        return spriteRenderer.bounds.max - spriteRenderer.bounds.min;
+    }
+
     Vector2 GetRandomPointInSprite()
     {
         // Получаем случайную точку в пределах размеров спрайта
-        float x = Random.Range(0, spriteRenderer.sprite.bounds.size.x);
-        float y = Random.Range(0, spriteRenderer.sprite.bounds.size.y);
+        float x = Random.Range(spriteRenderer.bounds.min.x, spriteRenderer.bounds.max.x);
+        float y = Random.Range(spriteRenderer.bounds.min.y, spriteRenderer.bounds.max.y);
 
-        return new Vector2(x, y) + (Vector2)spriteRenderer.bounds.min;
+        return new Vector2(x, y);
     }
 
     bool IsPointVisible(Vector2 point)
     {
         // Преобразуем мировые координаты в пиксельные координаты текстуры
-        Vector2 localPoint = (point - (Vector2)spriteRenderer.bounds.min) / spriteRenderer.bounds.size;
+        Vector2 localPoint = (point - (Vector2)spriteRenderer.bounds.min) / GetBoundsSizeScaled();
         localPoint.x *= texture.width;
         localPoint.y *= texture.height;
 
@@ -70,7 +80,7 @@ public class SwarmForm : MonoBehaviour
         return pixelColor.a > 0;
     }
 
-    public List<DestinationPoint> GetDestenationPoints()
+    public override List<DestinationPoint> GetDestenationPoints()
     {
         return _points;
     }
