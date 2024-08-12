@@ -8,6 +8,7 @@ using UnityEngine;
 public static class Data
 {
     private static int _hp;
+    private static int _fullHP;
     private static int _checkpointNumber;
     private static bool _isHumanFormAvailable;
     private static bool _isHammerFormAvailable;
@@ -17,6 +18,12 @@ public static class Data
 
     // Путь к файлу для сохранения данных
     private static string _filePath = Path.Combine(Application.persistentDataPath, "Data.json");
+
+    public static int FullHP
+    {
+        get => _fullHP;
+        set => _fullHP = Mathf.Max(0, value);
+    }
 
     public static int HP
     {
@@ -68,6 +75,7 @@ public static class Data
         string json = JsonUtility.ToJson(new DataContainer
         {
             HP = _hp,
+            FullHP = _fullHP,
             CheckpointNumber = _checkpointNumber,
             IsHumanFormAvailable = _isHumanFormAvailable,
             IsHammerFormAvailable = _isHammerFormAvailable,
@@ -89,6 +97,7 @@ public static class Data
             string json = File.ReadAllText(_filePath);
             DataContainer dataContainer = JsonUtility.FromJson<DataContainer>(json);
             HP = dataContainer.HP;
+            FullHP = dataContainer.FullHP;
             CheckpointNumber = dataContainer.CheckpointNumber;
             IsHumanFormAvailable = dataContainer.IsHumanFormAvailable;
             IsHammerFormAvailable = dataContainer.IsHammerFormAvailable;
@@ -109,6 +118,7 @@ public static class Data
     private class DataContainer
     {
         public int HP;
+        public int FullHP;
         public int CheckpointNumber;
         public bool IsHumanFormAvailable;
         public bool IsHammerFormAvailable;
