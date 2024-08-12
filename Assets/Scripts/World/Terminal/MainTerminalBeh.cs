@@ -4,6 +4,14 @@ public class MainTerminalBeh : MonoBehaviour
 {
     [SerializeField] int TerminalNumber;
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            StepOne();
+        }
+    }
+
     private void StepOne()
     {
         if (Data.HP == Data.FullHP)
@@ -11,6 +19,7 @@ public class MainTerminalBeh : MonoBehaviour
             Data.SaveData(); //"если у героя полное здоровье, то идёт автоматическое сохранение прогресса" (из ТЗ)
             // "а также теряется 1 частица из облака (перетекает в терминал)" (из ТЗ).
             // Тут пока не ясно как эти частицы перетикают". Оставим на потом.
+            StepTwo();
         }
         else
         {
@@ -18,6 +27,7 @@ public class MainTerminalBeh : MonoBehaviour
             Data.HP = Data.FullHP;
             // и только после отхила идёт автоматическое сохранение прогресса, а также теряется 1 частица из облака (из ТЗ)
             Data.SaveData();
+            StepTwo();
         }
     }
 
@@ -35,6 +45,10 @@ public class MainTerminalBeh : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// следующие методы повесим на UI
+    /// </summary>
     public void ShowMap()
     {
         // пока нет нарисованной карты
@@ -49,4 +63,7 @@ public class MainTerminalBeh : MonoBehaviour
     {
         // пока нет Collectables
     }
+    /// <summary>
+    /// вышеуказанные методы вешаем на UI
+    /// </summary>
 }
