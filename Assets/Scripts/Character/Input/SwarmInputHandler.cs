@@ -16,7 +16,10 @@ public class SwarmInputHandler : MonoBehaviour
     private List<FormKeyboardKey> formsKeyboardKeys;
 
     [SerializeField]
-    private KeyCode interactKeyboardKey;
+    private KeyCode interactQKeyboardKey;
+
+    [SerializeField]
+    private KeyCode interactEKeyboardKey;
 
     private Character _character;
     private Swarm _swarm;
@@ -40,9 +43,14 @@ public class SwarmInputHandler : MonoBehaviour
         _character.StateMachineUpdater();
         _character.InputHorizontal = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(interactKeyboardKey))
+        if (Input.GetKeyDown(interactQKeyboardKey))
         {
-            _character.Interact();
+            _character.QInteract();
+        }
+
+        if (Input.GetKeyDown(interactEKeyboardKey))
+        {
+            _character.EInteract();
         }
 
         _swarm.SwarmUpdater();

@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SwarmObstacle))]
-public class InteractableSwarmObstacle : MonoBehaviour, IInteractable
+public class InteractableSwarmObstacle : MonoBehaviour, IInteractableObstacle
 {
     private SwarmObstacle _swarmObstacle;
 

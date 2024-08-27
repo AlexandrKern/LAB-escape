@@ -5,4 +5,14 @@ public class BaseForm : StateBase
     public BaseForm(Character context) : base(context)
     {
     }
+
+    public override void QInteract()
+    {
+        _context._interactController.Interact<IInteractableObstacle>();
+    }
+
+    public override void EInteract()
+    {
+        _context._interactController.Interact<IInteractableTerminal>();
+    }
 }
