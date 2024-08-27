@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MainTerminalBeh : MonoBehaviour
 {
-    [SerializeField] int TerminalNumber;
+    [SerializeField] int TerminalNumber; // начинайте нумерацию терминалов (они же чекпоинты) с нуля
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,6 +14,7 @@ public class MainTerminalBeh : MonoBehaviour
 
     private void StepOne()
     {
+        Data.CheckpointNumber = TerminalNumber;
         if (Data.HP == Data.FullHP)
         {
             Data.SaveData(); //"если у героя полное здоровье, то идёт автоматическое сохранение прогресса" (из ТЗ)

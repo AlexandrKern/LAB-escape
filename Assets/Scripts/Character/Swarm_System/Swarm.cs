@@ -119,16 +119,21 @@ public partial class Swarm : MonoBehaviour
         GenerateUnits();
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    SwarmUpdater();
+    //}
+
+    public void SwarmUpdater()
     {
         for (int i = 0; i < _units.Count; i++)
         {
             bool visible = true;
-            if(i > numberOfUnits)
+            if (i > numberOfUnits)
             {
                 visible = false;
             }
-            _units[i].UpdateUnit(this,_swarmPhase != SwarmPhase.Static,visible);
+            _units[i].UpdateUnit(this, _swarmPhase != SwarmPhase.Static, visible);
         }
     }
 

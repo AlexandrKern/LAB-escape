@@ -46,7 +46,12 @@ public class Character : MonoBehaviour
         _stateMachine = new StateMachine(this, FormType.Base);
     }
 
-    void Update()
+    //void Update()
+    //{
+    //    StateMachineUpdater();
+    //}
+
+    public void StateMachineUpdater()
     {
         _stateMachine.Update();
     }

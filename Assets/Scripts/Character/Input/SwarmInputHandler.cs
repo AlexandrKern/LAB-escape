@@ -19,10 +19,12 @@ public class SwarmInputHandler : MonoBehaviour
     private KeyCode interactKeyboardKey;
 
     private Character _character;
+    private Swarm _swarm;
 
     private void Awake()
     {
         _character = GetComponent<Character>();
+        _swarm = GetComponent<Swarm>();
     }
 
     void Update()
@@ -35,11 +37,14 @@ public class SwarmInputHandler : MonoBehaviour
             }
        }
 
+        _character.StateMachineUpdater();
         _character.InputHorizontal = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(interactKeyboardKey))
         {
             _character.Interact();
         }
+
+        _swarm.SwarmUpdater();
     }
 }
