@@ -9,13 +9,13 @@ public class InteractController : MonoBehaviour
     [SerializeField]
     private bool DebugCircle;
 
-    public void Interact()
+    public void Interact<InteractableInterface>() where InteractableInterface : IInteractable
     {
         var overlaped = Physics2D.OverlapCircleAll(transform.position, InteractiveCircleRadius);
         for(int i = 0; i < overlaped.Length; i++)
         {
             if(overlaped[i].gameObject
-                .TryGetComponent<IInteractable>(out IInteractable interactable))
+                .TryGetComponent<InteractableInterface>(out InteractableInterface interactable))
             {
                 interactable.Interact();
                 return;

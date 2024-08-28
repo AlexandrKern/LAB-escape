@@ -1,15 +1,13 @@
 using UnityEngine;
 
-public class MainTerminalBeh : MonoBehaviour
+public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 {
     [SerializeField] int TerminalNumber; // начинайте нумерацию терминалов (они же чекпоинты) с нуля
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Interact()
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            StepOne();
-        }
+        StepOne();
+        Debug.Log("Terminal Interact");
     }
 
     private void StepOne()
@@ -64,6 +62,7 @@ public class MainTerminalBeh : MonoBehaviour
     {
         // пока нет Collectables
     }
+
     /// <summary>
     /// вышеуказанные методы вешаем на UI
     /// </summary>

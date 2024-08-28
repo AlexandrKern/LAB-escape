@@ -39,9 +39,14 @@ public class StateMachine
         _currentState.Update();
     }
 
-    public void Interact()
+    public void QInteract()
     {
-        _currentState.Interact();
+        _currentState.QInteract();
+    }
+
+    public void EInteract()
+    {
+        _currentState.EInteract();
     }
 
     public void EnterState(FormType form)

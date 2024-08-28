@@ -28,9 +28,14 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void Interact()
+    public void QInteract()
     {
-        _stateMachine.Interact();
+        _stateMachine.QInteract();
+    }
+
+    public void EInteract()
+    {
+        _stateMachine.EInteract();
     }
 
     public void ChangeForm(FormType form)

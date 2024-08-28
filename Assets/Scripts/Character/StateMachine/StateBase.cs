@@ -15,10 +15,12 @@ public class StateBase
         _context = context;
     }
 
-    virtual public void Interact()
+    virtual public void QInteract()
     {
-        //TODO: handle the end of interaction callback
-        _context._interactController.Interact();
+    }
+
+    virtual public void EInteract()
+    {
     }
 
     virtual public void Update()
