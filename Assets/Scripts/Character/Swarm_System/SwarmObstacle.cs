@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SwarmForm))]
-public class SwarmObstacle : MonoBehaviour
+public class SwarmObstacle : MonoBehaviour, IInteractableObstacle
 {
     [SerializeField] private Transform point1;
     [SerializeField] private int point1SortingOrder;
@@ -46,6 +46,11 @@ public class SwarmObstacle : MonoBehaviour
                 swarm.Translate(swarmForm.GetDestenationPoints(), point2);
             }
         }
+    }
+
+    public void Interact()
+    {
+        Translate();
     }
 }
 

@@ -14,8 +14,8 @@ public class InteractController : MonoBehaviour
         var overlaped = Physics2D.OverlapCircleAll(transform.position, InteractiveCircleRadius);
         for(int i = 0; i < overlaped.Length; i++)
         {
-            if(overlaped[i].gameObject
-                .TryGetComponent<InteractableInterface>(out InteractableInterface interactable))
+            var interactable = overlaped[i].gameObject.GetComponentInParent<InteractableInterface>();
+            if(interactable != null)
             {
                 interactable.Interact();
                 return;
