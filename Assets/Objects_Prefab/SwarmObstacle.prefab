@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 7979701705313172211}
   - component: {fileID: 4979472922373078795}
   - component: {fileID: 1172532153738074513}
-  - component: {fileID: 2297802322639149721}
   m_Layer: 0
   m_Name: SwarmObstacle
   m_TagString: Untagged
@@ -165,18 +164,6 @@ CircleCollider2D:
   m_Offset: {x: -0.55, y: 1.27}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &2297802322639149721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8333386427272181703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a829be58d115443896d69674546edb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8781933673434101790
 GameObject:
   m_ObjectHideFlags: 0
