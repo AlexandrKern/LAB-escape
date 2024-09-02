@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class GlassDoor : MonoBehaviour, IInteractableDestroyable
+public class GlassDoor : MonoBehaviour, IDamageable
 {
-    public void Interact()
-    {
+    public void CauseDamage()
+    {        
         //TODO: destroy animation here
         Destroy(gameObject);
     }

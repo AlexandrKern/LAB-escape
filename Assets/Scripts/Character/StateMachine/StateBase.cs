@@ -25,12 +25,12 @@ public class StateBase
 
     virtual public void Update()
     {
-        _context._moveController.InputHorizontal = InputHorizontal;
+        _context.moveController.InputHorizontal = InputHorizontal;
     }
 
     virtual public void OnStateEnter()
     {
-        _context._swarm.SetForm(StateForm);
+        _context.swarm.SetForm(StateForm);
     }
 
     virtual public void OnStateExit()

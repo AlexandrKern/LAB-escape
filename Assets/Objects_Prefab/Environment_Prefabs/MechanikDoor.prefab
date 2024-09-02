@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6299017304594211052}
   - component: {fileID: 5350179512647900443}
+  - component: {fileID: -3466404871462818161}
   m_Layer: 0
   m_Name: MechanikDoor
   m_TagString: Untagged
@@ -84,3 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-3466404871462818161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492235405979507397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e945af17dbf37f24eb83c68151746084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

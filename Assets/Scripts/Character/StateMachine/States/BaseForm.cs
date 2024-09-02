@@ -8,11 +8,11 @@ public class BaseForm : StateBase
 
     public override void QInteract()
     {
-        _context._interactController.Interact<IInteractableObstacle>();
+        _context.interactController.Interact<IInteractableObstacle>();
     }
 
     public override void EInteract()
     {
-        _context._interactController.Interact<IInteractableTerminal>();
+        _context.interactController.Interact<IInteractableTerminal>();
     }
 }
