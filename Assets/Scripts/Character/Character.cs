@@ -3,15 +3,18 @@ using UnityEngine;
 [RequireComponent(typeof(Swarm))]
 [RequireComponent(typeof(MoveController))]
 [RequireComponent(typeof(InteractController))]
+[RequireComponent(typeof(PunchController))]
 public class Character : MonoBehaviour
 {
     private StateMachine _stateMachine;
     [HideInInspector]
-    public Swarm _swarm;
+    public Swarm swarm;
     [HideInInspector]
-    public MoveController _moveController;
+    public MoveController moveController;
     [HideInInspector]
-    public InteractController _interactController;
+    public InteractController interactController;
+    [HideInInspector]
+    public PunchController punchController;
 
     public float InputHorizontal 
     {
@@ -45,10 +48,11 @@ public class Character : MonoBehaviour
     
     void Awake()
     {
-        _swarm = GetComponent<Swarm>();
-        _moveController = GetComponent<MoveController>();
-        _interactController = GetComponent<InteractController>();
+        swarm = GetComponent<Swarm>();
+        moveController = GetComponent<MoveController>();
+        interactController = GetComponent<InteractController>();
         _stateMachine = new StateMachine(this, FormType.Base);
+        punchController = GetComponent<PunchController>();
     }
 
     //void Update()

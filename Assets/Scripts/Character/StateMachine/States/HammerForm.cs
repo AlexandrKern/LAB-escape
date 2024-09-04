@@ -8,6 +8,6 @@ public class HammerForm : StateBase
 
     public override void QInteract()
     {
-        _context._interactController.Interact<IInteractableDestroyable>();
+        _context.punchController.Punch();
     }
 }

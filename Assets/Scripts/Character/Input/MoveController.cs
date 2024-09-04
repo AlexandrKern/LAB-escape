@@ -8,7 +8,28 @@ public class MoveController : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
 
-    public float InputHorizontal { get; set; } 
+    private float _inputHorizontal = 0f;
+    public float InputHorizontal
+    {
+        private get
+        {
+            return _inputHorizontal;
+        }
+        set
+        {
+            _inputHorizontal = value;
+
+            //character turn
+            if (value != 0f)
+            {
+                var oldScale = transform.localScale;
+                transform.localScale = new Vector3(
+                    value > 0 ? Mathf.Abs(oldScale.x): -Mathf.Abs(oldScale.x),
+                    oldScale.y,  
+                    oldScale.z);
+            }
+        }
+    }
 
     private void Awake()
     {
