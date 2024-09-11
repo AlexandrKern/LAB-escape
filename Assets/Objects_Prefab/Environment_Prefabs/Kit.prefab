@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4670289668094825697}
   - component: {fileID: 4183044836930165138}
+  - component: {fileID: 5839065156112466286}
   m_Layer: 0
   m_Name: Kit
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,3 +85,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5839065156112466286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259016240757799247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76eb8b5b28e0b2443a4d2bbeb1b2186a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 80a6f2a85e3f2d1468c8a86629d6b9ee, type: 2}

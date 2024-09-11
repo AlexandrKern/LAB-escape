@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1911302292349061807}
   - component: {fileID: 191953199572884112}
-  - component: {fileID: 3052976143347593270}
+  - component: {fileID: 7468980223865633353}
   m_Layer: 0
   m_Name: Pipeline
   m_TagString: Untagged
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &3052976143347593270
-BoxCollider2D:
+--- !u!68 &7468980223865633353
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,15 +118,20 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.24, y: 0.41}
-    newSize: {x: 4.24, y: 0.41}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.24, y: 0.41}
   m_EdgeRadius: 0
+  m_Points:
+  - {x: 2.1116009, y: 0.0029965714}
+  - {x: 2.0972416, y: -0.09121592}
+  - {x: 1.6036291, y: -0.20635122}
+  - {x: -1.6185815, y: -0.20642391}
+  - {x: -2.1025386, y: -0.060168676}
+  - {x: -2.112485, y: 0.006776425}
+  - {x: -2.070893, y: 0.059168965}
+  - {x: -1.5138546, y: 0.1983286}
+  - {x: 1.56817, y: 0.20242426}
+  - {x: 2.0746372, y: 0.07695448}
+  - {x: 2.1137667, y: 0.004156454}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
