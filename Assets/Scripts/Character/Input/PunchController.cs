@@ -4,9 +4,12 @@ public class PunchController : MonoBehaviour
 {
     [SerializeField]
     private float DamageCircleRadius = 5f;
-
     [SerializeField]
     private Vector3 DamageCircleOffset = Vector3.zero;
+    [SerializeField]
+    private float CameraShakeTime = 0.2f;
+    [SerializeField]
+    private float CameraShakeSpeed = 30f;
 
     [Space]
     [SerializeField]
@@ -15,7 +18,7 @@ public class PunchController : MonoBehaviour
     public void Punch()
     {
         //TODO: animation logic will be here
-
+        Utils.ShakeCamera(CameraShakeTime, CameraShakeSpeed);
         CauseDamage();
     }
 
