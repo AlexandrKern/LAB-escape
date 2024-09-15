@@ -15,6 +15,7 @@ public static class Data
     private static bool _isBreakerFormAvailable;
     private static bool _isMimicFormAvailable;
     private static bool _isMirrorFormAvailable;
+    private static int _spawnPointNumber;
 
     // Путь к файлу для сохранения данных
     private static string _filePath = Path.Combine(Application.persistentDataPath, "Data.json");
@@ -67,6 +68,13 @@ public static class Data
         set => _isMirrorFormAvailable = value;
     }
 
+    public static int SpawnPointNumber
+    {
+        get => _spawnPointNumber;
+        set => _spawnPointNumber = Mathf.Max(0, value);
+    }
+
+
     /// <summary>
     /// Сохраняет данные в JSON-файл
     /// </summary>
@@ -81,7 +89,8 @@ public static class Data
             IsHammerFormAvailable = _isHammerFormAvailable,
             IsBreakerFormAvailable = _isBreakerFormAvailable,
             IsMimicFormAvailable = _isMimicFormAvailable,
-            IsMirrorFormAvailable = _isMirrorFormAvailable
+            IsMirrorFormAvailable = _isMirrorFormAvailable,
+            SpawnPointNumber = _spawnPointNumber
         }, true);
 
         File.WriteAllText(_filePath, json);
@@ -104,6 +113,7 @@ public static class Data
             IsBreakerFormAvailable = dataContainer.IsBreakerFormAvailable;
             IsMimicFormAvailable = dataContainer.IsMimicFormAvailable;
             IsMirrorFormAvailable = dataContainer.IsMirrorFormAvailable;
+            SpawnPointNumber = dataContainer.SpawnPointNumber;
         }
         else
         {
@@ -125,5 +135,6 @@ public static class Data
         public bool IsBreakerFormAvailable;
         public bool IsMimicFormAvailable;
         public bool IsMirrorFormAvailable;
+        public int SpawnPointNumber;
     }
 }

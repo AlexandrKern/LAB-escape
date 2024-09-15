@@ -2,10 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerminalLocations : MonoBehaviour
+public class PlayerSpawnLocations : MonoBehaviour
 {
     /// <summary>
-    /// —юда помещаем все терминалы на карте. ѕо этим векторам будем спавнить персонажа.
+    /// —юда помещаем все терминалы и точки спавна на карте. ѕо этим трансформам будем спавнить персонажа.
     /// </summary>
-    [SerializeField] Vector2 terminals;
+
+    [SerializeField] GameObject swarmPrefab;
+    [SerializeField] Transform[] spawnPoints;
+
+    private void Start()
+    {
+        SpawnAtLocation(Data.SpawnPointNumber);
+    }
+
+    public void SpawnAtLocation(int pointNumber)
+    {
+        if (swarmPrefab != null)
+        Instantiate(swarmPrefab, spawnPoints[0].position, Quaternion.identity);
+    }
 }

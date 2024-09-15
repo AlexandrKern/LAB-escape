@@ -9,6 +9,8 @@ public class MoveController : MonoBehaviour
     private Rigidbody2D _rigidbody;
 
     private float _inputHorizontal = 0f;
+
+    CameraFollow _cameraFollow;
     public float InputHorizontal
     {
         private get
@@ -34,10 +36,17 @@ public class MoveController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _cameraFollow = FindObjectOfType<CameraFollow>();
     }
 
     void FixedUpdate()
     {
         _rigidbody.velocity = new Vector2 { x = InputHorizontal * HorizontalSpeed, y = 0f };
+
+
+        if (_rigidbody.velocity.x > 0.5f) // меняем позицию камеры в зависимости от направления движения
+            _cameraFollow.ChangeOffsetX(10);
+        else if (_rigidbody.velocity.x < -0.5f)
+            _cameraFollow.ChangeOffsetX(-10);
     }
 }

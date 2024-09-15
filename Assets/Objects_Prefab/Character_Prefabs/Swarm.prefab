@@ -131,9 +131,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 502767266774403514}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.06, y: -1.86, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 762007255240761945}
@@ -286,6 +286,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageCircleRadius: 1.68
   DamageCircleOffset: {x: 4.32, y: 0, z: 0}
+  CameraShakeTime: 0.2
+  CameraShakeSpeed: 30
   DebugCircle: 1
 --- !u!70 &2815640248114893011
 CapsuleCollider2D:
@@ -320,7 +322,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 5.1, y: 1}
+  m_Size: {x: 5, y: 1}
   m_Direction: 0
 --- !u!114 &6484394009318243568
 MonoBehaviour:
