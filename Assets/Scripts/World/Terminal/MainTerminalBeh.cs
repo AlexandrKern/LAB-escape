@@ -2,40 +2,45 @@ using UnityEngine;
 
 public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 {
-    [SerializeField] int TerminalNumber; // начинайте нумерацию терминалов (они же чекпоинты) с нуля
+    [SerializeField] int terminalNumber; // нумеруем таки с единицы
+    [SerializeField] GameObject terminalMenu;
 
     public void Interact()
     {
-        StepOne();
         Debug.Log("Terminal Interact");
+        StepOne();
     }
 
     private void StepOne()
     {
-        Data.CheckpointNumber = TerminalNumber;
+        Debug.Log("StepOne");
+        Data.CheckpointNumber = terminalNumber;
         if (Data.HP == Data.FullHP)
         {
-            Data.SaveData(); //"если у героя полное здоровье, то идёт автоматическое сохранение прогресса" (из ТЗ)
+            //"если у героя полное здоровье, то идёт автоматическое сохранение прогресса" (из ТЗ)
             // "а также теряется 1 частица из облака (перетекает в терминал)" (из ТЗ).
             // Тут пока не ясно как эти частицы перетикают". Оставим на потом.
-            StepTwo();
         }
         else
         {
+            Data.HP = Data.FullHP; 
             // сначала происходит полное восстановление всех частиц (отхил, частицы текут из терминала к герою) (из ТЗ)
-            Data.HP = Data.FullHP;
-            // и только после отхила идёт автоматическое сохранение прогресса, а также теряется 1 частица из облака (из ТЗ)
-            Data.SaveData();
-            StepTwo();
+            // и только после отхила идёт автоматическое сохранение прогресса, а также теряется 1 частица из облака (из ТЗ)x
         }
+        Data.SaveData();
+        StepTwo();
     }
 
     private void StepTwo()
     {
-        if (DataTerminals.IsTerminalFirstTimeVisit(TerminalNumber))
+        Debug.Log("StepTwo");
+        if (DataTerminals.IsTerminalFirstTimeVisit(terminalNumber))
         {
             // если это первое посещение данного терминала, то игроку сначала выдаётся кусок лора/сюжета игры и только после этого экран
             // терминала увеличивается и приближается (наезд камеры) и игроку предоставляется выбор из нескольких опций (см. STEP 3);
+            Debug.Log("показан лор");
+            DataTerminals.SetTerminalAvailability(terminalNumber, true);
+            DataTerminals.SaveData();
         }
         else
         {

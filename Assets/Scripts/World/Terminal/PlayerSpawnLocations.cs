@@ -13,12 +13,12 @@ public class PlayerSpawnLocations : MonoBehaviour
 
     private void Start()
     {
-        SpawnAtLocation(Data.SpawnPointNumber);
+        SpawnAtLocation(Data.CheckpointNumber);
     }
 
     public void SpawnAtLocation(int pointNumber)
     {
         if (swarmPrefab != null)
-        Instantiate(swarmPrefab, spawnPoints[0].position, Quaternion.identity);
+        Instantiate(swarmPrefab, spawnPoints[pointNumber].position, Quaternion.identity);
     }
 }

@@ -8,7 +8,7 @@ public class StartButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Data.LoadData();
+        //Data.LoadData(); // прогружаем все в EntryPoint, тут только жмак кнопки
         StartButtonPushed.Invoke();
     }
 }

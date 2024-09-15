@@ -5,7 +5,7 @@ using UnityEngine;
 public class DataTerminals
 {
     // добавляем в словарь новые терминалы
-    private static readonly Dictionary<int, bool> _isTerminalFirstTimeVisit = new Dictionary<int, bool>
+    private static Dictionary<int, bool> _isTerminalFirstTimeVisit = new Dictionary<int, bool>
     {
         { 1, false },
         { 2, false }
@@ -15,7 +15,7 @@ public class DataTerminals
 
     public static bool IsTerminalFirstTimeVisit(int terminalNumber)
     {
-        return _isTerminalFirstTimeVisit.ContainsKey(terminalNumber) && _isTerminalFirstTimeVisit[terminalNumber];
+        return _isTerminalFirstTimeVisit.ContainsKey(terminalNumber) && !_isTerminalFirstTimeVisit[terminalNumber];
     }
 
     public static void SetTerminalAvailability(int terminalNumber, bool isAvailable)
@@ -24,15 +24,21 @@ public class DataTerminals
         {
             _isTerminalFirstTimeVisit[terminalNumber] = isAvailable;
         }
+        else
+        {
+            Debug.LogWarning($"Терминал с номером {terminalNumber} не найден.");
+        }
     }
 
     public static void SaveData()
     {
-        string json = JsonUtility.ToJson(new DataTerminalsContainer
+        DataTerminalsContainer dataContainer = new DataTerminalsContainer
         {
-            IsTerminalFirstTimeVisit = _isTerminalFirstTimeVisit
-        }, true);
+            TerminalKeys = new List<int>(_isTerminalFirstTimeVisit.Keys),
+            TerminalValues = new List<bool>(_isTerminalFirstTimeVisit.Values)
+        };
 
+        string json = JsonUtility.ToJson(dataContainer, true);
         File.WriteAllText(_filePath, json);
     }
 
@@ -42,9 +48,11 @@ public class DataTerminals
         {
             string json = File.ReadAllText(_filePath);
             DataTerminalsContainer dataContainer = JsonUtility.FromJson<DataTerminalsContainer>(json);
-            foreach (var terminal in dataContainer.IsTerminalFirstTimeVisit)
+
+            _isTerminalFirstTimeVisit = new Dictionary<int, bool>();
+            for (int i = 0; i < dataContainer.TerminalKeys.Count; i++)
             {
-                _isTerminalFirstTimeVisit[terminal.Key] = terminal.Value;
+                _isTerminalFirstTimeVisit[dataContainer.TerminalKeys[i]] = dataContainer.TerminalValues[i];
             }
         }
         else
@@ -56,6 +64,7 @@ public class DataTerminals
     [System.Serializable]
     private class DataTerminalsContainer
     {
-        public Dictionary<int, bool> IsTerminalFirstTimeVisit = new Dictionary<int, bool>();
+        public List<int> TerminalKeys;
+        public List<bool> TerminalValues;
     }
 }
