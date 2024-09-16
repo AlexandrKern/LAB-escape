@@ -12,14 +12,11 @@ public class CameraFollow : MonoBehaviour
 		public Vector3 minCamerabounds;
 		public Vector3 maxCamerabounds;
 
-    private void Start()
+    public void FindAnObjectToFollow()
     {
-		while (target == null) 
-		{
-            GameObject targetGO = GameObject.FindGameObjectWithTag("Player");
-			if (targetGO != null)
-            target = targetGO.GetComponent<Transform>();
-        }
+        GameObject targetGO = GameObject.FindWithTag("Player");
+		if (targetGO != null)
+        target = targetGO.GetComponent<Transform>();
     }
 
 	public void ChangeOffsetX(float targetX)
