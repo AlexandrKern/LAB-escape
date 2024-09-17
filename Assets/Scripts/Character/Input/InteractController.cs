@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class InteractController : MonoBehaviour
@@ -9,7 +10,7 @@ public class InteractController : MonoBehaviour
     [SerializeField]
     private bool DebugCircle;
 
-    public void Interact<InteractableInterface>() where InteractableInterface : IInteractable
+    public async UniTask Interact<InteractableInterface>() where InteractableInterface : IInteractable
     {
         var overlaped = Physics2D.OverlapCircleAll(transform.position, InteractiveCircleRadius);
         for(int i = 0; i < overlaped.Length; i++)
@@ -17,7 +18,7 @@ public class InteractController : MonoBehaviour
             var interactable = overlaped[i].gameObject.GetComponentInParent<InteractableInterface>();
             if(interactable != null)
             {
-                interactable.Interact();
+                await interactable.Interact();
                 return;
             }
         }

@@ -6,9 +6,12 @@ public class BaseForm : StateBase
     {
     }
 
-    public override void QInteract()
+    public override async void QInteract()//TODO: maybe change the return type to UniTask
     {
-        _context.interactController.Interact<IInteractableObstacle>();
+        _context.inputHandler.IsEnableInput = false;
+        await _context.interactController.Interact<IInteractableObstacle>();
+        _context.inputHandler.IsEnableInput = true;
+
     }
 
     public override void EInteract()

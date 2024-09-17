@@ -93,10 +93,12 @@ public partial class Swarm : MonoBehaviour
                 {
                     _swarmPhase = SwarmPhase.MoveFromTempObject;
                     SetSortingOrder(tempSortingOrder);
+                    /*
                     for (int i = 0; i < _units.Count; i++)
                     {
                         _units[i].Transform.position += _transform.position - _newTransform.position;
                     }
+                    */
                     _transform.position = _newTransform.position;
                 }
                 return GetEmptyPoint(_tempPoints);
@@ -141,7 +143,7 @@ public partial class Swarm : MonoBehaviour
     {
         for (int i = 0; i < maxNumberOfUnits; i++)
         {
-            Transform ut = Instantiate(unitPrefab, forms[_currentFormIndex].GetDestenationPoints()[i].Transform.position, Quaternion.identity, transform).transform;
+            Transform ut = Instantiate(unitPrefab, forms[_currentFormIndex].GetDestenationPoints()[i].Transform.position, Quaternion.identity, null).transform;
             _units.Add(new Unit(ut, forms[_currentFormIndex].GetDestenationPoints()[i],ut.GetComponent<SpriteRenderer>()));
         }
     }
