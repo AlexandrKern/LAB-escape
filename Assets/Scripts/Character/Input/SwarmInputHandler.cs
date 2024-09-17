@@ -24,6 +24,20 @@ public class SwarmInputHandler : MonoBehaviour
     private Character _character;
     private Swarm _swarm;
 
+    private bool _isEnableInput = true;
+    public bool IsEnableInput
+    {
+        get => _isEnableInput;
+        set
+        {
+            _isEnableInput = value;
+            if(!value)
+            {
+                OnDisableInput();
+            }
+        }
+    }
+
     private void Awake()
     {
         _character = GetComponent<Character>();
@@ -32,15 +46,25 @@ public class SwarmInputHandler : MonoBehaviour
 
     void Update()
     {
-       for(int i = 0; i < formsKeyboardKeys.Count; i++)
-       {
+        if(IsEnableInput)
+        {
+            HandleInput();
+        }
+
+        _character.StateMachineUpdater();
+        _swarm.SwarmUpdater();
+    }
+
+    private void HandleInput()
+    {
+        for (int i = 0; i < formsKeyboardKeys.Count; i++)
+        {
             if (Input.GetKeyDown(formsKeyboardKeys[i].Key))
             {
                 _character.ChangeForm(formsKeyboardKeys[i].Form);
             }
-       }
+        }
 
-        _character.StateMachineUpdater();
         _character.InputHorizontal = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(interactQKeyboardKey))
@@ -52,7 +76,10 @@ public class SwarmInputHandler : MonoBehaviour
         {
             _character.EInteract();
         }
+    }
 
-        _swarm.SwarmUpdater();
+    private void OnDisableInput()
+    {
+        _character.InputHorizontal = 0f;
     }
 }

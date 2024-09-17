@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
@@ -5,7 +6,7 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
     [SerializeField] int terminalNumber; // нумеруем таки с единицы
     [SerializeField] GameObject terminalMenu;
 
-    public void Interact()
+    public async UniTask Interact()
     {
         Debug.Log("Terminal Interact");
         StepOne();

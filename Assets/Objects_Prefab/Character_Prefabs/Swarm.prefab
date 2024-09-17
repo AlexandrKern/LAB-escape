@@ -245,6 +245,7 @@ MonoBehaviour:
   moveController: {fileID: 0}
   interactController: {fileID: 0}
   punchController: {fileID: 0}
+  inputHandler: {fileID: 0}
 --- !u!114 &921013596515232286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +289,7 @@ MonoBehaviour:
   DamageCircleOffset: {x: 4.32, y: 0, z: 0}
   CameraShakeTime: 0.2
   CameraShakeSpeed: 30
-  DebugCircle: 1
+  DebugCircle: 0
 --- !u!70 &2815640248114893011
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

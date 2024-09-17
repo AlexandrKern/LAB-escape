@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SwarmForm))]
@@ -48,9 +49,18 @@ public class SwarmObstacle : MonoBehaviour, IInteractableObstacle
         }
     }
 
-    public void Interact()
+    public async UniTask Interact()
     {
+        bool translateIsOver = false;
+        swarm.EndTranslatinCallback += TmpFunc;
         Translate();
+        await UniTask.WaitUntil(()=>translateIsOver);
+        swarm.EndTranslatinCallback -= TmpFunc;
+
+        void TmpFunc()
+        {
+            translateIsOver = true;
+        }
     }
 }
 

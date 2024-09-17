@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(MoveController))]
 [RequireComponent(typeof(InteractController))]
 [RequireComponent(typeof(PunchController))]
+[RequireComponent(typeof(SwarmInputHandler))]
 public class Character : MonoBehaviour
 {
     private StateMachine _stateMachine;
@@ -15,6 +16,8 @@ public class Character : MonoBehaviour
     public InteractController interactController;
     [HideInInspector]
     public PunchController punchController;
+    [HideInInspector]
+    public SwarmInputHandler inputHandler;
 
     public float InputHorizontal 
     {
@@ -53,6 +56,7 @@ public class Character : MonoBehaviour
         interactController = GetComponent<InteractController>();
         _stateMachine = new StateMachine(this, FormType.Base);
         punchController = GetComponent<PunchController>();
+        inputHandler = GetComponent<SwarmInputHandler>();
     }
 
     //void Update()

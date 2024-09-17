@@ -39,6 +39,7 @@ public partial class Swarm : MonoBehaviour
     private int _currentFormIndex = 0;
     private int numberOfUnits = 500;
     private int tempSortingOrder;
+    private Transform _unitsRoot;
 
     public float MinSpeed { get => minSpeed; private set => minSpeed = value; }
     public float MaxSpeed { get => maxSpeed; private set => maxSpeed = value; }
@@ -93,10 +94,12 @@ public partial class Swarm : MonoBehaviour
                 {
                     _swarmPhase = SwarmPhase.MoveFromTempObject;
                     SetSortingOrder(tempSortingOrder);
+                    /*
                     for (int i = 0; i < _units.Count; i++)
                     {
                         _units[i].Transform.position += _transform.position - _newTransform.position;
                     }
+                    */
                     _transform.position = _newTransform.position;
                 }
                 return GetEmptyPoint(_tempPoints);
@@ -116,6 +119,7 @@ public partial class Swarm : MonoBehaviour
     {
         _transform = transform;
         //GeneratePoints();
+        _unitsRoot = new GameObject("Units").transform;
         GenerateUnits();
     }
 
@@ -141,7 +145,7 @@ public partial class Swarm : MonoBehaviour
     {
         for (int i = 0; i < maxNumberOfUnits; i++)
         {
-            Transform ut = Instantiate(unitPrefab, forms[_currentFormIndex].GetDestenationPoints()[i].Transform.position, Quaternion.identity, transform).transform;
+            Transform ut = Instantiate(unitPrefab, forms[_currentFormIndex].GetDestenationPoints()[i].Transform.position, Quaternion.identity, _unitsRoot).transform;
             _units.Add(new Unit(ut, forms[_currentFormIndex].GetDestenationPoints()[i],ut.GetComponent<SpriteRenderer>()));
         }
     }
