@@ -5,20 +5,30 @@ using UnityEngine;
 [RequireComponent(typeof(SwarmForm))]
 public class SwarmObstacle : MonoBehaviour, IInteractableObstacle
 {
-    [SerializeField] private Transform point1;
+    [SerializeField] public Transform point1;
     [SerializeField] private int point1SortingOrder;
     [Space]
-    [SerializeField] private Transform point2;
+    [SerializeField] public Transform point2;
     [SerializeField] private int point2SortingOrder;
     [Space]
     [SerializeField] private bool setSortingOrder;
 
-    private Swarm swarm;
-    private SwarmForm swarmForm;
+    private Swarm swarm => Swarm.Instance;
 
+    [SerializeField]
+    [HideInInspector]
+    public SwarmForm swarmForm;
+
+    /*
     void Start()
     {
-        swarm = FindObjectOfType<Swarm>();
+        //swarm = FindObjectOfType<Swarm>();
+        swarmForm = GetComponent<SwarmForm>();
+    }
+    */
+
+    private void OnValidate()
+    {
         swarmForm = GetComponent<SwarmForm>();
     }
 
