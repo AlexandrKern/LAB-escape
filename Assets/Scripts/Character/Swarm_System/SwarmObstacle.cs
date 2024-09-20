@@ -37,25 +37,54 @@ public class SwarmObstacle : MonoBehaviour, IInteractableObstacle
         Transform t = swarm.transform;
         if (Vector3.Distance(t.position, point1.position) > Vector3.Distance(t.position, point2.position))
         {
-            if (setSortingOrder)
-            {
-                swarm.Translate(swarmForm.GetDestenationPoints(), point1, point1SortingOrder);
-            }
-            else
-            {
-                swarm.Translate(swarmForm.GetDestenationPoints(), point1);
-            }
+            TranslateBackward();
         }
         else
         {
-            if (setSortingOrder)
-            {
-                swarm.Translate(swarmForm.GetDestenationPoints(), point2, point2SortingOrder);
-            }
-            else
-            {
-                swarm.Translate(swarmForm.GetDestenationPoints(), point2);
-            }
+            TranslateForward();
+        }
+    }
+
+    public void TranslateBackward()
+    {
+        if (setSortingOrder)
+        {
+            swarm.Translate(swarmForm.GetDestenationPoints(), point1, point1SortingOrder);
+        }
+        else
+        {
+            swarm.Translate(swarmForm.GetDestenationPoints(), point1);
+        }
+    }
+
+    public void TranslateForward()
+    {
+        if (setSortingOrder)
+        {
+            swarm.Translate(swarmForm.GetDestenationPoints(), point2, point2SortingOrder);
+        }
+        else
+        {
+            swarm.Translate(swarmForm.GetDestenationPoints(), point2);
+        }
+    }
+
+    public void TunnelTranslate(System.Action OnReachingObstacle, bool isForward)
+    {
+        swarm.OnMoveFromTempObject += TmpFunc;
+        if(isForward)
+        {
+            TranslateForward();
+        }
+        else
+        {
+            TranslateBackward();
+        }
+
+        void TmpFunc()
+        {
+            OnReachingObstacle?.Invoke();
+            swarm.OnMoveFromTempObject -= TmpFunc;
         }
     }
 

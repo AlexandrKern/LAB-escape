@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
 
     [SerializeField]
     private GameObject target;
+
+    private int _currentObstacleIndex;
+    bool _translateIsOver;
 
     private void OnValidate()
     {
@@ -42,9 +46,12 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
 
     public async UniTask Interact()
     {
+        //disable gravity
         Rigidbody2D swarmRigidBody = Swarm.Instance.GetComponent<Rigidbody2D>();
         float cacheGravity = swarmRigidBody.gravityScale;
-        swarmRigidBody.gravityScale = 0;
+        swarmRigidBody.gravityScale = 0; 
+
+        _translateIsOver = false;
 
         if (Vector3.SqrMagnitude(swarmObstacles[0].point1.position 
             - Swarm.Instance.transform.position)
@@ -52,30 +59,55 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
             Vector3.SqrMagnitude(swarmObstacles[swarmObstacles.Count - 1].point2.position 
             - Swarm.Instance.transform.position))
         {
-            await TranslateForward();
+            TranslateForward();
         }
         else
         {
-            await TranslateBackward();
+            TranslateBackward();
         }
 
+
+        await UniTask.WaitUntil(() => _translateIsOver);
+
+        //enable gravity
         swarmRigidBody.gravityScale = cacheGravity;
     }
 
-    private async UniTask TranslateForward()
+    private void TranslateForward()
     {
-        for( int i = 0; i < swarmObstacles.Count; i++)
-        {
-            target.transform.position = swarmObstacles[i].swarmForm.spriteRenderer.transform.position;
-            await swarmObstacles[i].Interact();
-        }
+        _currentObstacleIndex = -1;
+        MoveToNextObstacle();
     }
 
-    private async UniTask TranslateBackward()
+    private void MoveToNextObstacle()
     {
-        for( int i = swarmObstacles.Count - 1; i >= 0; i--)
+        _currentObstacleIndex++;
+        if(_currentObstacleIndex >= swarmObstacles.Count)
         {
-            await swarmObstacles[i].Interact();
+            _translateIsOver = true;
+            return;
         }
+        target.transform.position = 
+            swarmObstacles[_currentObstacleIndex].swarmForm.spriteRenderer.transform.position;
+        swarmObstacles[_currentObstacleIndex].TunnelTranslate(MoveToNextObstacle, isForward: true);
+    }
+
+    private void TranslateBackward()
+    {
+        _currentObstacleIndex = swarmObstacles.Count;
+        MoveToPreviewObstacle();
+    }
+
+    private void MoveToPreviewObstacle()
+    {
+        _currentObstacleIndex--;
+        if(_currentObstacleIndex < 0)
+        {
+            _translateIsOver = true;
+            return;
+        }
+        target.transform.position =
+            swarmObstacles[_currentObstacleIndex].swarmForm.spriteRenderer.transform.position;
+        swarmObstacles[_currentObstacleIndex].TunnelTranslate(MoveToPreviewObstacle, isForward: false);
     }
 }

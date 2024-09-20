@@ -29,6 +29,7 @@ public partial class Swarm : MonoBehaviour
     private List<Unit> _units = new List<Unit>();
     private Texture2D _texture;
     private List<DestinationPoint> _tempPoints = new List<DestinationPoint>();
+    private List<DestinationPoint> _lastPoints = null;
 
     private enum SwarmPhase { Static, MoveToTempObject, MoveFromTempObject }
     private SwarmPhase _swarmPhase = SwarmPhase.Static;
@@ -49,6 +50,7 @@ public partial class Swarm : MonoBehaviour
     public float MaxTranslationSpeed { get => maxTranslationSpeed; private set => maxTranslationSpeed = value; }
 
     public event System.Action EndTranslatinCallback; //Callback завершения перехода. Данный Callback стоит использовать для возвращения пользователю контродля после перехода.
+    public event System.Action OnMoveFromTempObject;
 
     public static Swarm Instance { get; private set; }
 
@@ -72,6 +74,14 @@ public partial class Swarm : MonoBehaviour
 
     public void Translate(List<DestinationPoint> destinationPoints, Transform newTransform)//Выполнить переход через форму отверстия.
     {
+        if(_lastPoints == null)
+        {
+            _lastPoints = forms[_currentFormIndex].GetDestenationPoints();
+        }
+        else
+        {
+            _lastPoints = _tempPoints;
+        }
         _tempPoints = destinationPoints;
         _swarmPhase = SwarmPhase.MoveToTempObject;
         _newTransform = newTransform;
@@ -79,6 +89,14 @@ public partial class Swarm : MonoBehaviour
 
     public void Translate(List<DestinationPoint> destinationPoints, Transform newTransform ,int sortingOrder)//Выполнить переход через форму отверстия со сменой SortingOrder.
     {
+        if (_lastPoints == null)
+        {
+            _lastPoints = forms[_currentFormIndex].GetDestenationPoints();
+        }
+        else
+        {
+            _lastPoints = _tempPoints;
+        }
         _tempPoints = destinationPoints;
         _swarmPhase = SwarmPhase.MoveToTempObject;
         _newTransform = newTransform;
@@ -92,7 +110,7 @@ public partial class Swarm : MonoBehaviour
             case SwarmPhase.Static:
                 return GetEmptyPoint(forms[_currentFormIndex].GetDestenationPoints(), unit);
             case SwarmPhase.MoveToTempObject:
-                if (AllPointsIsFree(forms[_currentFormIndex].GetDestenationPoints()))
+                if (AllPointsIsFree(_lastPoints))
                 {
                     _swarmPhase = SwarmPhase.MoveFromTempObject;
                     SetSortingOrder(tempSortingOrder);
@@ -106,10 +124,16 @@ public partial class Swarm : MonoBehaviour
                 }
                 return GetEmptyPoint(_tempPoints);
             case SwarmPhase.MoveFromTempObject:
+                if (OnMoveFromTempObject != null)
+                {
+                    OnMoveFromTempObject.Invoke();
+                    return GetEmptyPoint(_tempPoints);
+                }
                 if (AllPointsIsFree(_tempPoints))
                 {
                     _swarmPhase = SwarmPhase.Static;
                     EndTranslatinCallback?.Invoke();
+                    _lastPoints = null;
                 }
                 return GetEmptyPoint(forms[_currentFormIndex].GetDestenationPoints());
             default:
