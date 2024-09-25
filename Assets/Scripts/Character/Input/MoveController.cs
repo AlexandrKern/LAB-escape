@@ -1,6 +1,9 @@
+using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
 public class MoveController : MonoBehaviour
 {
     [SerializeField]
@@ -11,6 +14,7 @@ public class MoveController : MonoBehaviour
     private float JumpSpeed = 50;
 
     private Rigidbody2D _rigidbody;
+    private Collider2D _collider;
 
     CameraFollow _cameraFollow;
 
@@ -39,6 +43,7 @@ public class MoveController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
         _cameraFollow = FindObjectOfType<CameraFollow>();
         _cameraFollow.FindAnObjectToFollow(); // сообщаем камере что объект игрока создан
     }
@@ -49,6 +54,15 @@ public class MoveController : MonoBehaviour
         {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpSpeed);
         }
+    }
+
+    readonly LayerMask PLATFORM_EFFECTOR_LAYER = 1 << 3; //3 - PlatformEffector layer number
+    const double FALL_THROUGH_DELAY = 0.2;
+    public async UniTask FallThroughPlatformEffector()
+    {
+        _collider.excludeLayers |= PLATFORM_EFFECTOR_LAYER;
+        await UniTask.Delay(TimeSpan.FromSeconds(FALL_THROUGH_DELAY), ignoreTimeScale: false);
+        _collider.excludeLayers &= ~PLATFORM_EFFECTOR_LAYER;
     }
 
     void FixedUpdate()

@@ -15,9 +15,14 @@ public class AnthropomorphicForm : StateBase
         {
             Jump();
         }
+        if(InputVertical < 0f)
+        {
+            FallThroughPlatformEffector();
+        }
     }
 
     private bool _isJumped = false;
+
     /// <summary>
     /// Wait for the player to release the button to jump again
     /// </summary>
@@ -32,6 +37,24 @@ public class AnthropomorphicForm : StateBase
             { 
                 await UniTask.Yield(); 
             } 
+            _isJumped = false;
+        }
+    }
+
+    /// <summary>
+    /// Wait for the player to release the button to fall through again
+    /// </summary>
+    /// <returns></returns>
+    private async UniTask FallThroughPlatformEffector()
+    {
+        if (!_isJumped)
+        {
+            _isJumped = true;
+            _context.moveController.FallThroughPlatformEffector();
+            while (InputVertical < 0)
+            {
+                await UniTask.Yield();
+            }
             _isJumped = false;
         }
     }
