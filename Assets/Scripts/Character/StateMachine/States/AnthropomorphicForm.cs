@@ -1,8 +1,38 @@
+using Cysharp.Threading.Tasks;
+
 public class AnthropomorphicForm : StateBase
 {
     public override FormType StateForm => FormType.Anthropomorphic;
 
     public AnthropomorphicForm(Character context) : base(context)
     {
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if(InputVertical > 0f)
+        {
+            Jump();
+        }
+    }
+
+    private bool _isJumped = false;
+    /// <summary>
+    /// Wait for the player to release the button to jump again
+    /// </summary>
+    /// <returns></returns>
+    protected async UniTask Jump()
+    {
+        if(!_isJumped)
+        {
+            _isJumped = true;
+            _context.moveController.Jump();
+            while (InputVertical > 0)
+            { 
+                await UniTask.Yield(); 
+            } 
+            _isJumped = false;
+        }
     }
 }

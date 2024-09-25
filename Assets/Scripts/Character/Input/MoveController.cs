@@ -5,12 +5,16 @@ public class MoveController : MonoBehaviour
 {
     [SerializeField]
     private float HorizontalSpeed = 5f;
+    [SerializeField]
+    private Vector3 GroundCheckLocalPoint;
+    [SerializeField]
+    private float JumpSpeed = 50;
 
     private Rigidbody2D _rigidbody;
 
-    private float _inputHorizontal = 0f;
-
     CameraFollow _cameraFollow;
+
+    private float _inputHorizontal = 0f;
     public float InputHorizontal
     {
         private get
@@ -39,13 +43,39 @@ public class MoveController : MonoBehaviour
         _cameraFollow.FindAnObjectToFollow(); // сообщаем камере что объект игрока создан
     }
 
+    public void Jump()
+    {
+        if(IsGrounded())
+        {
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpSpeed);
+        }
+    }
+
     void FixedUpdate()
     {
-        _rigidbody.velocity = new Vector2 { x = InputHorizontal * HorizontalSpeed, y = 0f };
+        _rigidbody.velocity = new Vector2 { 
+            x = InputHorizontal * HorizontalSpeed,
+            y = _rigidbody.velocity.y 
+        };
 
         if (_rigidbody.velocity.x > 0.5f) // меняем позицию камеры в зависимости от направления движения
             _cameraFollow.ChangeOffsetX(10);
         else if (_rigidbody.velocity.x < -0.5f)
             _cameraFollow.ChangeOffsetX(-10);
+    }
+
+    private bool IsGrounded()
+    {
+        if(Physics2D.OverlapPoint(transform.position + GroundCheckLocalPoint) != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = UnityEngine.Color.red;
+        Gizmos.DrawSphere(transform.position + GroundCheckLocalPoint, 0.1f);
     }
 }

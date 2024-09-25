@@ -66,6 +66,7 @@ public class SwarmInputHandler : MonoBehaviour
         }
 
         _character.InputHorizontal = Input.GetAxis("Horizontal");
+        _character.InputVertical = Input.GetAxis("Vertical");
 
         if (Input.GetKeyDown(interactQKeyboardKey))
         {
