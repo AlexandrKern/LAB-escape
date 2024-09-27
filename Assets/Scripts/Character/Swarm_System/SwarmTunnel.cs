@@ -9,9 +9,6 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
     [SerializeField]
     private List<SwarmObstacle> swarmObstacles;
 
-    [SerializeField]
-    private GameObject target;
-
     private int _currentObstacleIndex;
     bool _translateIsOver;
 
@@ -87,8 +84,7 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
             _translateIsOver = true;
             return;
         }
-        target.transform.position = 
-            swarmObstacles[_currentObstacleIndex].swarmForm.spriteRenderer.transform.position;
+       
         swarmObstacles[_currentObstacleIndex].TunnelTranslate(MoveToNextObstacle, isForward: true);
     }
 
@@ -106,8 +102,8 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
             _translateIsOver = true;
             return;
         }
-        target.transform.position =
-            swarmObstacles[_currentObstacleIndex].swarmForm.spriteRenderer.transform.position;
+     
+
         swarmObstacles[_currentObstacleIndex].TunnelTranslate(MoveToPreviewObstacle, isForward: false);
     }
 }
