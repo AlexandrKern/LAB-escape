@@ -10,7 +10,6 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
     private List<SwarmObstacle> swarmObstacles;
 
     private int _currentObstacleIndex;
-    bool _translateIsOver;
 
     private void OnValidate()
     {
@@ -46,9 +45,9 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
         //disable gravity
         Rigidbody2D swarmRigidBody = Swarm.Instance.GetComponent<Rigidbody2D>();
         float cacheGravity = swarmRigidBody.gravityScale;
-        swarmRigidBody.gravityScale = 0; 
+        swarmRigidBody.gravityScale = 0;
 
-        _translateIsOver = false;
+        bool _translateIsOver = false;
 
         if (Vector3.SqrMagnitude(swarmObstacles[0].point1.position 
             - Swarm.Instance.transform.position)
@@ -63,11 +62,17 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
             TranslateBackward();
         }
 
-
+        Swarm.Instance.EndTranslatinCallback += TmpFunc;
         await UniTask.WaitUntil(() => _translateIsOver);
 
         //enable gravity
         swarmRigidBody.gravityScale = cacheGravity;
+
+        void TmpFunc()
+        {
+            _translateIsOver = true;
+            Swarm.Instance.EndTranslatinCallback -= TmpFunc;
+        }
     }
 
     private void TranslateForward()
@@ -81,7 +86,6 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
         _currentObstacleIndex++;
         if(_currentObstacleIndex >= swarmObstacles.Count)
         {
-            _translateIsOver = true;
             return;
         }
        
@@ -99,11 +103,9 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
         _currentObstacleIndex--;
         if(_currentObstacleIndex < 0)
         {
-            _translateIsOver = true;
             return;
         }
      
-
         swarmObstacles[_currentObstacleIndex].TunnelTranslate(MoveToPreviewObstacle, isForward: false);
     }
 }
