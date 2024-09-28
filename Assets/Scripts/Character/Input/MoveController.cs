@@ -13,6 +13,7 @@ public class MoveController : MonoBehaviour
     [SerializeField]
     private float JumpSpeed = 50;
 
+    private HintController _hintController;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
 
@@ -32,10 +33,14 @@ public class MoveController : MonoBehaviour
             if (value != 0f)
             {
                 var oldScale = transform.localScale;
+                bool isFacingRight = value > 0;
+
                 transform.localScale = new Vector3(
-                    value > 0 ? Mathf.Abs(oldScale.x): -Mathf.Abs(oldScale.x),
-                    oldScale.y,  
+                    isFacingRight ? Mathf.Abs(oldScale.x) : -Mathf.Abs(oldScale.x),
+                    oldScale.y,
                     oldScale.z);
+
+                _hintController.SetHintTextRotation(isFacingRight ? 0 : 180);
             }
         }
     }
@@ -44,6 +49,7 @@ public class MoveController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+        _hintController = GetComponent<HintController>();
         _cameraFollow = FindObjectOfType<CameraFollow>();
         _cameraFollow.FindAnObjectToFollow(); // сообщаем камере что объект игрока создан
     }
