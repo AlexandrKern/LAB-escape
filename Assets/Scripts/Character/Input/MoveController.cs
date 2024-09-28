@@ -77,11 +77,6 @@ public class MoveController : MonoBehaviour
             x = InputHorizontal * HorizontalSpeed,
             y = _rigidbody.velocity.y 
         };
-
-        if (_rigidbody.velocity.x > 0.5f) // меняем позицию камеры в зависимости от направления движения
-            _cameraFollow.ChangeOffsetX(10);
-        else if (_rigidbody.velocity.x < -0.5f)
-            _cameraFollow.ChangeOffsetX(-10);
     }
 
     private bool IsGrounded()

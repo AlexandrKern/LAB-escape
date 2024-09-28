@@ -4,22 +4,25 @@ using Cysharp.Threading.Tasks;
 
 public class CameraFollow : MonoBehaviour
 	{
-	    private Transform target;
+	    private Transform _target;
+        private Rigidbody2D _targetRG;
 		[SerializeField] private float smoothSpeed = 0.125f;
 		[SerializeField] private float smoothChangeDuration = 1;
 		public Vector3 offset;
 		[Header("Camera bounds")]
 		public Vector3 minCamerabounds;
 		public Vector3 maxCamerabounds;
+        private bool _isFacingRight = true;
 
     public void FindAnObjectToFollow()
     {
         GameObject targetGO = GameObject.FindWithTag("Player");
 		if (targetGO != null)
-        target = targetGO.GetComponent<Transform>();
+        _target = targetGO.GetComponent<Transform>();
+        _targetRG = _target.gameObject.GetComponent<Rigidbody2D>();
     }
 
-	public void ChangeOffsetX(float targetX)
+    public void ChangeOffsetX(float targetX)
 	{
         SmoothOffsetChangeXAsync(targetX, smoothChangeDuration).Forget();
     }
@@ -50,7 +53,7 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
 	{
-		Vector3 desiredPosition = target.localPosition + offset;
+		Vector3 desiredPosition = _target.localPosition + offset;
 		var localPosition = transform.localPosition;
 		Vector3 smoothedPosition = Vector3.Lerp(localPosition, desiredPosition, smoothSpeed);
 		localPosition = smoothedPosition;
@@ -61,5 +64,18 @@ public class CameraFollow : MonoBehaviour
 			Mathf.Clamp(localPosition.z, minCamerabounds.z, maxCamerabounds.z)
 		);
 		transform.localPosition = localPosition;
-	}
+        if (_targetRG.velocity != null)
+        {
+            if (_targetRG.velocity.x > 0.5f && !_isFacingRight)
+            {
+                _isFacingRight = true;
+                ChangeOffsetX(10);
+            }
+            else if (_targetRG.velocity.x < -0.5f && _isFacingRight)
+            {
+                _isFacingRight = false;
+                ChangeOffsetX(-10);
+            }
+        }
+    }
 }
