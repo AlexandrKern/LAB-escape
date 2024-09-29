@@ -25,14 +25,32 @@ public class StateMachine
     public StateMachine(Character context, FormType defaultState)
     {
         _context = context;
-        _states.Add(FormType.Base, new BaseForm(_context));
-        _states.Add(FormType.Anthropomorphic, new AnthropomorphicForm(_context));
-        _states.Add(FormType.Hammer, new HammerForm(_context));
-        _states.Add(FormType.Burglar, new BurglarForm(_context));
-        _states.Add(FormType.Mirror, new MirrorForm(_context));
-        _states.Add(FormType.Mimicry, new MimicryForm(_context));
+        AddStates();
         EnterState(defaultState);
     }
+
+    public void UpdateStatesCollection()
+    {
+        _states.Clear();
+        AddStates();
+    }
+
+    private void AddStates()
+    {
+        _states.Add(FormType.Base, new BaseForm(_context));
+
+        if (Data.IsAnthropomorphicFormAvailable)
+            _states.Add(FormType.Anthropomorphic, new AnthropomorphicForm(_context));
+        if (Data.IsHammerFormAvailable)
+            _states.Add(FormType.Hammer, new HammerForm(_context));
+        if (Data.IsBurglarFormAvailable)
+            _states.Add(FormType.Burglar, new BurglarForm(_context));
+        if (Data.IsMirrorFormAvailable)
+            _states.Add(FormType.Mirror, new MirrorForm(_context));
+        if (Data.IsMimicryFormAvailable)
+            _states.Add(FormType.Mimicry, new MimicryForm(_context));
+    }
+
 
     public void Update()
     {
@@ -59,7 +77,11 @@ public class StateMachine
             }
             _currentState.OnStateExit();
         }
-        _currentState = _states[form];
-        _currentState.OnStateEnter();
+
+        if (_states.TryGetValue(form, out StateBase nextState))
+        {
+            _currentState = _states[form];
+            _currentState.OnStateEnter();
+        }
     }
 }

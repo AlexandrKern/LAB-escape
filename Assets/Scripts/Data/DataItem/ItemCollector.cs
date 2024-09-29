@@ -13,6 +13,13 @@ public class ItemCollector : MonoBehaviour
             if (itemController != null)
             {
                 itemController.item.isPickedUp = true;
+                
+                if(itemController.item.itemName == "Hammer skill")
+                {
+                    Data.IsHammerFormAvailable = true;
+                    gameObject.GetComponent<Character>().UpdateStates();
+                }
+
                 DataItem.AddItem(itemController.item);
                 Destroy(collision.gameObject);
             }

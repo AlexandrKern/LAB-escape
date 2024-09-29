@@ -62,10 +62,16 @@ public class Character : MonoBehaviour
         hintController = GetComponent<HintController>();
     }
 
-    //void Update()
-    //{
-    //    StateMachineUpdater();
-    //}
+    private void Start()
+    {
+        UpdateStates();
+        Debug.Log(Data.IsHammerFormAvailable);
+    }
+
+    public void UpdateStates()
+    {
+        _stateMachine.UpdateStatesCollection();
+    }
 
     public void StateMachineUpdater()
     {

@@ -19,8 +19,6 @@ public class PlayerSpawnLocations : MonoBehaviour
     public void SpawnAtLocation(int pointNumber)
     {
         if (swarmPrefab != null)
-        Instantiate(swarmPrefab, spawnPoints[pointNumber].position, Quaternion.identity);
-
-
+        Instantiate(swarmPrefab, new Vector3(spawnPoints[pointNumber].position.x + 2, spawnPoints[pointNumber].position.y, spawnPoints[pointNumber].position.z), Quaternion.identity);
     }
 }

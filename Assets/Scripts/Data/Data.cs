@@ -37,7 +37,7 @@ public static class Data
         set => _checkpointNumber = Mathf.Max(0, value);
     }
 
-    public static bool IsHumanFormAvailable
+    public static bool IsAnthropomorphicFormAvailable
     {
         get => _isHumanFormAvailable;
         set => _isHumanFormAvailable = value;
@@ -49,13 +49,13 @@ public static class Data
         set => _isHammerFormAvailable = value;
     }
 
-    public static bool IsBreakerFormAvailable
+    public static bool IsBurglarFormAvailable
     {
         get => _isBreakerFormAvailable;
         set => _isBreakerFormAvailable = value;
     }
 
-    public static bool IsMimicFormAvailable
+    public static bool IsMimicryFormAvailable
     {
         get => _isMimicFormAvailable;
         set => _isMimicFormAvailable = value;
@@ -100,10 +100,10 @@ public static class Data
             HP = dataContainer.HP;
             FullHP = dataContainer.FullHP;
             CheckpointNumber = dataContainer.CheckpointNumber;
-            IsHumanFormAvailable = dataContainer.IsHumanFormAvailable;
+            IsAnthropomorphicFormAvailable = dataContainer.IsHumanFormAvailable;
             IsHammerFormAvailable = dataContainer.IsHammerFormAvailable;
-            IsBreakerFormAvailable = dataContainer.IsBreakerFormAvailable;
-            IsMimicFormAvailable = dataContainer.IsMimicFormAvailable;
+            IsBurglarFormAvailable = dataContainer.IsBreakerFormAvailable;
+            IsMimicryFormAvailable = dataContainer.IsMimicFormAvailable;
             IsMirrorFormAvailable = dataContainer.IsMirrorFormAvailable;
         }
         else
