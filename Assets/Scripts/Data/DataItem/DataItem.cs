@@ -30,9 +30,9 @@ public static class DataItem
     /// <param name="item">Предмет</param>
     public static void AddItem(Item item)
     {
-        if (!items.ContainsKey(item.name))
+        if (!items.ContainsKey(item.itemName))
         {
-            items.Add(item.name, item);
+            items.Add(item.itemName, item);
         }
     }
     /// <summary>
