@@ -10,6 +10,7 @@ public class EntryPoint : MonoBehaviour
         // по необходимости раскомментировать чтобы прогресс загружался
         //DataTerminals.LoadData();
         //Data.LoadData();
+        DataItem.LoadData();
     }
 
     private void Start()

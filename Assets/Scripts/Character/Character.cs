@@ -18,6 +18,8 @@ public class Character : MonoBehaviour
     public PunchController punchController;
     [HideInInspector]
     public SwarmInputHandler inputHandler;
+    [HideInInspector]
+    public HintController hintController;
 
     public float InputHorizontal 
     {
@@ -57,6 +59,7 @@ public class Character : MonoBehaviour
         _stateMachine = new StateMachine(this, FormType.Base);
         punchController = GetComponent<PunchController>();
         inputHandler = GetComponent<SwarmInputHandler>();
+        hintController = GetComponent<HintController>();
     }
 
     //void Update()

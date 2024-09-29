@@ -29,6 +29,7 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
             // и только после отхила идёт автоматическое сохранение прогресса, а также теряется 1 частица из облака (из ТЗ)x
         }
         Data.SaveData();
+        DataItem.SaveData();
         StepTwo();
     }
 

@@ -10,4 +10,9 @@ public class HammerForm : StateBase
     {
         _context.punchController.Punch();
     }
+
+    public override void EInteract()
+    {
+        _context.hintController.HintTakeTheFormOfSwarm();
+    }
 }
