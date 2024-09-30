@@ -5,20 +5,31 @@ using UnityEngine;
 public class PlayerSpawnLocations : MonoBehaviour
 {
     /// <summary>
-    /// Сюда помещаем все терминалы и точки спавна на карте. По этим трансформам будем спавнить персонажа.
+    /// Г‘ГѕГ¤Г  ГЇГ®Г¬ГҐГ№Г ГҐГ¬ ГўГ±ГҐ ГІГҐГ°Г¬ГЁГ­Г Г«Г» ГЁ ГІГ®Г·ГЄГЁ Г±ГЇГ ГўГ­Г  Г­Г  ГЄГ Г°ГІГҐ. ГЏГ® ГЅГІГЁГ¬ ГІГ°Г Г­Г±ГґГ®Г°Г¬Г Г¬ ГЎГіГ¤ГҐГ¬ Г±ГЇГ ГўГ­ГЁГІГј ГЇГҐГ°Г±Г®Г­Г Г¦Г .
     /// </summary>
 
     [SerializeField] GameObject swarmPrefab;
     [SerializeField] Transform[] spawnPoints;
 
-    private void Start()
+    [HideInInspector] public Transform _transformPlayer;
+    private void Awake()
     {
         SpawnAtLocation(Data.CheckpointNumber);
     }
 
+    //private void Start()
+    //{
+    //    SpawnAtLocation(Data.CheckpointNumber);
+    //}
+
     public void SpawnAtLocation(int pointNumber)
     {
         if (swarmPrefab != null)
-        Instantiate(swarmPrefab, new Vector3(spawnPoints[pointNumber].position.x + 2, spawnPoints[pointNumber].position.y, spawnPoints[pointNumber].position.z), Quaternion.identity);
+
+        {
+             GameObject player =  Instantiate(swarmPrefab, spawnPoints[pointNumber].position, Quaternion.identity);
+            _transformPlayer = player.transform;
+        }
+         
     }
 }

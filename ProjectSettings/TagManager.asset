@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - SoundEmitter
   layers:
   - Default
   - TransparentFX
@@ -12,11 +13,11 @@ TagManager:
   - PlatformEffector
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - NPC
+  - SoundEmitter
+  - Item
+  - Shelter
   - 
   - 
   - 

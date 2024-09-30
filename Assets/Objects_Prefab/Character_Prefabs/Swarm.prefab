@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 2815640248114893011}
   - component: {fileID: 6484394009318243568}
   - component: {fileID: 4945075965996823529}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Swarm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -144,6 +144,7 @@ Transform:
   - {fileID: 36009946861925460}
   - {fileID: 3374627494552592575}
   - {fileID: 8316436753782117009}
+  - {fileID: 8252458594821725070}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2610744636782158542
@@ -357,6 +358,88 @@ MonoBehaviour:
   hintText: {fileID: 560324281826478724}
   takeTheFormOfSwarmHint: "\u041F\u0440\u0438\u043C\u0438\u0442\u0435 \u0444\u043E\u0440\u043C\u0443
     \u0440\u043E\u044F \u0434\u043B\u044F \u0432\u0437\u0430\u0438\u043C\u043E\u0434\u0435\u0439\u0441\u0442\u0438\u044F"
+--- !u!1 &1630295297168983371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8252458594821725070}
+  - component: {fileID: 1302425957001433890}
+  - component: {fileID: 9020946211616537722}
+  m_Layer: 8
+  m_Name: SoundEmitter
+  m_TagString: SoundEmitter
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8252458594821725070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630295297168983371}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2862756029410000722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1302425957001433890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630295297168983371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c67368b2f21e834bbe9117501aada03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxSoundRadius: 20
+  _soundVolume: 0.5
+--- !u!58 &9020946211616537722
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630295297168983371}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &2127259607487454424
 GameObject:
   m_ObjectHideFlags: 0
