@@ -7,7 +7,7 @@ public class ItemController : MonoBehaviour
 {
     public Item item;
 
-    private void Awake()
+    private void Start()
     {
         Item currentItem = DataItem.GetItem(item.itemName);
         if (currentItem != null)
