@@ -268,9 +268,9 @@ MonoBehaviour:
   - Key: 49
     Form: 0
   - Key: 50
-    Form: 1
-  - Key: 51
     Form: 2
+  - Key: 51
+    Form: 1
   - Key: 52
     Form: 3
   - Key: 53

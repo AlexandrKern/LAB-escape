@@ -8,9 +8,10 @@ public class EntryPoint : MonoBehaviour
     {
         // временный код пока нет стартрового меню
         // по необходимости раскомментировать чтобы прогресс загружался
-        //DataTerminals.LoadData();
-        //Data.LoadData();
+        DataTerminals.LoadData();
+        Data.LoadData();
         DataItem.LoadData();
+        Debug.Log(Data.IsHammerFormAvailable);
     }
 
     private void Start()

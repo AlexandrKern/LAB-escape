@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerSpawnLocations : MonoBehaviour
 {
     /// <summary>
-    /// Сюда помещаем все терминалы и точки спавна на карте. По этим трансформам будем спавнить персонажа.
+    /// Г‘ГѕГ¤Г  ГЇГ®Г¬ГҐГ№Г ГҐГ¬ ГўГ±ГҐ ГІГҐГ°Г¬ГЁГ­Г Г«Г» ГЁ ГІГ®Г·ГЄГЁ Г±ГЇГ ГўГ­Г  Г­Г  ГЄГ Г°ГІГҐ. ГЏГ® ГЅГІГЁГ¬ ГІГ°Г Г­Г±ГґГ®Г°Г¬Г Г¬ ГЎГіГ¤ГҐГ¬ Г±ГЇГ ГўГ­ГЁГІГј ГЇГҐГ°Г±Г®Г­Г Г¦Г .
     /// </summary>
 
     [SerializeField] GameObject swarmPrefab;
@@ -25,6 +25,7 @@ public class PlayerSpawnLocations : MonoBehaviour
     public void SpawnAtLocation(int pointNumber)
     {
         if (swarmPrefab != null)
+
         {
              GameObject player =  Instantiate(swarmPrefab, spawnPoints[pointNumber].position, Quaternion.identity);
             _transformPlayer = player.transform;
