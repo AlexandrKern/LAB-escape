@@ -17,6 +17,12 @@ public class MoveController : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
 
+    #region SoundEmitter
+    public float CurrentSpeed => _rigidbody.velocity.magnitude;
+    public float SoundSpeed => HorizontalSpeed;
+    #endregion
+
+
     CameraFollow _cameraFollow;
 
     private float _inputHorizontal = 0f;
