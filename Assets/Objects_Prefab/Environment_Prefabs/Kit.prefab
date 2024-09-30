@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4670289668094825697}
   - component: {fileID: 4183044836930165138}
   - component: {fileID: 5839065156112466286}
-  - component: {fileID: 3162083614242237620}
-  m_Layer: 0
+  - component: {fileID: 2676219503202573827}
+  m_Layer: 9
   m_Name: Kit
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 80a6f2a85e3f2d1468c8a86629d6b9ee, type: 2}
---- !u!61 &3162083614242237620
+--- !u!61 &2676219503202573827
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

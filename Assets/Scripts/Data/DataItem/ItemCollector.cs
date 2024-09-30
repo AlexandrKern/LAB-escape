@@ -19,6 +19,7 @@ public class ItemCollector : MonoBehaviour
                     Data.IsHammerFormAvailable = true;
                     gameObject.GetComponent<Character>().UpdateStates();
                 }
+                Debug.Log("Подобрал предмет  " + gameObject.name);
 
                 DataItem.AddItem(itemController.item);
                 Destroy(collision.gameObject);

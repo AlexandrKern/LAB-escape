@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class PlayerSpawnLocations : MonoBehaviour
 {
-    /// <summary>
-    /// Ñþäà ïîìåùàåì âñå òåðìèíàëû è òî÷êè ñïàâíà íà êàðòå. Ïî ýòèì òðàíñôîðìàì áóäåì ñïàâíèòü ïåðñîíàæà.
-    /// </summary>
+   
 
     [SerializeField] GameObject swarmPrefab;
     [SerializeField] Transform[] spawnPoints;
