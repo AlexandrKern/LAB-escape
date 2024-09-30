@@ -7,13 +7,16 @@ public class ItemController : MonoBehaviour
 {
     public Item item;
 
-    private void Start()
+    private void Awake()
     {
-        DataItem.GetItem(item.itemName);
-        Debug.Log($"{item.itemName}, {item.isPickedUp}");
-        if (item.isPickedUp)
+        Item currentItem = DataItem.GetItem(item.itemName);
+        if (currentItem != null)
         {
-            Destroy(gameObject);
+            item = currentItem;
+            if (item.isPickedUp)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
