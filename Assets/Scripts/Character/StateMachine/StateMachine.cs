@@ -39,15 +39,15 @@ public class StateMachine
     {
         _states.Add(FormType.Base, new BaseForm(_context));
 
-        //if (Data.IsAnthropomorphicFormAvailable)
+        if (Data.IsAnthropomorphicFormAvailable)
             _states.Add(FormType.Anthropomorphic, new AnthropomorphicForm(_context));
-        //if (Data.IsHammerFormAvailable)
+        if (Data.IsHammerFormAvailable)
             _states.Add(FormType.Hammer, new HammerForm(_context));
-        //if (Data.IsBurglarFormAvailable)
+        if (Data.IsBurglarFormAvailable)
             _states.Add(FormType.Burglar, new BurglarForm(_context));
-        //if (Data.IsMirrorFormAvailable)
+        if (Data.IsMirrorFormAvailable)
             _states.Add(FormType.Mirror, new MirrorForm(_context));
-        //if (Data.IsMimicryFormAvailable)
+        if (Data.IsMimicryFormAvailable)
             _states.Add(FormType.Mimicry, new MimicryForm(_context));
     }
 
@@ -83,5 +83,10 @@ public class StateMachine
             _currentState = _states[form];
             _currentState.OnStateEnter();
         }
+    }
+
+    public FormType GetForm()
+    {
+       return _currentState.StateForm;
     }
 }

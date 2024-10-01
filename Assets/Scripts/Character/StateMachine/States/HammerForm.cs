@@ -13,6 +13,6 @@ public class HammerForm : StateBase
 
     public override void EInteract()
     {
-        _context.hintController.HintTakeTheFormOfSwarm();
+        _context.interactController.Interact<IInteractableTerminal>();
     }
 }

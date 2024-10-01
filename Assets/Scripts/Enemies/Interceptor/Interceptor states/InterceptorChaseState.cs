@@ -14,7 +14,7 @@ public class InterceptorChaseState : IEnemyState
     {
         _speed = _interceptor.movement.speed;
         _interceptor.movement.speed = _interceptor.movement.chaseSpeed;
-        Debug.Log("Начал преследование");
+        //Debug.Log("Начал преследование");
     }
 
     public void Execute()
@@ -34,7 +34,7 @@ public class InterceptorChaseState : IEnemyState
     public void Exit()
     {
         _interceptor.movement.speed = _speed;
-        Debug.Log("Закончил преследование");
+        //Debug.Log("Закончил преследование");
     }
 
     private void ChasePlayer()

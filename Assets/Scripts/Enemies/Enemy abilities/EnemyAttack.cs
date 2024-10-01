@@ -6,7 +6,7 @@ public class EnemyAttack : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Враг атакует");
+        //Debug.Log("Враг атакует");
     }
 
     private void OnDrawGizmos()

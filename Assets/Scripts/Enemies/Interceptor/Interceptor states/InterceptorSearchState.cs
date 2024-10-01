@@ -16,13 +16,13 @@ public class InterceptorSearchState : IEnemyState
         _interceptor.movement.camePlaceOfSearch = false;
         _searchTime = 0;
         _detectionTimer = 0;
-        Debug.Log("Начал поиск");
+        //Debug.Log("Начал поиск");
     }
 
     public void Execute()
     {
         SearchPlayer();
-        Debug.Log(_interceptor.movement.camePlaceOfSearch);
+        //Debug.Log(_interceptor.movement.camePlaceOfSearch);
         if (_interceptor.eye.DetectPlayer())
         {
             _detectionTimer += Time.deltaTime;
@@ -44,7 +44,7 @@ public class InterceptorSearchState : IEnemyState
 
     public void Exit()
     {
-        Debug.Log("Закончил поиск");
+        //Debug.Log("Закончил поиск");
     }
 
     public void SearchPlayer()

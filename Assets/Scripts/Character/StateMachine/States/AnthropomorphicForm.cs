@@ -10,6 +10,7 @@ public class AnthropomorphicForm : StateBase
 
     public override async void EInteract()
     {
+        _context.interactController.Interact<IInteractableTerminal>();
         _context.inputHandler.IsEnableInput = false;
         await _context.interactController.Interact<Ladder>();
         _context.inputHandler.IsEnableInput = true;

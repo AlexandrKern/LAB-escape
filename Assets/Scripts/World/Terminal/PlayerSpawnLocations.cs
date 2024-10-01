@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerSpawnLocations : MonoBehaviour
 {
-   
-
     [SerializeField] GameObject swarmPrefab;
     [SerializeField] Transform[] spawnPoints;
 
@@ -23,9 +21,10 @@ public class PlayerSpawnLocations : MonoBehaviour
     public void SpawnAtLocation(int pointNumber)
     {
         if (swarmPrefab != null)
-
         {
-             GameObject player =  Instantiate(swarmPrefab, spawnPoints[pointNumber].position, Quaternion.identity);
+            // немного сдвигаем спавн вправо, чтобы не спавниться на терминале
+            Vector3 spawnPos = new Vector3(spawnPoints[pointNumber].position.x, spawnPoints[pointNumber].position.y, spawnPoints[pointNumber].position.z);
+            GameObject player =  Instantiate(swarmPrefab, new Vector3(spawnPoints[pointNumber].position.x + 2, spawnPoints[pointNumber].position.y, spawnPoints[pointNumber].position.z), Quaternion.identity);
             _transformPlayer = player.transform;
         }
          

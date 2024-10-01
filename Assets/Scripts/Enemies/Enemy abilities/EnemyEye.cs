@@ -64,7 +64,7 @@ public class EnemyEye : MonoBehaviour
     public void ChangeDirectionView(bool movingRight)
     {
         viewDirection = movingRight ? 0 : 180f; 
-        Debug.Log(movingRight ? "Направо" : "Налево");
+        //Debug.Log(movingRight ? "Направо" : "Налево");
     }
 
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)

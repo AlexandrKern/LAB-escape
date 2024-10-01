@@ -11,7 +11,6 @@ public class EntryPoint : MonoBehaviour
         DataTerminals.LoadData();
         Data.LoadData();
         DataItem.LoadData();
-        Debug.Log(Data.IsHammerFormAvailable);
     }
 
     private void Start()

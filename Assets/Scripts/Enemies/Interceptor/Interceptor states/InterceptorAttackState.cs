@@ -11,7 +11,7 @@ public class InterceptorAttackState : IEnemyState
 
     public void Enter()
     {
-        Debug.Log("Начал атаку");
+        //Debug.Log("Начал атаку");
     }
 
     public void Execute()
@@ -26,7 +26,7 @@ public class InterceptorAttackState : IEnemyState
 
     public void Exit()
     {
-        Debug.Log("Закончил атаку");
+        //Debug.Log("Закончил атаку");
     }
 
     private void AttackPlayer()

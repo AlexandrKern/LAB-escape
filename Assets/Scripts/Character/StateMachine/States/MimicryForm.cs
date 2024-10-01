@@ -7,5 +7,6 @@ public class MimicryForm : StateBase
 
     public MimicryForm(Character context) : base(context)
     {
+        _context.interactController.Interact<IInteractableTerminal>();
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 [RequireComponent(typeof(Swarm))]
 [RequireComponent(typeof(MoveController))]
@@ -39,6 +40,7 @@ public class Character : MonoBehaviour
     public void QInteract()
     {
         _stateMachine.QInteract();
+        hintController.CleanTheHint();
     }
 
     public void EInteract()
@@ -65,12 +67,16 @@ public class Character : MonoBehaviour
     private void Start()
     {
         UpdateStates();
-        Debug.Log(Data.IsHammerFormAvailable);
     }
 
     public void UpdateStates()
     {
         _stateMachine.UpdateStatesCollection();
+    }
+
+    public FormType GetCharacterForm()
+    {
+        return _stateMachine.GetForm();
     }
 
     public void StateMachineUpdater()

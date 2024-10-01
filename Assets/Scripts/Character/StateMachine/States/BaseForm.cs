@@ -11,7 +11,6 @@ public class BaseForm : StateBase
         _context.inputHandler.IsEnableInput = false;
         await _context.interactController.Interact<IInteractableObstacle>();
         _context.inputHandler.IsEnableInput = true;
-
     }
 
     public override void EInteract()

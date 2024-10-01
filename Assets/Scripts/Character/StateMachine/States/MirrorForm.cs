@@ -4,5 +4,6 @@ public class MirrorForm : StateBase
 
     public MirrorForm(Character context) : base(context)
     {
+        _context.interactController.Interact<IInteractableTerminal>();
     }
 }

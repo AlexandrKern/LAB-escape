@@ -1,15 +1,25 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 {
     [SerializeField] int terminalNumber; // нумеруем таки с единицы
     [SerializeField] GameObject terminalMenu;
-
+    Character character;
     public async UniTask Interact()
     {
-        Debug.Log("Terminal Interact");
-        StepOne();
+        if(character == null)
+        character = FindObjectOfType<Character>();
+        if (character.GetCharacterForm() == FormType.Base)
+        {
+            Debug.Log("Terminal Interact");
+            StepOne();
+        }
+        else
+        {
+            character.gameObject.GetComponent<HintController>().HintTakeTheFormOfSwarm();
+        }
     }
 
     private void StepOne()

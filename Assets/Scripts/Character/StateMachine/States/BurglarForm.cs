@@ -8,5 +8,6 @@ public class BurglarForm : StateBase
 
     public BurglarForm(Character context) : base(context)
     {
+        _context.interactController.Interact<IInteractableTerminal>();
     }
 }

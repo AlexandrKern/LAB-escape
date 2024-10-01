@@ -15,7 +15,7 @@ public class InterceptorPatrolState : IEnemyState
     public void Enter()
     {
         _timer = 0;
-        Debug.Log("Начал патрулирование");
+        //Debug.Log("Начал патрулирование");
     }
 
     public void Execute()
@@ -42,7 +42,7 @@ public class InterceptorPatrolState : IEnemyState
 
     public void Exit()
     {
-        Debug.Log("Закончил патрулирование");
+        //Debug.Log("Закончил патрулирование");
     }
 
     private void Patrol()
