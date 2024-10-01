@@ -9,6 +9,10 @@ public class HintController : MonoBehaviour
     [SerializeField] string pressQForVent = "Нажмите Q чтобы пробраться по вентиляции";
     [SerializeField] string pressQForObstacle = "Нажмите Q для преодоления препятствия";
     [SerializeField] string hummerFormEnabled = "Открыта форма молота";
+    [SerializeField] string hummerHintPress2 = "Нажмите 2 для превращения в молот\nНажмите 1 для превращения в рой\nНажмите E, приняв форму роя,\nдля взаимодействия с терминалом";
+    [SerializeField] string hintCanBeCrushed = "Стеклянные и другие непрочные объекты\nможно разбить молотом";
+    [SerializeField] string columnCanBeCrushed = "Колонна не выглядит очень прочной";
+    [SerializeField] string realGame = "The real lab escape starts here";
 
     public void SetHintTextRotation(float value)
     {
@@ -22,34 +26,52 @@ public class HintController : MonoBehaviour
         hintText.DOFade(0, 0.5f);
     }
 
-    private void ShowHint(string hint)
+    private void ShowHint(string hint, float durationOfShow)
     {
         hintText.DOFade(0, 0);
         hintText.text = hint;
         hintText.DOFade(1, 0.5f).OnComplete(() =>
         {
-            DOVirtual.DelayedCall(3f, CleanTheHint);
+            DOVirtual.DelayedCall(durationOfShow, CleanTheHint);
         });
     }
 
     public void HintTakeTheFormOfSwarm()
     {
-        ShowHint(takeTheFormOfSwarmHint);
+        ShowHint(takeTheFormOfSwarmHint, 3);
     }
 
     public void HintPressQForObstacle()
     {
-        ShowHint(pressQForObstacle);
+        ShowHint(pressQForObstacle, 3);
     }
 
     public void HintPressQForVentilation()
     {
-        ShowHint(pressQForVent);
+        ShowHint(pressQForVent, 3);
     }
 
     public void HintHammerFormEnabled()
     {
-        ShowHint(hummerFormEnabled);
+        ShowHint(hummerFormEnabled, 3);
+    }
+    public void HintHammerPress2()
+    {
+        ShowHint(hummerHintPress2, 60);
+    }
+    public void HintCanBeCrushed()
+    {
+        ShowHint(hintCanBeCrushed, 5);
+    }
+
+    public void ColumnCanBeCrushed()
+    {
+        ShowHint(columnCanBeCrushed, 3);
+    }
+
+    public void RealGameStartHere()
+    {
+        ShowHint(realGame, 3);
     }
 
     private void OnDestroy()

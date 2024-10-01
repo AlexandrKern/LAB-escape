@@ -27,8 +27,11 @@ public class EnemyEars : MonoBehaviour
     {
         if (collision.CompareTag("SoundEmitter"))
         {
-            _hear = hear;
-            _lastPlayerPosition = collision.gameObject.GetComponentInParent<Transform>().position;
+            if(collision != null)
+            {
+                _hear = hear;
+                _lastPlayerPosition = collision.gameObject.GetComponentInParent<Transform>().position;
+            }
         }
     }
 }

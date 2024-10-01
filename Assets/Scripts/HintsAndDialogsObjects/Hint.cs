@@ -45,6 +45,22 @@ public class ColumnHint : MonoBehaviour
             {
                 collision.GetComponent<HintController>().HintHammerFormEnabled();
             }
+            else if (typeOfHint == TypeOfHint.hammerPress2)
+            {
+                collision.GetComponent<HintController>().HintHammerPress2();
+            }
+            else if (typeOfHint == TypeOfHint.canBeDestroyed)
+            {
+                collision.GetComponent<HintController>().HintCanBeCrushed();
+            }
+            else if (typeOfHint == TypeOfHint.columntNotStrong)
+            {
+                collision.GetComponent<HintController>().ColumnCanBeCrushed();
+            }
+            else if (typeOfHint == TypeOfHint.columntNotStrong)
+            {
+                collision.GetComponent<HintController>().RealGameStartHere();
+            }
         }
     }
 
@@ -63,6 +79,10 @@ public class ColumnHint : MonoBehaviour
     {
         columnHint,
         ventilationHint,
-        hammer
+        hammer,
+        hammerPress2,
+        canBeDestroyed,
+        columntNotStrong,
+        realGameStartHere
     }
 }
