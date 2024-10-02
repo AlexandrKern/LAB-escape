@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public partial class Swarm : MonoBehaviour
 {
     public const int PointCounts = 2000;
-    [SerializeReference][SerializeField] private List<SwarmFormBase> forms;
+    [SerializeReference][SerializeField] private List<SwarmFormBase> forms; // порядок форм в массиве должен соответствовать порядку форм в энаме FormType!
     [Space]
     [SerializeField, Range(100, 1000)] private int maxNumberOfUnits = 500;
     [SerializeField, Range(0, 1000)] private int minNumberOfUnits = 100;
@@ -143,6 +144,7 @@ public partial class Swarm : MonoBehaviour
 
     private void Start()
     {
+        DOTween.SetTweensCapacity(500, 50);
         _transform = transform;
         //GeneratePoints();
         _unitsRoot = new GameObject("Units").transform;
@@ -168,12 +170,41 @@ public partial class Swarm : MonoBehaviour
         }
     }
 
+    List <SpriteRenderer> beatles; 
+
     private void GenerateUnits()
     {
+        beatles = new List<SpriteRenderer>();
         for (int i = 0; i < maxNumberOfUnits; i++)
         {
             Transform ut = Instantiate(unitPrefab, forms[_currentFormIndex].GetDestenationPoints()[i].Transform.position, Quaternion.identity, _unitsRoot).transform;
+            SpriteRenderer uts = ut.GetComponent<SpriteRenderer>();
             _units.Add(new Unit(ut, forms[_currentFormIndex].GetDestenationPoints()[i],ut.GetComponent<SpriteRenderer>()));
+            beatles.Add(uts); 
+        }
+    }
+
+    private int lastIndexOfForm;
+
+
+    public void SwarmFade(int indexOfForm)
+    {
+        DOTween.Kill(this);
+        for (int i = 0; i < beatles.Count; i++)
+        {
+            beatles[i].GetComponent<SpriteRenderer>().DOFade(0, 1.5f);
+        }
+        lastIndexOfForm = indexOfForm;
+        forms[indexOfForm].GetComponent<SpriteRenderer>().DOFade(1, 1f).SetDelay(0.5f);
+    }
+
+    public void SwarmFadeBack()
+    {
+        DOTween.Kill(this);
+        forms[lastIndexOfForm].GetComponent<SpriteRenderer>().DOFade(0, 0f);
+        for (int i = 0; i < beatles.Count; i++)
+        {
+            beatles[i].GetComponent<SpriteRenderer>().DOFade(1, 0f);
         }
     }
 

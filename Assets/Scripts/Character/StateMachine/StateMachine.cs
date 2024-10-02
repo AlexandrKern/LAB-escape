@@ -39,10 +39,10 @@ public class StateMachine
     {
         _states.Add(FormType.Base, new BaseForm(_context));
 
+        //if (Data.IsHammerFormAvailable)
+            _states.Add(FormType.Hammer, new HammerForm(_context));
         if (Data.IsAnthropomorphicFormAvailable)
             _states.Add(FormType.Anthropomorphic, new AnthropomorphicForm(_context));
-        if (Data.IsHammerFormAvailable)
-            _states.Add(FormType.Hammer, new HammerForm(_context));
         if (Data.IsBurglarFormAvailable)
             _states.Add(FormType.Burglar, new BurglarForm(_context));
         if (Data.IsMirrorFormAvailable)

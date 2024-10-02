@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -50,9 +51,20 @@ public class Character : MonoBehaviour
 
     public void ChangeForm(FormType form)
     {
-        _stateMachine.EnterState(form);
+        Debug.Log(((int)form));
+
+        if((_stateMachine.GetForm() == FormType.Base) && ((int)form) != 0)
+        {
+            _stateMachine.EnterState(form);
+            swarm.SwarmFade(((int)form));
+        }
+        else
+        {
+            _stateMachine.EnterState(form);
+            swarm.SwarmFadeBack();
+        }
     }
-    
+
     void Awake()
     {
         swarm = GetComponent<Swarm>();
