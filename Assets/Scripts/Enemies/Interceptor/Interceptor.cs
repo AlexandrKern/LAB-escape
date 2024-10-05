@@ -1,6 +1,7 @@
+using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(EnemyHealth))]
 [RequireComponent(typeof(EnemyEars))]
 [RequireComponent(typeof(EnemyEye))]
 [RequireComponent(typeof(EnemyMovement))]
@@ -16,14 +17,19 @@ public class Interceptor : MonoBehaviour
     [HideInInspector] public EnemyEars ears;
     [HideInInspector] public EnemyMovement movement;
     [HideInInspector] public EnemyAttack attack;
+    [HideInInspector] public EnemyHealth health;
+
+    [SerializeField] private InterceptorStates state;
+    [HideInInspector] public bool isActiv = true;
 
     private void Start()
     {
+        health = GetComponent<EnemyHealth>();
         attack = GetComponent<EnemyAttack>();
         movement = GetComponent<EnemyMovement>();
         eye = GetComponent<EnemyEye>();
         ears = GetComponent<EnemyEars>();
-        ChangeState(new InterceptorPatrolState(this));
+        StartState(state);
     }
 
     private void Update()
@@ -45,12 +51,19 @@ public class Interceptor : MonoBehaviour
         currentState.Enter();
     }
 
-    // метод для первого показа
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void StartState(InterceptorStates state)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        switch (state)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            case InterceptorStates.WaitState:
+                ChangeState(new InterceptorWaitState(this));
+                isActiv = Data.IsHammerFormAvailable;
+                break;
+            case InterceptorStates.PatrolState:
+                ChangeState(new InterceptorPatrolState(this));
+                break;
+            default:
+                break;
         }
     }
 }

@@ -116,7 +116,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveTowardsTarget(Vector2 direction)
     {
-
+        direction.y = 0;
         _rb.AddForce(direction * chaseSpeed * Time.fixedDeltaTime, ForceMode2D.Impulse);
 
         if (direction.x > 0 != _movingRight)
