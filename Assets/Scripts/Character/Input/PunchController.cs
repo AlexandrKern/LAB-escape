@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PunchController : MonoBehaviour
@@ -15,9 +16,17 @@ public class PunchController : MonoBehaviour
     [SerializeField]
     private bool DebugCircle;
 
+    [SerializeField] HammerAnimatorController AnimatorController;
+
     public void Punch()
     {
-        //TODO: animation logic will be here
+        StartCoroutine(PunchCor());
+    }
+
+    private IEnumerator PunchCor()
+    {
+        AnimatorController.SetTriggerHitAttack();
+        yield return new WaitForSeconds(0.5f);
         Utils.ShakeCamera(CameraShakeTime, CameraShakeSpeed);
         CauseDamage();
     }
