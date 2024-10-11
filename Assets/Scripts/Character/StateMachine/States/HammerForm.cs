@@ -14,5 +14,7 @@ public class HammerForm : StateBase
     public override void EInteract()
     {
         _context.interactController.Interact<IInteractableTerminal>();
+
+        _context.punchController.JumpPunch();
     }
 }

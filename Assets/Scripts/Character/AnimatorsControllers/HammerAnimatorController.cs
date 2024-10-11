@@ -30,4 +30,9 @@ public class HammerAnimatorController : MonoBehaviour
     {
         punchController.PunchEvent();
     }
+
+    public void JumpPunchEvent()
+    {
+        punchController.JumpPunchEvent();
+    }
 }

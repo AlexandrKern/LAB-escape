@@ -18,12 +18,23 @@ public class PunchController : MonoBehaviour
 
     [SerializeField] HammerAnimatorController AnimatorController;
 
+    public void JumpPunch()
+    {
+        AnimatorController.SetTriggerJumpAttack();
+    }
+
     public void Punch()
     {
         AnimatorController.SetTriggerHitAttack();
     }
 
     public void PunchEvent()
+    {
+        Utils.ShakeCamera(CameraShakeTime, CameraShakeSpeed);
+        CauseDamage();
+    }
+
+    public void JumpPunchEvent()
     {
         Utils.ShakeCamera(CameraShakeTime, CameraShakeSpeed);
         CauseDamage();
