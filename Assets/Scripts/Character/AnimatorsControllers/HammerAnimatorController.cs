@@ -6,6 +6,7 @@ public class HammerAnimatorController : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Animator animator;
+    [SerializeField] PunchController punchController;
 
     private void FixedUpdate()
     {
@@ -23,5 +24,10 @@ public class HammerAnimatorController : MonoBehaviour
     public void SetTriggerJumpAttack()
     {
         animator.SetTrigger("AttackJump");
+    }
+
+    public void PunchEvent()
+    {
+        punchController.PunchEvent();
     }
 }

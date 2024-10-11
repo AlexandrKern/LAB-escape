@@ -20,13 +20,11 @@ public class PunchController : MonoBehaviour
 
     public void Punch()
     {
-        StartCoroutine(PunchCor());
+        AnimatorController.SetTriggerHitAttack();
     }
 
-    private IEnumerator PunchCor()
+    public void PunchEvent()
     {
-        AnimatorController.SetTriggerHitAttack();
-        yield return new WaitForSeconds(0.5f);
         Utils.ShakeCamera(CameraShakeTime, CameraShakeSpeed);
         CauseDamage();
     }
