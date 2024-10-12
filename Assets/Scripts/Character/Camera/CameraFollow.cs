@@ -14,6 +14,16 @@ public class CameraFollow : MonoBehaviour
 		public Vector3 maxCamerabounds;
         private bool _isFacingRight = true;
 
+    private void OnEnable()
+    {
+        PlayerSpawnLocations.characterSpawn.AddListener(FindAnObjectToFollow);
+    }
+
+    private void OnDisable()
+    {
+        PlayerSpawnLocations.characterSpawn.RemoveListener(FindAnObjectToFollow);
+    }
+
     public void FindAnObjectToFollow()
     {
         GameObject targetGO = GameObject.FindWithTag("Player");

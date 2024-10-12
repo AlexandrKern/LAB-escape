@@ -56,8 +56,6 @@ public class MoveController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _hintController = GetComponent<HintController>();
-        _cameraFollow = FindObjectOfType<CameraFollow>();
-        _cameraFollow.FindAnObjectToFollow(); // сообщаем камере что объект игрока создан
     }
 
     public void Jump()
