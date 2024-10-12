@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31db0d03c297ac24b9991da07a203433, type: 3}
   m_Name: Plot collectable 1
   m_EditorClassIdentifier: 
+  itemType: 2
   itemName: Plot Collectable 1
   description: Medical kit
   icon: {fileID: 21300000, guid: fa826316ed8864c4b9bf8355415adf14, type: 3}

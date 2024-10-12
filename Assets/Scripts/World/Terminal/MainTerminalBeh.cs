@@ -34,7 +34,7 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
         }
         else
         {
-            Data.HP = Data.FullHP; 
+            character.gameObject.GetComponent<CharacterHealth>().ResetHealth();
             // сначала происходит полное восстановление всех частиц (отхил, частицы текут из терминала к герою) (из ТЗ)
             // и только после отхила идёт автоматическое сохранение прогресса, а также теряется 1 частица из облака (из ТЗ)x
         }
