@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2815640248114893011}
   - component: {fileID: 6484394009318243568}
   - component: {fileID: 4945075965996823529}
+  - component: {fileID: 5577675138353676496}
   m_Layer: 6
   m_Name: Swarm
   m_TagString: Player
@@ -280,6 +281,26 @@ MonoBehaviour:
   columnCanBeCrushed: "\u041A\u043E\u043B\u043E\u043D\u043D\u0430 \u043D\u0435 \u0432\u044B\u0433\u043B\u044F\u0434\u0438\u0442
     \u043E\u0447\u0435\u043D\u044C \u043F\u0440\u043E\u0447\u043D\u043E\u0439"
   realGame: The real lab escape starts here
+--- !u!114 &5577675138353676496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502767266774403514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3d7a7e33c0e2e4a945a15934ed6c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 400
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  swarm: {fileID: 0}
 --- !u!1 &1630295297168983371
 GameObject:
   m_ObjectHideFlags: 0
