@@ -16,12 +16,12 @@ public class CameraFollow : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerSpawnLocations.characterSpawn.AddListener(FindAnObjectToFollow);
+        PlayerSpawnLocations.OnCharacterSpawn.AddListener(FindAnObjectToFollow);
     }
 
     private void OnDisable()
     {
-        PlayerSpawnLocations.characterSpawn.RemoveListener(FindAnObjectToFollow);
+        PlayerSpawnLocations.OnCharacterSpawn.RemoveListener(FindAnObjectToFollow);
     }
 
     public void FindAnObjectToFollow()

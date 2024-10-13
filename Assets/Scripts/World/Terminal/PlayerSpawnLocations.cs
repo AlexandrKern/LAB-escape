@@ -8,7 +8,7 @@ public class PlayerSpawnLocations : MonoBehaviour
     [SerializeField] GameObject swarmPrefab;
     [SerializeField] Transform[] spawnPoints;
     [HideInInspector] public Transform _transformPlayer;
-    public static UnityEvent characterSpawn = new UnityEvent();
+    public static UnityEvent OnCharacterSpawn = new UnityEvent();
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class PlayerSpawnLocations : MonoBehaviour
             Vector3 spawnPos = new Vector3(spawnPoints[pointNumber].position.x, spawnPoints[pointNumber].position.y, spawnPoints[pointNumber].position.z);
             GameObject player =  Instantiate(swarmPrefab, new Vector3(spawnPoints[pointNumber].position.x + 2, spawnPoints[pointNumber].position.y, spawnPoints[pointNumber].position.z), Quaternion.identity);
             _transformPlayer = player.transform;
-            characterSpawn.Invoke();
+            OnCharacterSpawn.Invoke();
         }   
     }
 }
