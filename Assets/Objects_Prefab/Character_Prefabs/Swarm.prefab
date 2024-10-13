@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3d7a7e33c0e2e4a945a15934ed6c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 400
+  _maxHealth: 400
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -809,6 +809,8 @@ GameObject:
   - component: {fileID: 4640057924769181015}
   - component: {fileID: 1560174354928608972}
   - component: {fileID: 2240233873578127776}
+  - component: {fileID: 4240142455837540036}
+  - component: {fileID: 578985102955582872}
   m_Layer: 0
   m_Name: T
   m_TagString: Untagged
@@ -932,6 +934,64 @@ MonoBehaviour:
   rb: {fileID: 4686832029146100282}
   animator: {fileID: 1560174354928608972}
   punchController: {fileID: 4084453745336623413}
+--- !u!61 &4240142455837540036
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507375522291003716}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0000003874302, y: 1.8799907}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.4999999, y: 0.00017598919}
+    oldSize: {x: 1.5, y: 3}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.2798419, y: 2.238963}
+  m_EdgeRadius: 0
+--- !u!114 &578985102955582872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507375522291003716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c554ac77f4f44845a58398c3c43cfc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 4787888262619556136}
 --- !u!1 &7401418619737871715
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,7 +1018,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7401418619737871715}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -51,6 +51,12 @@ public class Character : MonoBehaviour
 
     public void ChangeForm(FormType form)
     {
+        if (form != FormType.Base)
+            swarm.EnableFormObj((int)form); // включает объект формы, это нужно чтобы постоянно не держать их коллайдеры в поиске коллизии
+                                            // и работы класса BottleneckDetector
+        else
+            swarm.DisableForms(); // если возвращаемся в рой, то выключаем объекты других форм
+        
         _stateMachine.EnterState(form);
     }
 

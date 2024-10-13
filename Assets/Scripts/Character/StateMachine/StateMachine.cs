@@ -69,7 +69,7 @@ public class StateMachine
 
     public void EnterState(FormType form)
     {
-        if(_currentState != null)
+        if(_currentState != null && BottleneckDetector.CanWeChangeTheForm)
         {
             if(_currentState.StateForm == form)
             {

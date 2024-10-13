@@ -151,6 +151,7 @@ public partial class Swarm : MonoBehaviour
         _unitsRoot = new GameObject("Units").transform;
         GenerateUnits();
         Instance = this;
+        DisableForms();
     }
 
     //private void Update()
@@ -252,5 +253,17 @@ public partial class Swarm : MonoBehaviour
             }
         }
     }
-  
+
+    public void EnableFormObj(int index)
+    {
+        forms[index].gameObject.SetActive(true);
+    }
+
+    public void DisableForms()
+    {
+        for (int i = 1; i < forms.Count; i++) 
+        {
+            forms[i].gameObject.SetActive(false); // выключаем все объекты форм кроме роя 
+        }
+    }
 }
