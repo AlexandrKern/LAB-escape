@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -189,22 +190,26 @@ public partial class Swarm : MonoBehaviour
 
     public void SwarmFade(int indexOfForm)
     {
-        DOTween.Kill(this);
         for (int i = 0; i < beatles.Count; i++)
         {
-            beatles[i].GetComponent<SpriteRenderer>().DOFade(0, 1.5f);
+            DOTween.Kill(beatles[i]);
+            beatles[i].DOFade(0, 1.5f);
         }
         lastIndexOfForm = indexOfForm;
-        forms[indexOfForm].GetComponent<SpriteRenderer>().DOFade(1, 1f).SetDelay(0.5f);
+        var tmp = forms[indexOfForm].GetComponent<SpriteRenderer>();
+        DOTween.Kill(tmp);
+        tmp.DOFade(1, 1f).SetDelay(0.5f);
     }
 
     public void SwarmFadeBack()
     {
-        DOTween.Kill(this);
-        forms[lastIndexOfForm].GetComponent<SpriteRenderer>().DOFade(0, 0f);
+        var tmp = forms[lastIndexOfForm].GetComponent<SpriteRenderer>();
+        DOTween.Kill(tmp);
+        tmp.DOFade(0, 0f);
         for (int i = 0; i < beatles.Count; i++)
         {
-            beatles[i].GetComponent<SpriteRenderer>().DOFade(1, 0f);
+            DOTween.Kill(beatles[i]);
+            beatles[i].DOFade(1, 0f);
         }
     }
 

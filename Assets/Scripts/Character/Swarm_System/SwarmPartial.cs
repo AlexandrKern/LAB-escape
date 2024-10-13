@@ -15,5 +15,18 @@ public partial class Swarm : MonoBehaviour
             throw new System.Exception($"Swarm: Form \"{form}\" not found.");
         }
         SetFormIndex(index);
+
+        if(beatles != null)
+        {
+            if(form == FormType.Base)
+            {
+                SwarmFadeBack();
+            }
+            else
+            {
+                SwarmFadeBack();
+                SwarmFade(index);
+            }
+        }
     }
 }

@@ -51,18 +51,7 @@ public class Character : MonoBehaviour
 
     public void ChangeForm(FormType form)
     {
-        Debug.Log(((int)form));
-
-        if((_stateMachine.GetForm() == FormType.Base) && ((int)form) != 0)
-        {
-            _stateMachine.EnterState(form);
-            swarm.SwarmFade(((int)form));
-        }
-        else
-        {
-            _stateMachine.EnterState(form);
-            swarm.SwarmFadeBack();
-        }
+        _stateMachine.EnterState(form);
     }
 
     void Awake()
