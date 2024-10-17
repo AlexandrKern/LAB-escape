@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] private LaserMove laserMove;
+
     public float searchTime = 10;
     public float idleTimer = 3;
     public float speed = 3f;
@@ -96,7 +98,7 @@ public class EnemyMovement : MonoBehaviour
     public void MoveTo(Vector2 target, EnemyEye eye)
     {
         _isReturnPatrol = true;
-
+        laserMove.LoocAtPlayer(transformPlayer);
         Vector2 direction = (target - (Vector2)transform.position).normalized;
         float distanceToTarget = Vector2.Distance(transform.position, target);
 
@@ -154,6 +156,10 @@ public class EnemyMovement : MonoBehaviour
     {
         _movingRight = !_movingRight;
         _rb.velocity = Vector2.zero;
+
+        laserMove.SetLaserPos(_movingRight);
+
+        Debug.Log(_movingRight);
 
         eye.ChangeDirectionView(_movingRight);
     }
