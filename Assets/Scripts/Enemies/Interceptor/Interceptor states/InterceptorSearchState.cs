@@ -35,7 +35,7 @@ public class InterceptorSearchState : IEnemyState
         else if (_interceptor.movement.camePlaceOfSearch)
         {
             _searchTime += Time.deltaTime;
-            Debug.Log("Время поиска " + _searchTime);
+            //Debug.Log("Время поиска " + _searchTime);
             if (_searchTime >= _interceptor.movement.searchTime)
             {
                 _interceptor.ChangeState(new InterceptorPatrolState(_interceptor));
@@ -44,7 +44,7 @@ public class InterceptorSearchState : IEnemyState
         else
         {
             _maxSearchTime += Time.deltaTime;
-            Debug.Log("Максимальное время поиска " + _maxSearchTime);
+            //Debug.Log("Максимальное время поиска " + _maxSearchTime);
             if (_maxSearchTime >= 20)
             {
                 _interceptor.ChangeState(new InterceptorPatrolState(_interceptor));

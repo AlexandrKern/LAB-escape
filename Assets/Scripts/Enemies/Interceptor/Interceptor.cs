@@ -19,6 +19,7 @@ public class Interceptor : MonoBehaviour
     [HideInInspector] public EnemyAttack attack;
     [HideInInspector] public EnemyHealth health;
 
+    public LaserMove laserMove;
     [SerializeField] private InterceptorStates state;
     [HideInInspector] public bool isActiv = true;
 

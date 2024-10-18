@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LaserMove : MonoBehaviour
 {
-    private Laser laser;
+    [HideInInspector] public Laser laser;
 
     [SerializeField] private Transform endLaser;
 
@@ -10,9 +10,16 @@ public class LaserMove : MonoBehaviour
 
     private bool _isLoocAtPlayer;
 
+    public Transform laserTransform;
+
+    private PlayerSpawnLocations _player;
+   [HideInInspector] public Transform transformPlayer;
 
     private void Start()
     {
+        _player = GameObject.Find("CheckPoints").GetComponent<PlayerSpawnLocations>();
+        transformPlayer = _player._transformPlayer.transform;
+        laserTransform = transform;
         laser = GetComponent<Laser>();
         _isLoocAtPlayer = false;
         _laserEndStartPosition = endLaser.localPosition;
@@ -25,6 +32,7 @@ public class LaserMove : MonoBehaviour
             endLaser.localPosition = _laserEndStartPosition;
             _isLoocAtPlayer = false;
             laser.playerVisible = false;
+            
         }
 
         Vector3 vec = endLaser.localPosition;
@@ -39,10 +47,16 @@ public class LaserMove : MonoBehaviour
         }
     }
 
-    public void LoocAtPlayer(Transform direction)
+    public void LoocAtPlayer()
     {
         laser.playerVisible = true;
-        endLaser.position = direction.position;
+        endLaser.position = transformPlayer.position;
         _isLoocAtPlayer = true;
+    }
+
+    public void SetLaserDistance()
+    {
+        float dictance = Vector3.Distance(laserTransform.position, transformPlayer.position);
+        laser.maxDistance = dictance;
     }
 }
