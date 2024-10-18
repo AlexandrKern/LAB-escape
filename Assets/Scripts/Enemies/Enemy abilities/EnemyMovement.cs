@@ -98,7 +98,7 @@ public class EnemyMovement : MonoBehaviour
     public void MoveTo(Vector2 target, EnemyEye eye)
     {
         _isReturnPatrol = true;
-        laserMove.LoocAtPlayer(transformPlayer);
+        laserMove.LoocAtPlayer();
         Vector2 direction = (target - (Vector2)transform.position).normalized;
         float distanceToTarget = Vector2.Distance(transform.position, target);
 
@@ -158,8 +158,6 @@ public class EnemyMovement : MonoBehaviour
         _rb.velocity = Vector2.zero;
 
         laserMove.SetLaserPos(_movingRight);
-
-        Debug.Log(_movingRight);
 
         eye.ChangeDirectionView(_movingRight);
     }

@@ -11,14 +11,31 @@ public class InterceptorAttackState : IEnemyState
 
     public void Enter()
     {
-        //Debug.Log("Начал атаку");
+        
     }
 
     public void Execute()
     {
-        AttackPlayer();
+        if (_interceptor.movement.GetDistanceToPlayer()<= _interceptor.attack.meleeAttackDistance)
+        {
+            if (!_interceptor.attack.toggleRechargeMelee)
+            {
+                _interceptor.attack.toggleRechargeMelee = true;
+                _interceptor.attack.MeleeAttack(_interceptor);
+            }
+            _interceptor.movement.MoveTo(_interceptor.movement.transformPlayer.position, _interceptor.eye);
 
-        if (_interceptor.movement.GetDistanceToPlayer() >= _interceptor.attack.attackDistance)
+        }
+        else if (_interceptor.movement.GetDistanceToPlayer() <= _interceptor.attack.longRangeAttackDistance)
+        {
+            _interceptor.laserMove.SetLaserDistance();
+            if (!_interceptor.attack.toggleRechargeLongRange)
+            {
+                _interceptor.attack.toggleRechargeLongRange = true;
+                _interceptor.attack.LongRangeAttack(_interceptor);
+            }
+        }
+        else
         {
             _interceptor.ChangeState(new InterceptorChaseState(_interceptor));
         }
@@ -26,12 +43,13 @@ public class InterceptorAttackState : IEnemyState
 
     public void Exit()
     {
-        //Debug.Log("Закончил атаку");
+        _interceptor.laserMove.laser.ResetWidth();
+        _interceptor.laserMove.laser.ResetDistance();
     }
 
     private void AttackPlayer()
     {
-        _interceptor.attack.Attack();
+        
        
     }
 }

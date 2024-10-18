@@ -14,7 +14,7 @@ public class InterceptorChaseState : IEnemyState
     {
         _speed = _interceptor.movement.speed;
         _interceptor.movement.speed = _interceptor.movement.chaseSpeed;
-        //Debug.Log("Начал преследование");
+        Debug.Log("Начал преследование");
     }
 
     public void Execute()
@@ -25,7 +25,7 @@ public class InterceptorChaseState : IEnemyState
         {
              _interceptor.ChangeState(new InterceptorIdleState(_interceptor));
         }
-        if (_interceptor.movement.GetDistanceToPlayer() <= _interceptor.attack.attackDistance)
+        if (_interceptor.movement.GetDistanceToPlayer() <= _interceptor.attack.longRangeAttackDistance)
         {
             _interceptor.ChangeState(new InterceptorAttackState(_interceptor));
         }
@@ -34,7 +34,7 @@ public class InterceptorChaseState : IEnemyState
     public void Exit()
     {
         _interceptor.movement.speed = _speed;
-        //Debug.Log("Закончил преследование");
+        Debug.Log("Закончил преследование");
     }
 
     private void ChasePlayer()

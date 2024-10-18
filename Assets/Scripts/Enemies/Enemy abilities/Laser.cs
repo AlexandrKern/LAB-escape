@@ -6,12 +6,14 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     [SerializeField] private float _startWidth;
-    [SerializeField] private float _endWidth;
+    public float endWidth;
+    private float _startEndWidth;
     [SerializeField] private Transform _rayStart;
     [SerializeField] private Transform _rayEnd;
     [SerializeField] private ContactFilter2D _contactFilter;
     [SerializeField] private int _rayCount = 20;
-    [SerializeField] private float _maxDistance = 5;
+    public float maxDistance = 5;
+    private float _startMaxDistance;
     [SerializeField] private Collider2D _playerCollider;
     [SerializeField] private Color _defaultColor;
     [SerializeField] private Color _playerVisibleColor;
@@ -33,6 +35,8 @@ public class Laser : MonoBehaviour
 
     void Start()
     {
+        _startEndWidth = endWidth;
+        _startMaxDistance = maxDistance;
         _transform = transform;
         _meshRenderer = GetComponent<MeshRenderer>();
         _meshFilter = GetComponent<MeshFilter>();
@@ -66,10 +70,10 @@ public class Laser : MonoBehaviour
             Debug.DrawRay(_rayStart.position, _rayStart.up);
             Debug.DrawRay(_rayStart.position, -_rayStart.up);
             _origin.Add(Vector2.Lerp(_rayStart.position - _rayStart.up * _startWidth / 2f, _rayStart.position + _rayStart.up * _startWidth / 2, (float)i / _rayCount));
-            _dir.Add((Vector2.Lerp(_rayEnd.position - _rayStart.up * _endWidth / 2f, _rayEnd.position + _rayStart.up * _endWidth / 2f, (float)i / _rayCount) - _origin[i]).normalized);
+            _dir.Add((Vector2.Lerp(_rayEnd.position - _rayStart.up * endWidth / 2f, _rayEnd.position + _rayStart.up * endWidth / 2f, (float)i / _rayCount) - _origin[i]).normalized);
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
             //Debug.DrawRay(origin[i], dir[i]);
-            if (0 < Physics2D.Raycast(_origin[i], _dir[i], _contactFilter, hits, _maxDistance))
+            if (0 < Physics2D.Raycast(_origin[i], _dir[i], _contactFilter, hits, maxDistance))
             {
                 _endRayPoint.Add(hits[0].point - _origin[i]);
                 for (int j = 0; j < hits.Count; j++)
@@ -83,7 +87,7 @@ public class Laser : MonoBehaviour
             }
             else
             {
-                _endRayPoint.Add(_dir[i] * _maxDistance);
+                _endRayPoint.Add(_dir[i] * maxDistance);
             }
         }
         _vertices.Add(_rayStart.localPosition - _rayStart.up * _startWidth / 2);
@@ -108,7 +112,7 @@ public class Laser : MonoBehaviour
 
         for (int i = 0; i < _endRayPoint.Count; i++)
         {
-            float yUV = _maxDistance / Vector2.SqrMagnitude(_endRayPoint[i]);
+            float yUV = maxDistance / Vector2.SqrMagnitude(_endRayPoint[i]);
             _UVs.Add(new Vector2((float)i / _endRayPoint.Count, yUV));
         }
         _UVs.Add(Vector2.one);
@@ -127,4 +131,15 @@ public class Laser : MonoBehaviour
         }
         _meshRenderer.material.SetColor("_Color",Color.Lerp(_defaultColor, _playerVisibleColor, _colorLerpT));
     }
+
+    public void ResetDistance()
+    {
+        maxDistance = _startMaxDistance;
+    }
+
+    public void ResetWidth()
+    {
+        endWidth = _startEndWidth;
+    }
+
 }
