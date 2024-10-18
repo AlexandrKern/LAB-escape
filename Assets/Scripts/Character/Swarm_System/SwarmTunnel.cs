@@ -13,6 +13,11 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
 
     private void OnValidate()
     {
+        if(swarmObstacles == null)
+        { 
+            return;
+        }
+
         if(swarmObstacles.Count > 1)
         {
             swarmObstacles[0].point1.gameObject.SetActive(true);

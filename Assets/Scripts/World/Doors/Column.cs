@@ -6,6 +6,10 @@ public class Column : MonoBehaviour, IDamageable
 {
     [SerializeField]
     private Sprite[] sprites;
+    [SerializeField]
+    private bool activateTunnelOnDamage = false;
+    [SerializeField]
+    private SwarmTunnel swarmTunnel;
 
     private SpriteRenderer _spriteRenderer;
     private int _currentSpriteIndex = 0;
@@ -14,6 +18,10 @@ public class Column : MonoBehaviour, IDamageable
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _spriteRenderer.sprite = sprites[0];
+        if(activateTunnelOnDamage)
+        {
+            swarmTunnel.gameObject.SetActive(false);
+        }
     }
 
     public void CauseDamage()
@@ -25,5 +33,10 @@ public class Column : MonoBehaviour, IDamageable
             return;
         }
         _spriteRenderer.sprite = sprites[_currentSpriteIndex];
+
+        if (activateTunnelOnDamage)
+        {
+            swarmTunnel.gameObject.SetActive(true);
+        }
     }
 }
