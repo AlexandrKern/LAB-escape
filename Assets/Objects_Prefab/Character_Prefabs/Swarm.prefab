@@ -121,8 +121,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HorizontalSpeed: 5
-  GroundCheckLocalPoint: {x: 0, y: -1.38, z: 0}
+  GroundCheckLocalPoint: {x: 0, y: -1.29, z: 0}
+  groundCheckAreaRadius: 0.2
   JumpSpeed: 30
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 7743
+  attackJumpHorizontalSpeed: 25
+  attackJumpLength: 10
+  attackJumpHaight: 2
 --- !u!114 &1382137333363513897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +206,7 @@ MonoBehaviour:
   CameraShakeTime: 0.2
   CameraShakeSpeed: 30
   punchParticleSystem: {fileID: 1064776888648696946}
+  moveController: {fileID: 8518753718998745860}
   DebugCircle: 0
   AnimatorController: {fileID: 2240233873578127776}
 --- !u!70 &2815640248114893011

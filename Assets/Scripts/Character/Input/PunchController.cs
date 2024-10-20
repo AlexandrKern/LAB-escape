@@ -13,6 +13,8 @@ public class PunchController : MonoBehaviour
     private float CameraShakeSpeed = 30f;
     [SerializeField]
     private ParticleSystem punchParticleSystem;
+    [SerializeField]
+    private MoveController moveController;
 
     [Space]
     [SerializeField]
@@ -23,6 +25,7 @@ public class PunchController : MonoBehaviour
     public void JumpPunch()
     {
         AnimatorController.SetTriggerJumpAttack();
+        moveController.JumpForward();
     }
 
     public void Punch()

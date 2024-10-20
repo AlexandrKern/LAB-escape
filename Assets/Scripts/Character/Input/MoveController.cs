@@ -11,12 +11,25 @@ public class MoveController : MonoBehaviour
     [SerializeField]
     private Vector3 GroundCheckLocalPoint;
     [SerializeField]
+    private float groundCheckAreaRadius = 0.1f;
+    [SerializeField]
     private float JumpSpeed = 50;
+    [SerializeField]
+    private LayerMask groundLayerMask;
+
+    [Space]
+    [Header("Attack jump properties")]
+    [SerializeField]
+    private float attackJumpHorizontalSpeed;
+    [SerializeField]
+    private float attackJumpLength;
+    [SerializeField]
+    private float attackJumpHaight;
 
     private HintController _hintController;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
-
+    bool isFacingRight = true;
     #region SoundEmitter
     public float CurrentSpeed => _rigidbody.velocity.magnitude;
     public float SoundSpeed => HorizontalSpeed;
@@ -39,7 +52,7 @@ public class MoveController : MonoBehaviour
             if (value != 0f)
             {
                 var oldScale = transform.localScale;
-                bool isFacingRight = value > 0;
+                isFacingRight = value > 0;
 
                 transform.localScale = new Vector3(
                     isFacingRight ? Mathf.Abs(oldScale.x) : -Mathf.Abs(oldScale.x),
@@ -56,6 +69,26 @@ public class MoveController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _hintController = GetComponent<HintController>();
+    }
+
+    public async UniTask JumpForward()
+    {
+        if (IsGrounded())
+        {
+            float x = 0f;
+            float coef = -4f * attackJumpHaight / (attackJumpLength * attackJumpLength);
+            float horizontalSpeed = 
+                isFacingRight ? attackJumpHorizontalSpeed : -attackJumpHorizontalSpeed;
+            while(x < attackJumpLength)
+            {
+                x += attackJumpHorizontalSpeed * Time.fixedDeltaTime;
+                float verticalSpeed = coef * (2f * x - attackJumpLength) * attackJumpHorizontalSpeed;
+                Vector2 deltaPosition = 
+                    new Vector2(horizontalSpeed, verticalSpeed) * Time.fixedDeltaTime;
+                _rigidbody.MovePosition(_rigidbody.position + deltaPosition);
+                await UniTask.WaitForFixedUpdate();
+            }
+        }
     }
 
     public void Jump()
@@ -85,7 +118,10 @@ public class MoveController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        if(Physics2D.OverlapPoint(transform.position + GroundCheckLocalPoint) != null)
+        var overlaped = 
+            Physics2D.OverlapCircle(transform.position + GroundCheckLocalPoint, 
+            groundCheckAreaRadius, groundLayerMask);
+        if(overlaped != null)
         {
             return true;
         }
@@ -95,6 +131,6 @@ public class MoveController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = UnityEngine.Color.red;
-        Gizmos.DrawSphere(transform.position + GroundCheckLocalPoint, 0.1f);
+        Gizmos.DrawSphere(transform.position + GroundCheckLocalPoint, groundCheckAreaRadius);
     }
 }
