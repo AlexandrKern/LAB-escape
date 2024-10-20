@@ -11,6 +11,8 @@ public class PunchController : MonoBehaviour
     private float CameraShakeTime = 0.2f;
     [SerializeField]
     private float CameraShakeSpeed = 30f;
+    [SerializeField]
+    private ParticleSystem punchParticleSystem;
 
     [Space]
     [SerializeField]
@@ -31,12 +33,14 @@ public class PunchController : MonoBehaviour
     public void PunchEvent()
     {
         Utils.ShakeCamera(CameraShakeTime, CameraShakeSpeed);
+        punchParticleSystem.Play();
         CauseDamage();
     }
 
     public void JumpPunchEvent()
     {
         Utils.ShakeCamera(CameraShakeTime, CameraShakeSpeed);
+        punchParticleSystem.Play();
         CauseDamage();
     }
 
