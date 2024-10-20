@@ -81,6 +81,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprites:
   - {fileID: 21300000, guid: b0682659c73b821469511f78fe7a0cb9, type: 3}
+  - {fileID: 21300000, guid: a777a850c3a189c4d90ade55a4a6ad91, type: 3}
+  activateTunnelOnDamage: 0
+  swarmTunnel: {fileID: 0}
 --- !u!1 &2918635606826780267
 GameObject:
   m_ObjectHideFlags: 0
