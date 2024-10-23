@@ -75,8 +75,8 @@ MonoBehaviour:
   pointPrefab: {fileID: 4305447601698794152, guid: 31cb4b789ca65e9439aca24b85a2ec00, type: 3}
   minSpeed: 6
   maxSpeed: 7
-  minTranslationSpeed: 4
-  maxTranslationSpeed: 5
+  minTranslationSpeed: 5
+  maxTranslationSpeed: 4
   minSize: 0.05
   maxSize: 0.1
   maxDistance: 1
