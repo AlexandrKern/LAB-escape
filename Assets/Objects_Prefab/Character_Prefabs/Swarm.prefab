@@ -73,8 +73,8 @@ MonoBehaviour:
   minNumberOfUnits: 100
   unitPrefab: {fileID: 657731969208746378, guid: 3af76e85eead18b4eb43947aeacf326f, type: 3}
   pointPrefab: {fileID: 4305447601698794152, guid: 31cb4b789ca65e9439aca24b85a2ec00, type: 3}
-  minSpeed: 6
-  maxSpeed: 7
+  minSpeed: 1
+  maxSpeed: 2
   minTranslationSpeed: 5
   maxTranslationSpeed: 4
   minSize: 0.05

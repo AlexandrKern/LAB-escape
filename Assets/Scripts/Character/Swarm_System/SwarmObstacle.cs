@@ -13,7 +13,7 @@ public class SwarmObstacle : MonoBehaviour, IInteractableObstacle
     [Space]
     [SerializeField] private bool setSortingOrder;
 
-    private Swarm swarm => Swarm.Instance;
+    private Swarm swarm => Character.Instance.swarm;
 
     [SerializeField]
     [HideInInspector]

@@ -50,7 +50,8 @@ public partial class Swarm
             {
                 Vector3 direction = Vector3.Normalize(Destination.Transform.position - Transform.position);
 
-                Transform.position = Transform.position += direction * Time.deltaTime * _speed;
+                Transform.position = Transform.position += direction * Time.deltaTime *
+                    (_speed + Character.Instance.moveController.CurrentSpeed);
                 Transform.right = direction;
             }
 

@@ -54,8 +54,6 @@ public partial class Swarm : MonoBehaviour
     public event System.Action EndTranslatinCallback; //Callback завершения перехода. Данный Callback стоит использовать для возвращения пользователю контродля после перехода.
     public event System.Action OnMoveFromTempObject;
 
-    public static Swarm Instance { get; private set; }
-
     public void SetFormIndex(int index)//Принять форму с соответствующим индексом из массива forms.
     {
         _currentFormIndex = index;
@@ -150,7 +148,6 @@ public partial class Swarm : MonoBehaviour
         //GeneratePoints();
         _unitsRoot = new GameObject("Units").transform;
         GenerateUnits();
-        Instance = this;
         DisableForms();
     }
 

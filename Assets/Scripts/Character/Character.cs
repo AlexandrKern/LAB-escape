@@ -23,6 +23,8 @@ public class Character : MonoBehaviour
     [HideInInspector]
     public HintController hintController;
 
+    public static Character Instance { get; private set; }
+
     public float InputHorizontal 
     {
         set
@@ -78,6 +80,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         UpdateStates();
+        Instance = this;
     }
 
     public void UpdateStates()

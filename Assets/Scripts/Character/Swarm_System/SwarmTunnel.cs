@@ -48,17 +48,17 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
     public async UniTask Interact()
     {
         //disable gravity
-        Rigidbody2D swarmRigidBody = Swarm.Instance.GetComponent<Rigidbody2D>();
+        Rigidbody2D swarmRigidBody = Character.Instance.swarm.GetComponent<Rigidbody2D>();
         float cacheGravity = swarmRigidBody.gravityScale;
         swarmRigidBody.gravityScale = 0;
 
         bool _translateIsOver = false;
 
         if (Vector3.SqrMagnitude(swarmObstacles[0].point1.position 
-            - Swarm.Instance.transform.position)
+            - Character.Instance.swarm.transform.position)
             < 
             Vector3.SqrMagnitude(swarmObstacles[swarmObstacles.Count - 1].point2.position 
-            - Swarm.Instance.transform.position))
+            - Character.Instance.swarm.transform.position))
         {
             TranslateForward();
         }
@@ -67,7 +67,7 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
             TranslateBackward();
         }
 
-        Swarm.Instance.EndTranslatinCallback += TmpFunc;
+        Character.Instance.swarm.EndTranslatinCallback += TmpFunc;
         await UniTask.WaitUntil(() => _translateIsOver);
 
         //enable gravity
@@ -76,7 +76,7 @@ public class SwarmTunnel : MonoBehaviour, IInteractableObstacle
         void TmpFunc()
         {
             _translateIsOver = true;
-            Swarm.Instance.EndTranslatinCallback -= TmpFunc;
+            Character.Instance.swarm.EndTranslatinCallback -= TmpFunc;
         }
     }
 

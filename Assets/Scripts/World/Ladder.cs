@@ -16,7 +16,7 @@ public class Ladder : MonoBehaviour, IInteractable
 
     public async UniTask Interact()
     {
-        Rigidbody2D swarmRigidBody = Swarm.Instance.GetComponent<Rigidbody2D>();
+        Rigidbody2D swarmRigidBody = Character.Instance.swarm.GetComponent<Rigidbody2D>();
         bool kinematicCache = swarmRigidBody.isKinematic;
         swarmRigidBody.isKinematic = true;
         swarmRigidBody.velocity = Vector2.zero;
@@ -43,7 +43,7 @@ public class Ladder : MonoBehaviour, IInteractable
 
     private async UniTask MoveToLadder()
     {
-        Transform playerTransform = Swarm.Instance.transform;
+        Transform playerTransform = Character.Instance.swarm.transform;
 
         Vector3 target = new Vector3
         {
