@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -12,17 +13,16 @@ public class Laser : MonoBehaviour
     [SerializeField] private Transform _rayEnd;
     [SerializeField] private ContactFilter2D _contactFilter;
     [SerializeField] private int _rayCount = 20;
-    public float maxDistance = 5;
+    [HideInInspector] public float maxDistance = 5;
     private float _startMaxDistance;
-    [SerializeField] private Collider2D _playerCollider;
     [SerializeField] private Color _defaultColor;
     [SerializeField] private Color _playerVisibleColor;
     [SerializeField] private float _colorLerpTime = 0.5f;
     private MeshFilter _meshFilter;
     private MeshRenderer _meshRenderer;
     private Transform _transform;
-    private Sprite _sprite;
-    public bool playerVisible;
+    [HideInInspector] public bool isColorSwitching;
+    [HideInInspector] public bool isPlayerVisible;
 
     List<int> _triangles = new List<int>();
     List<Vector3> _vertices = new List<Vector3>();
@@ -33,10 +33,22 @@ public class Laser : MonoBehaviour
 
     private float _colorLerpT;
 
-    void Start()
+    private void Awake()
     {
         _startEndWidth = endWidth;
         _startMaxDistance = maxDistance;
+    }
+
+    void Start()
+    {
+        _transform = transform;
+        _meshRenderer = GetComponent<MeshRenderer>();
+        _meshFilter = GetComponent<MeshFilter>();
+        _meshFilter.mesh = new Mesh();
+    }
+
+    private void OnEnable()
+    {
         _transform = transform;
         _meshRenderer = GetComponent<MeshRenderer>();
         _meshFilter = GetComponent<MeshFilter>();
@@ -72,16 +84,19 @@ public class Laser : MonoBehaviour
             _origin.Add(Vector2.Lerp(_rayStart.position - _rayStart.up * _startWidth / 2f, _rayStart.position + _rayStart.up * _startWidth / 2, (float)i / _rayCount));
             _dir.Add((Vector2.Lerp(_rayEnd.position - _rayStart.up * endWidth / 2f, _rayEnd.position + _rayStart.up * endWidth / 2f, (float)i / _rayCount) - _origin[i]).normalized);
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            //Debug.DrawRay(origin[i], dir[i]);
+
             if (0 < Physics2D.Raycast(_origin[i], _dir[i], _contactFilter, hits, maxDistance))
             {
                 _endRayPoint.Add(hits[0].point - _origin[i]);
                 for (int j = 0; j < hits.Count; j++)
                 {
-                    if (hits[j].collider == _playerCollider)
+                    if (hits[j].collider.CompareTag("Player"))
                     {
-                        playerVisible = true;
-                        break;
+                        isPlayerVisible = true;
+                    }
+                    else
+                    {
+                        isPlayerVisible = false;
                     }
                 }
             }
@@ -95,15 +110,12 @@ public class Laser : MonoBehaviour
         for (int i = 1; i < _endRayPoint.Count; i++)
         {
             _vertices.Add(_endRayPoint[i]);
-            //vertices.Add(endRayPoint[i + 1]);
             _triangles.Add(0);
             _triangles.Add(_vertices.Count - 1);
             _triangles.Add(_vertices.Count - 2);
-
         }
 
         _vertices.Add(_rayStart.localPosition + _rayStart.up * _startWidth / 2);
-        //vertices.Add(endRayPoint[endRayPoint.Count - 1]);
         _triangles.Add(_endRayPoint.Count);
         _triangles.Add(0);
         _triangles.Add(_endRayPoint.Count + 1);
@@ -121,7 +133,7 @@ public class Laser : MonoBehaviour
         _meshFilter.mesh.triangles = _triangles.ToArray();
         _meshFilter.mesh.RecalculateBounds();
 
-        if (playerVisible) 
+        if (isColorSwitching)
         {
             _colorLerpT = math.clamp(_colorLerpT + Time.fixedDeltaTime / _colorLerpTime, 0, 1);
         }
@@ -129,7 +141,7 @@ public class Laser : MonoBehaviour
         {
             _colorLerpT = math.clamp(_colorLerpT - Time.fixedDeltaTime / _colorLerpTime, 0, 1);
         }
-        _meshRenderer.material.SetColor("_Color",Color.Lerp(_defaultColor, _playerVisibleColor, _colorLerpT));
+        _meshRenderer.material.SetColor("_Color", Color.Lerp(_defaultColor, _playerVisibleColor, _colorLerpT));
     }
 
     public void ResetDistance()
@@ -141,5 +153,6 @@ public class Laser : MonoBehaviour
     {
         endWidth = _startEndWidth;
     }
-
 }
+
+

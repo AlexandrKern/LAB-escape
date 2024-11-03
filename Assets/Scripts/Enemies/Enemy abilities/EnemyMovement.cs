@@ -3,29 +3,32 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] private LaserMove laserMove;
+     public float speed = 2f;
+     public float chaseSpeed = 5f;
+     public float patrolDistance = 10f;
 
+    [Header("Timing Settings")]
     public float searchTime = 10;
     public float idleTimer = 3;
-    public float speed = 3f;
-    public float chaseSpeed = 5f;
-    [SerializeField] private float patrolDistance = 10f;
 
-
-    [HideInInspector] public Transform transformPlayer;
-    private Transform _transform;
     private Rigidbody2D _rb;
+    private Transform _transform;
     private Vector2 _startingPosition;
-
-    [HideInInspector] public bool camePlaceOfSearch;
+    private float _startSpeed;
     private bool _movingRight = true;
     private bool _isReturnPatrol;
     private bool _reachedEndOfPatrol;
+
+    [HideInInspector] public Transform transformPlayer;
+    [HideInInspector] public bool camePlaceOfSearch;
 
     private PlayerSpawnLocations _player;
 
     private void Start()
     {
+        _startSpeed = speed;
         _rb = GetComponent<Rigidbody2D>();
         _player = GameObject.Find("CheckPoints").GetComponent<PlayerSpawnLocations>();
         transformPlayer = _player._transformPlayer.transform;
@@ -98,7 +101,7 @@ public class EnemyMovement : MonoBehaviour
     public void MoveTo(Vector2 target, EnemyEye eye)
     {
         _isReturnPatrol = true;
-        laserMove.LoocAtPlayer();
+
         Vector2 direction = (target - (Vector2)transform.position).normalized;
         float distanceToTarget = Vector2.Distance(transform.position, target);
 
@@ -152,6 +155,10 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Изменяет направление движения
+    /// </summary>
+    /// <param name="eye"></param>
     private void ChangeDirection(EnemyEye eye)
     {
         _movingRight = !_movingRight;
@@ -160,6 +167,22 @@ public class EnemyMovement : MonoBehaviour
         laserMove.SetLaserPos(_movingRight);
 
         eye.ChangeDirectionView(_movingRight);
+    }
+
+    /// <summary>
+    /// Остонавливает врага
+    /// </summary>
+    public void StopMovement()
+    {
+        speed = 0;
+    }
+
+    /// <summary>
+    /// Востонавливает скорость
+    /// </summary>
+    public void RestoreDefaultSpeed()
+    {
+        speed = _startSpeed;
     }
 
     private void OnDrawGizmos()

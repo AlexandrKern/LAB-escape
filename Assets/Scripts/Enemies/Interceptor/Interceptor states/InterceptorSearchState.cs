@@ -14,6 +14,7 @@ public class InterceptorSearchState : IEnemyState
 
     public void Enter()
     {
+        _interceptor.animatorController.animator.SetBool("IsMoving", true);
         _interceptor.movement.camePlaceOfSearch = false;
         _searchTime = 0;
         _detectionTimer = 0;
@@ -25,7 +26,6 @@ public class InterceptorSearchState : IEnemyState
         SearchPlayer();
         if (_interceptor.eye.DetectPlayer())
         {
-            Debug.Log("Увидел " );
             _detectionTimer += Time.deltaTime;
             if (_detectionTimer >= _interceptor.eye.detectionTimer)
             {
@@ -34,8 +34,8 @@ public class InterceptorSearchState : IEnemyState
         }
         else if (_interceptor.movement.camePlaceOfSearch)
         {
+            _interceptor.animatorController.animator.SetBool("IsMoving", false);
             _searchTime += Time.deltaTime;
-            //Debug.Log("Время поиска " + _searchTime);
             if (_searchTime >= _interceptor.movement.searchTime)
             {
                 _interceptor.ChangeState(new InterceptorPatrolState(_interceptor));
@@ -44,7 +44,6 @@ public class InterceptorSearchState : IEnemyState
         else
         {
             _maxSearchTime += Time.deltaTime;
-            //Debug.Log("Максимальное время поиска " + _maxSearchTime);
             if (_maxSearchTime >= 20)
             {
                 _interceptor.ChangeState(new InterceptorPatrolState(_interceptor));
@@ -54,7 +53,7 @@ public class InterceptorSearchState : IEnemyState
 
     public void Exit()
     {
-
+        _interceptor.animatorController.animator.SetBool("IsMoving", false);
     }
 
     public void SearchPlayer()

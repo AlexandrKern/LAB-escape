@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyHealth))]
@@ -8,11 +7,13 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyAttack))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(InterceptorAnimatorController))]
 public class Interceptor : MonoBehaviour
 {
    
     private IEnemyState currentState;
 
+    [HideInInspector] public InterceptorAnimatorController animatorController;
     [HideInInspector] public EnemyEye eye;
     [HideInInspector] public EnemyEars ears;
     [HideInInspector] public EnemyMovement movement;
@@ -23,14 +24,19 @@ public class Interceptor : MonoBehaviour
     [SerializeField] private InterceptorStates state;
     [HideInInspector] public bool isActiv = true;
 
+    [SerializeField] private Transform _circle;
+
     private void Start()
     {
+        animatorController = GetComponent<InterceptorAnimatorController>();
         health = GetComponent<EnemyHealth>();
         attack = GetComponent<EnemyAttack>();
         movement = GetComponent<EnemyMovement>();
         eye = GetComponent<EnemyEye>();
         ears = GetComponent<EnemyEars>();
         StartState(state);
+        CheckIsActiv();
+        
     }
 
     private void Update()
@@ -66,5 +72,14 @@ public class Interceptor : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void CheckIsActiv()
+    {
+        if (isActiv)
+        {
+            _circle.gameObject.SetActive(false);
+            animatorController.animator.SetTrigger("Activate");
+        }   
     }
 }

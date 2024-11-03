@@ -9,13 +9,14 @@ public class InterceptorPatrolState : IEnemyState
 
     public InterceptorPatrolState(Interceptor interceptor)
     {
+        
         _interceptor = interceptor;
     }
 
     public void Enter()
     {
         _timer = 0;
-        //Debug.Log("Начал патрулирование");
+        _interceptor.animatorController.animator.SetBool("IsMoving",true);
     }
 
     public void Execute()
@@ -38,11 +39,12 @@ public class InterceptorPatrolState : IEnemyState
         {
             _interceptor.ChangeState(new InterceptorSearchState(_interceptor));
         }
+
     }
 
     public void Exit()
     {
-        //Debug.Log("Закончил патрулирование");
+        _interceptor.animatorController.animator.SetBool("IsMoving", false);
     }
 
     private void Patrol()

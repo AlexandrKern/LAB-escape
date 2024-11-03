@@ -10,6 +10,7 @@ public class TurnOnInterceptor : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             interceptor.isActiv = true;
+            interceptor.CheckIsActiv();
         }
         
     }

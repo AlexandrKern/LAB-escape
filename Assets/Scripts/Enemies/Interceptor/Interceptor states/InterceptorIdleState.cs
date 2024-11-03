@@ -13,7 +13,7 @@ public class InterceptorIdleState : IEnemyState
 
     public void Enter()
     {
-        //Debug.Log("Враг в состоянии стоять");
+        _interceptor.animatorController.animator.SetBool("IsMoving", false);
         _idleTimer = 0f;
         _detectionTimer = 0f;
     }
@@ -37,7 +37,7 @@ public class InterceptorIdleState : IEnemyState
 
     public void Exit()
     {
-        //Debug.Log("Враг закончил стоять");
+
     }
 
     private void Idle()

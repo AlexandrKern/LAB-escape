@@ -1,79 +1,159 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
+    [Header("Damage")]
+    [SerializeField] private int _meleeDamage = 100;
+    [SerializeField] private int _longRangeDamage = 100;
+
+    [Header("Attack Distances")]
     public float longRangeAttackDistance = 5f;
     public float meleeAttackDistance = 1.5f;
 
-    public float rechargeLongRangeAttackTime = 30f;
-    [HideInInspector] public float startRechargeLongRangeAttackTime;
+    [Header("Recharge Times")]
+    [SerializeField] private float _rechargeLongRangeAttackTime = 7f;
+    private float _startRechargeLongRangeAttackTime;
 
-    public float rechargeMeleeAttackTime = 3f;
-    [HideInInspector] public float startRechargeMeleeAttackTime;
-
-
-
-    [HideInInspector] public bool isAimed;
+    [SerializeField] private float _rechargeMeleeAttackTime = 5f;
+    private float _startRechargeMeleeAttackTime;
 
     [HideInInspector] public bool toggleRechargeLongRange;
     [HideInInspector] public bool toggleRechargeMelee;
 
+    [Header("Attack Durations")]
+    [SerializeField] private float _timeLaserFollowsPlayer = 2f;
+    [SerializeField] private float _delayBeforeFiring = 1f;
+
+    private PlayerSpawnLocations _player;
+    private GameObject _swarm; 
+    private CharacterHealth _characterHealth; 
+
+    private bool _isPlayerInAttackRange;
+
     private void Start()
     {
-        startRechargeLongRangeAttackTime = rechargeLongRangeAttackTime;
-        startRechargeMeleeAttackTime = rechargeMeleeAttackTime;
+        _player = GameObject.Find("CheckPoints").GetComponent<PlayerSpawnLocations>();
+        _swarm = _player._transformPlayer.gameObject;
+        _characterHealth = _swarm.GetComponent<CharacterHealth>();
+        _startRechargeLongRangeAttackTime = _rechargeLongRangeAttackTime;
+        _startRechargeMeleeAttackTime = _rechargeMeleeAttackTime;
     }
 
     private void Update()
     {
-        RechargeLongRangeAttack();
+        HandleRechargeUpdates();
+    }
+
+    /// <summary>
+    /// Обработка обновления восстановления атак
+    /// </summary>
+    private void HandleRechargeUpdates()
+    {
+        RechargeLongRangeAttack(); 
         RechargeMeleeAttack();
     }
 
-    public void LongRangeAttack(Interceptor interceptor)
+    /// <summary>
+    /// Дальняя атака
+    /// </summary>
+    /// <param name="interceptor"></param>
+    public void InitiateLongRangeAttack(Interceptor interceptor)
     {
-
-            interceptor.laserMove.laser.endWidth = 0.1f ;
-     
-        Debug.Log("Дальняя атака");
+        StartCoroutine(LongRangeShot(interceptor)); 
+        toggleRechargeLongRange = true;
     }
 
-    public void MeleeAttack(Interceptor interceptor)
+    /// <summary>
+    ///  Корутина для выполнения дальнего выстрела
+    /// </summary>
+    /// <param name="interceptor"></param>
+    /// <returns></returns>
+    private IEnumerator LongRangeShot(Interceptor interceptor)
     {
-        interceptor.laserMove.laser.ResetDistance();
-        interceptor.laserMove.laser.ResetWidth();
-        Debug.Log("Ближняя атака");
+        interceptor.animatorController.animator.SetTrigger("LongRangeAttack");
+        interceptor.laserMove.isLooking = true; 
+
+        yield return new WaitForSeconds(_timeLaserFollowsPlayer); 
+        interceptor.laserMove.isLooking = false; 
+
+        yield return new WaitForSeconds(_delayBeforeFiring); 
+        interceptor.laserMove.laser.isColorSwitching = false;
+        if (interceptor.laserMove.laser.isPlayerVisible && !interceptor.animatorController.isMeleeAttack)
+        {
+            _characterHealth.TakeDamage(_longRangeDamage);
+        }
     }
+
+    /// <summary>
+    /// Ближняя атака
+    /// </summary>
+    /// <param name="interceptor"></param>
+    public void InitiateMeleeAttack(Interceptor interceptor)
+    {
+        interceptor.laserMove.laser.isColorSwitching = false; 
+        interceptor.animatorController.animator.SetTrigger("Attack"); 
+        CheckPlayerInAttackRange(interceptor); 
+    }
+
+    /// <summary>
+    /// Проверяет находится ли игрок в зоне атаки
+    /// </summary>
+    /// <param name="interceptor"></param>
+    private void CheckPlayerInAttackRange(Interceptor interceptor)
+    {
+        if (interceptor.movement.GetDistanceToPlayer() <= meleeAttackDistance)
+        {
+            _isPlayerInAttackRange = true; 
+        }
+        else
+        {
+            _isPlayerInAttackRange = false;
+        }
+    }
+
+    /// <summary>
+    /// Наносит урон от ближней атаки
+    /// </summary>
+    public void ApplyMeleeAttackDamage()
+    {
+        if (_isPlayerInAttackRange)
+        {
+            _characterHealth.TakeDamage(_meleeDamage);
+        }
+    }
+
+    /// <summary>
+    /// Перезарядка дальней атаки
+    /// </summary>
     public void RechargeLongRangeAttack()
     {
-
         if (toggleRechargeLongRange)
         {
-            rechargeLongRangeAttackTime -= Time.deltaTime;
-            if (rechargeLongRangeAttackTime <= 0)
+            _rechargeLongRangeAttackTime -= Time.deltaTime;
+            if (_rechargeLongRangeAttackTime <= 0)
             {
-                rechargeLongRangeAttackTime = startRechargeLongRangeAttackTime;
+                _rechargeLongRangeAttackTime = _startRechargeLongRangeAttackTime;
                 toggleRechargeLongRange = false;
             }
         }
-
-
     }
+
+    /// <summary>
+    /// Перезарядка ближней атаки
+    /// </summary>
     public void RechargeMeleeAttack()
     {
         if (toggleRechargeMelee)
         {
-            rechargeMeleeAttackTime -= Time.deltaTime;
-            if (rechargeMeleeAttackTime <= 0)
+            _rechargeMeleeAttackTime -= Time.deltaTime; 
+            if (_rechargeMeleeAttackTime <= 0)
             {
-                rechargeMeleeAttackTime = startRechargeMeleeAttackTime;
-                toggleRechargeMelee = false;
+                _rechargeMeleeAttackTime = _startRechargeMeleeAttackTime;
+                toggleRechargeMelee = false; 
             }
         }
-
-
     }
-
 
     private void OnDrawGizmos()
     {
@@ -83,5 +163,4 @@ public class EnemyAttack : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, meleeAttackDistance);
     }
-
 }

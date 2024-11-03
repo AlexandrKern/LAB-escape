@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class InterceptorAttackState : IEnemyState
 {
     private Interceptor _interceptor;
@@ -11,46 +9,130 @@ public class InterceptorAttackState : IEnemyState
 
     public void Enter()
     {
-        
+        SetAttackAnimationState(true);
     }
 
     public void Execute()
     {
-        if (_interceptor.movement.GetDistanceToPlayer()<= _interceptor.attack.meleeAttackDistance)
-        {
-            if (!_interceptor.attack.toggleRechargeMelee)
-            {
-                _interceptor.attack.toggleRechargeMelee = true;
-                _interceptor.attack.MeleeAttack(_interceptor);
-            }
-            _interceptor.movement.MoveTo(_interceptor.movement.transformPlayer.position, _interceptor.eye);
-
-        }
-        else if (_interceptor.movement.GetDistanceToPlayer() <= _interceptor.attack.longRangeAttackDistance)
-        {
-            _interceptor.laserMove.SetLaserDistance();
-            if (!_interceptor.attack.toggleRechargeLongRange)
-            {
-                _interceptor.attack.toggleRechargeLongRange = true;
-                _interceptor.attack.LongRangeAttack(_interceptor);
-            }
-        }
-        else
-        {
-            _interceptor.ChangeState(new InterceptorChaseState(_interceptor));
-        }
+        PerformAttackLogic();
     }
 
     public void Exit()
     {
-        _interceptor.laserMove.laser.ResetWidth();
-        _interceptor.laserMove.laser.ResetDistance();
+        StopColorSwitching();
+        SetAttackAnimationState(false);
     }
 
-    private void AttackPlayer()
+    /// <summary>
+    /// Настройка анимационного состояния атаки
+    /// </summary>
+    /// <param name="isAttacking"></param>
+    private void SetAttackAnimationState(bool isAttacking)
     {
-        
-       
+        _interceptor.animatorController.animator.SetBool("IsMoving", !isAttacking);
+        _interceptor.animatorController.animator.SetBool("IsAttack", isAttacking);
+    }
+
+    /// <summary>
+    /// Основная логика атаки
+    /// </summary>
+    private void PerformAttackLogic()
+    {
+        if (IsWithinMeleeAttackRange())
+        {
+            MoveToPlayer();
+            PerformMeleeAttack();
+        }
+
+        else if (IsWithinLongRangeAttackRange())
+        {
+            _interceptor.movement.StopMovement();
+            AimAndShootLaser();
+            PerformLongRangeAttack();
+        }
+
+        else
+        {
+            ResetSpeedAndChase();
+        }
+    }
+
+    /// <summary>
+    /// // Проверяет на нахождение игрока в радиусе ближней атаки
+    /// </summary>
+    /// <returns></returns>
+    private bool IsWithinMeleeAttackRange()
+    {
+        return _interceptor.movement.GetDistanceToPlayer() <= _interceptor.attack.meleeAttackDistance;
+    }
+
+    /// <summary>
+    /// // Проверяет на нахождение игрока в радиусе дальнобойной атаки
+    /// </summary>
+    /// <returns></returns>
+    private bool IsWithinLongRangeAttackRange()
+    {
+        return _interceptor.movement.GetDistanceToPlayer() <= _interceptor.attack.longRangeAttackDistance;
+    }
+
+    /// <summary>
+    /// Поворачивает в сторону игрока при этом сбрасывая скорость
+    /// </summary>
+    private void MoveToPlayer()
+    {
+        _interceptor.movement.MoveTo(_interceptor.movement.transformPlayer.position, _interceptor.eye);
+        _interceptor.movement.StopMovement();
+    }
+
+    /// <summary>
+    /// Ближняя атака
+    /// </summary>
+    private void PerformMeleeAttack()
+    {
+        if (!_interceptor.attack.toggleRechargeMelee)
+        {
+            _interceptor.attack.InitiateMeleeAttack(_interceptor);
+            _interceptor.attack.toggleRechargeMelee = true;
+        }
+    }
+
+    /// <summary>
+    /// Следит за игроком
+    /// </summary>
+    private void AimAndShootLaser()
+    {
+        _interceptor.laserMove.SetLaserDistance();
+        _interceptor.laserMove.LoocAtPlayer();
+    }
+
+    /// <summary>
+    /// Дальняя атака
+    /// </summary>
+    private void PerformLongRangeAttack()
+    {
+        if (!_interceptor.attack.toggleRechargeLongRange && !_interceptor.animatorController.isMeleeAttack)
+        {
+            _interceptor.attack.InitiateLongRangeAttack(_interceptor);
+            _interceptor.attack.toggleRechargeLongRange = true;
+        }
+    }
+
+    /// <summary>
+    ///  Переход в режим преследования
+    /// </summary>
+    private void ResetSpeedAndChase()
+    {
+        _interceptor.movement.RestoreDefaultSpeed();
+        _interceptor.ChangeState(new InterceptorChaseState(_interceptor));
+    }
+
+    /// <summary>
+    /// Выключает лазер
+    /// </summary>
+    private void StopColorSwitching()
+    {
+        _interceptor.laserMove.laser.isColorSwitching = false;
     }
 }
+
 
