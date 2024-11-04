@@ -8,6 +8,8 @@ public class SoundEmitter : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] private float _soundVolume = 0.5f;
 
+    [SerializeField] private ProgressBar noiseLevelBar;
+
 
     private CircleCollider2D soundCollider;
     private MoveController moveController;
@@ -22,6 +24,8 @@ public class SoundEmitter : MonoBehaviour
         }
 
         moveController = GetComponentInParent<MoveController>();
+
+        noiseLevelBar.SetFillMethod(UnityEngine.UI.Image.FillMethod.Vertical);
     }
 
     private void Update()
@@ -32,6 +36,7 @@ public class SoundEmitter : MonoBehaviour
             _soundVolume = Mathf.Clamp01(currentSpeed / moveController.SoundSpeed);
 
             UpdateColliderSize();
+            noiseLevelBar.SetFillAmount(_soundVolume);
         }
     }
 

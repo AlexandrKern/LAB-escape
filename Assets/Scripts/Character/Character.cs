@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -9,6 +10,8 @@ using UnityEngine.TextCore.Text;
 [RequireComponent(typeof(SwarmInputHandler))]
 public class Character : MonoBehaviour
 {
+    [SerializeField] private GameObject detectionIndicator;
+
     private StateMachine _stateMachine;
     [HideInInspector]
     public Swarm swarm;
@@ -22,6 +25,8 @@ public class Character : MonoBehaviour
     public SwarmInputHandler inputHandler;
     [HideInInspector]
     public HintController hintController;
+
+    private HashSet<EnemyEye> _observersEnemyes = new();
 
     public static Character Instance { get; private set; }
 
@@ -37,6 +42,21 @@ public class Character : MonoBehaviour
         set
         {
             _stateMachine.InputVertical = value;
+        }
+    }
+
+    public void OnDetection(EnemyEye observer)
+    {
+        _observersEnemyes.Add(observer);
+        detectionIndicator.SetActive(true);
+    }
+
+    public void OnMiss(EnemyEye observer)
+    {
+        _observersEnemyes.Remove(observer);
+        if(_observersEnemyes.Count <= 0)
+        {
+            detectionIndicator.SetActive(false);
         }
     }
 

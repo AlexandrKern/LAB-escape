@@ -15,6 +15,7 @@ public class EnemyEye : MonoBehaviour
     private PlayerSpawnLocations _player; 
     private Transform _transform;
     private Transform _transformPlayer;
+    private bool _playerIsDetected = false;
 
 
     private void Start()
@@ -35,7 +36,17 @@ public class EnemyEye : MonoBehaviour
 
         if (distanceToPlayer <= viewRadius && IsPlayerInFieldOfView() && !IsPlayerBehindObstacle())
         {
+            if(!_playerIsDetected)
+            {
+                _playerIsDetected = true;
+                Character.Instance.OnDetection(this);
+            }
             return true; 
+        }
+        if (_playerIsDetected)
+        {
+            _playerIsDetected = false;
+            Character.Instance.OnMiss(this);
         }
         return false; 
     }
