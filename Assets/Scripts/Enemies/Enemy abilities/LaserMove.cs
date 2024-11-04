@@ -3,17 +3,14 @@ using UnityEngine;
 public class LaserMove : MonoBehaviour
 {
     [HideInInspector] public Laser laser;
-
     [SerializeField] private Transform endLaser;
-
     private Vector3 _laserEndStartPosition;
-
-    private bool _isLoocAtPlayer;
-
     public Transform laserTransform;
-
     private PlayerSpawnLocations _player;
-   [HideInInspector] public Transform transformPlayer;
+    [HideInInspector] public Transform transformPlayer;
+    [HideInInspector] public bool isLooking;
+    private bool _isLoocAtPlayer;
+    private Vector3 lastPlayerPosition;
 
     private void Start()
     {
@@ -21,17 +18,18 @@ public class LaserMove : MonoBehaviour
         transformPlayer = _player._transformPlayer.transform;
         laserTransform = transform;
         laser = GetComponent<Laser>();
-        _isLoocAtPlayer = false;
         _laserEndStartPosition = endLaser.localPosition;
     }
 
+    /// <summary>
+    /// Поворачивает лазер
+    /// </summary>
     public void SetLaserPos(bool movingRight)
     {
         if (_isLoocAtPlayer)
         {
             endLaser.localPosition = _laserEndStartPosition;
             _isLoocAtPlayer = false;
-            laser.playerVisible = false;
             
         }
 
@@ -47,13 +45,27 @@ public class LaserMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Следит за игроком
+    /// </summary>
     public void LoocAtPlayer()
     {
-        laser.playerVisible = true;
-        endLaser.position = transformPlayer.position;
-        _isLoocAtPlayer = true;
+        if (isLooking)
+        {
+            endLaser.position = transformPlayer.position;
+            lastPlayerPosition = transformPlayer.position;
+            laser.isColorSwitching = true;
+
+        }
+        else
+        {
+            endLaser.position = lastPlayerPosition;
+        }
     }
 
+    /// <summary>
+    /// Устанавливает дальность лазера
+    /// </summary>
     public void SetLaserDistance()
     {
         float dictance = Vector3.Distance(laserTransform.position, transformPlayer.position);

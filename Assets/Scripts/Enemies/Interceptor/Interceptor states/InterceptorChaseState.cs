@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class InterceptorChaseState : IEnemyState
 {
     private Interceptor _interceptor;
@@ -14,7 +12,7 @@ public class InterceptorChaseState : IEnemyState
     {
         _speed = _interceptor.movement.speed;
         _interceptor.movement.speed = _interceptor.movement.chaseSpeed;
-        Debug.Log("Начал преследование");
+        _interceptor.animatorController.animator.SetBool("IsMoving", true);
     }
 
     public void Execute()
@@ -34,7 +32,7 @@ public class InterceptorChaseState : IEnemyState
     public void Exit()
     {
         _interceptor.movement.speed = _speed;
-        Debug.Log("Закончил преследование");
+        _interceptor.animatorController.animator.SetBool("IsMoving", false);
     }
 
     private void ChasePlayer()

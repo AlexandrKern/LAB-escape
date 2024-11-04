@@ -1,62 +1,46 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyEye : MonoBehaviour
 {
     [Range(0, 360)]
-    public float viewAngle = 45f;
-    public float viewRadius = 5f;
-    public float detectionTimer = 2f;
-    private float viewDirection = 0f; 
+    [SerializeField] private float _viewAngle = 180f; 
+    public float viewRadius = 5f; 
+    public float detectionTimer = 2f; 
+    private float viewDirection = 0f;
 
-    public LayerMask playerMask; 
-    public LayerMask obstacleMask; 
+    [SerializeField] private LayerMask _obstacleMask; 
 
     private PlayerSpawnLocations _player; 
-    private Transform _transform;
-    private Transform _transformPlayer;
-    private bool _playerIsDetected = false;
-
+    private Transform _transform; 
+    private Transform _transformPlayer; 
 
     private void Start()
     {
-        _transform = transform;
-        _player = GameObject.Find("CheckPoints").GetComponent<PlayerSpawnLocations>();
+        _transform = transform; 
+        _player = GameObject.Find("CheckPoints").GetComponent<PlayerSpawnLocations>(); 
         _transformPlayer = _player._transformPlayer.transform;
     }
-  
 
     /// <summary>
     /// Метод для обнаружения игрока
     /// </summary>
-    /// <returns></returns>
     public bool DetectPlayer()
     {
-        float distanceToPlayer = Vector2.Distance(_transform.position, _transformPlayer.position); 
+        float distanceToPlayer = Vector2.Distance(_transform.position, _transformPlayer.position);
 
         if (distanceToPlayer <= viewRadius && IsPlayerInFieldOfView() && !IsPlayerBehindObstacle())
         {
-            if(!_playerIsDetected)
-            {
-                _playerIsDetected = true;
-                Character.Instance.OnDetection(this);
-            }
             return true; 
-        }
-        if (_playerIsDetected)
-        {
-            _playerIsDetected = false;
-            Character.Instance.OnMiss(this);
         }
         return false; 
     }
 
     private bool IsPlayerInFieldOfView()
     {
-        Vector2 directionToPlayer = (_transformPlayer.position - _transform.position).normalized; 
-        float angleToPlayer = Vector2.Angle(DirFromAngle(viewDirection, true), directionToPlayer); 
+        Vector2 directionToPlayer = (_transformPlayer.position - _transform.position).normalized;
+        float angleToPlayer = Vector2.Angle(DirFromAngle(viewDirection, true), directionToPlayer);
 
-        return angleToPlayer <= viewAngle / 2f; 
+        return angleToPlayer <= _viewAngle / 2f; // Проверка, попадает ли игрок в угол обзора
     }
 
     private bool IsPlayerBehindObstacle()
@@ -64,28 +48,30 @@ public class EnemyEye : MonoBehaviour
         Vector2 directionToPlayer = (_transformPlayer.position - _transform.position).normalized;
         float distanceToPlayer = Vector2.Distance(_transform.position, _transformPlayer.position);
 
-        RaycastHit2D hit = Physics2D.Raycast(_transform.position, directionToPlayer, distanceToPlayer, obstacleMask);
+        // Луч для проверки наличия препятствий
+        RaycastHit2D hit = Physics2D.Raycast(_transform.position, directionToPlayer, distanceToPlayer, _obstacleMask);
         return hit.collider != null; 
     }
 
     /// <summary>
-    /// Меняет напраление конуса обзора
+    /// Меняет направление конуса обзора
     /// </summary>
-    /// <param name="movingRight"></param>
     public void ChangeDirectionView(bool movingRight)
     {
-        viewDirection = movingRight ? 0 : 180f; 
-        //Debug.Log(movingRight ? "Направо" : "Налево");
+        viewDirection = movingRight ? 0 : 180f;
     }
 
+    /// <summary>
+    /// Получает направление угла
+    /// </summary>
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
         if (!angleIsGlobal)
         {
-            angleInDegrees += transform.eulerAngles.z;
+            angleInDegrees += transform.eulerAngles.z; 
         }
 
-        return new Vector3(Mathf.Cos(angleInDegrees * Mathf.Deg2Rad), Mathf.Sin(angleInDegrees * Mathf.Deg2Rad)); 
+        return new Vector3(Mathf.Cos(angleInDegrees * Mathf.Deg2Rad), Mathf.Sin(angleInDegrees * Mathf.Deg2Rad));
     }
 
     private void OnDrawGizmos()
@@ -93,11 +79,12 @@ public class EnemyEye : MonoBehaviour
         Gizmos.color = Color.grey;
         Gizmos.DrawWireSphere(transform.position, viewRadius);
 
-        Vector3 viewAngleA = DirFromAngle(viewDirection - viewAngle / 2, false);
-        Vector3 viewAngleB = DirFromAngle(viewDirection + viewAngle / 2, false);
+        Vector3 viewAngleA = DirFromAngle(viewDirection - _viewAngle / 2, false);
+        Vector3 viewAngleB = DirFromAngle(viewDirection + _viewAngle / 2, false);
 
         Gizmos.color = Color.white;
-        Gizmos.DrawLine(transform.position, transform.position + viewAngleA * viewRadius);
+        Gizmos.DrawLine(transform.position, transform.position + viewAngleA * viewRadius); 
         Gizmos.DrawLine(transform.position, transform.position + viewAngleB * viewRadius); 
     }
 }
+

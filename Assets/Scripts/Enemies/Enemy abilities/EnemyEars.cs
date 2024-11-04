@@ -25,12 +25,16 @@ public class EnemyEars : MonoBehaviour
 
     private void React(Collider2D collision,bool hear)
     {
-        if (collision.CompareTag("SoundEmitter"))
+        if (collision != null)
         {
-            if(collision != null)
+            if (collision.CompareTag("SoundEmitter"))
             {
                 _hear = hear;
-                _lastPlayerPosition = collision.gameObject.GetComponentInParent<Transform>().position;
+                Transform parentTransform = collision.gameObject.GetComponentInParent<Transform>();
+                if (parentTransform != null)
+                {
+                    _lastPlayerPosition = parentTransform.position;
+                }
             }
         }
     }
