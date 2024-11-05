@@ -78,8 +78,13 @@ public class Interceptor : MonoBehaviour
     {
         if (isActiv)
         {
-            _circle.gameObject.SetActive(false);
-            animatorController.animator.SetTrigger("Activate");
+            if (_circle != null)
+            {
+                _circle.gameObject.SetActive(false);
+                animatorController.animator.SetTrigger("Activate");
+
+            }
+           
         }   
     }
 }
