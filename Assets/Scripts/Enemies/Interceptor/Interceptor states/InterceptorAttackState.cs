@@ -101,7 +101,6 @@ public class InterceptorAttackState : IEnemyState
     /// </summary>
     private void AimAndShootLaser()
     {
-        _interceptor.laserMove.SetLaserDistance();
         _interceptor.laserMove.LoocAtPlayer();
     }
 
@@ -110,6 +109,11 @@ public class InterceptorAttackState : IEnemyState
     /// </summary>
     private void PerformLongRangeAttack()
     {
+        if (_interceptor.animatorController.isMeleeAttack)
+        {
+            StopColorSwitching();
+        }
+
         if (!_interceptor.attack.toggleRechargeLongRange && !_interceptor.animatorController.isMeleeAttack)
         {
             _interceptor.attack.InitiateLongRangeAttack(_interceptor);

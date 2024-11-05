@@ -52,6 +52,7 @@ public class LaserMove : MonoBehaviour
     {
         if (isLooking)
         {
+            SetLaserDistance(transformPlayer.position);
             endLaser.position = transformPlayer.position;
             lastPlayerPosition = transformPlayer.position;
             laser.isColorSwitching = true;
@@ -59,16 +60,18 @@ public class LaserMove : MonoBehaviour
         }
         else
         {
+           
             endLaser.position = lastPlayerPosition;
+            SetLaserDistance(lastPlayerPosition);
         }
     }
 
     /// <summary>
     /// Устанавливает дальность лазера
     /// </summary>
-    public void SetLaserDistance()
+    public void SetLaserDistance(Vector3 endPosition)
     {
-        float dictance = Vector3.Distance(laserTransform.position, transformPlayer.position);
+        float dictance = Vector3.Distance(laserTransform.position, endPosition);
         laser.maxDistance = dictance;
     }
 }

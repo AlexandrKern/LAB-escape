@@ -13,12 +13,6 @@ public class InterceptorAnimatorController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Start()
-    {
-        isLongRangeAttack = true;
-        isMeleeAttack = false;
-    }
-
     public void OnMeleeAttack()
     {
         isMeleeAttack  = true;
