@@ -85,6 +85,8 @@ public class Laser : MonoBehaviour
             _dir.Add((Vector2.Lerp(_rayEnd.position - _rayStart.up * endWidth / 2f, _rayEnd.position + _rayStart.up * endWidth / 2f, (float)i / _rayCount) - _origin[i]).normalized);
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
+            isPlayerVisible = false;
+
             if (0 < Physics2D.Raycast(_origin[i], _dir[i], _contactFilter, hits, maxDistance))
             {
                 _endRayPoint.Add(hits[0].point - _origin[i]);
@@ -93,12 +95,10 @@ public class Laser : MonoBehaviour
                     if (hits[j].collider.CompareTag("Player"))
                     {
                         isPlayerVisible = true;
-                    }
-                    else
-                    {
-                        isPlayerVisible = false;
+                        break;
                     }
                 }
+                hits.Clear();
             }
             else
             {
