@@ -36,8 +36,10 @@ public class PunchController : MonoBehaviour
     public void PunchEvent()
     {
         Utils.ShakeCamera(CameraShakeTime, CameraShakeSpeed);
-        punchParticleSystem.Play();
-        CauseDamage();
+        if(CauseDamage())
+        {
+            punchParticleSystem.Play();
+        }
     }
 
     public void JumpPunchEvent()
@@ -47,7 +49,7 @@ public class PunchController : MonoBehaviour
         CauseDamage();
     }
 
-    private void CauseDamage()
+    private bool CauseDamage()
     {
         var overlaped = Physics2D.OverlapCircleAll(transform.TransformPoint(DamageCircleOffset), DamageCircleRadius);
         for (int i = 0; i < overlaped.Length; i++)
@@ -56,9 +58,10 @@ public class PunchController : MonoBehaviour
             if (damageable != null)
             {
                 damageable.CauseDamage();
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     private void OnDrawGizmos()

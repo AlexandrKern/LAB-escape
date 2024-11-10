@@ -10,7 +10,7 @@ using UnityEngine.TextCore.Text;
 [RequireComponent(typeof(SwarmInputHandler))]
 public class Character : MonoBehaviour
 {
-    [SerializeField] private GameObject detectionIndicator;
+    [SerializeField] private DetectionIndicator detectionIndicator;
 
     private StateMachine _stateMachine;
     [HideInInspector]
@@ -48,7 +48,7 @@ public class Character : MonoBehaviour
     public void OnDetection(EnemyEye observer)
     {
         _observersEnemyes.Add(observer);
-        detectionIndicator.SetActive(true);
+        detectionIndicator.SetDetectionState(true);
     }
 
     public void OnMiss(EnemyEye observer)
@@ -56,7 +56,7 @@ public class Character : MonoBehaviour
         _observersEnemyes.Remove(observer);
         if(_observersEnemyes.Count <= 0)
         {
-            detectionIndicator.SetActive(false);
+            detectionIndicator.SetDetectionState(false);
         }
     }
 
