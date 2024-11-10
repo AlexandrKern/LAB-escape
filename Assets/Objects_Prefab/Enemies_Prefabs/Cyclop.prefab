@@ -522,7 +522,7 @@ MonoBehaviour:
   detectionTimer: 2
   _obstacleMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5120
 --- !u!50 &5002327704153246367
 Rigidbody2D:
   serializedVersion: 4

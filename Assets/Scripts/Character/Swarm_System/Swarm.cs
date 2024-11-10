@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public partial class Swarm : MonoBehaviour
 {
     public const int PointCounts = 2000;
-    [SerializeReference][SerializeField] private List<SwarmFormBase> forms; // порядок форм в массиве должен соответствовать порядку форм в энаме FormType!
+    [SerializeReference][SerializeField] private List<SwarmFormBase> forms; // порядок форм в массиве должен соответствовать
+                                                                            // порядку форм в энаме FormType!
     [Space]
     [SerializeField, Range(100, 1000)] private int maxNumberOfUnits = 500;
     [SerializeField, Range(0, 1000)] private int minNumberOfUnits = 100;
@@ -72,7 +73,8 @@ public partial class Swarm : MonoBehaviour
         }
     }
 
-    public void Translate(List<DestinationPoint> destinationPoints, Transform newTransform)//Выполнить переход через форму отверстия.
+    public void Translate(List<DestinationPoint> destinationPoints, Transform newTransform)//Выполнить переход через форму
+                                                                                           //отверстия.
     {
         if(_lastPoints == null)
         {
@@ -87,7 +89,9 @@ public partial class Swarm : MonoBehaviour
         _newTransform = newTransform;
     }
 
-    public void Translate(List<DestinationPoint> destinationPoints, Transform newTransform ,int sortingOrder)//Выполнить переход через форму отверстия со сменой SortingOrder.
+    public void Translate(List<DestinationPoint> destinationPoints, Transform newTransform ,int sortingOrder)//Выполнить
+                                                                                                             //переход через
+                                                                                                             //форму отверстия со сменой SortingOrder.
     {
         if (_lastPoints == null)
         {
@@ -203,11 +207,11 @@ public partial class Swarm : MonoBehaviour
     {
         var tmp = forms[lastIndexOfForm].GetComponent<SpriteRenderer>();
         DOTween.Kill(tmp);
-        tmp.DOFade(0, 0f);
+        tmp.DOFade(0, .3f);
         for (int i = 0; i < beatles.Count; i++)
         {
             DOTween.Kill(beatles[i]);
-            beatles[i].DOFade(1, 0f);
+            beatles[i].DOFade(1, .1f);
         }
     }
 
@@ -253,14 +257,22 @@ public partial class Swarm : MonoBehaviour
 
     public void EnableFormObj(int index)
     {
-        forms[index].gameObject.SetActive(true);
+        Collider2D[] colliders = forms[index].gameObject.GetComponents<Collider2D>();
+        for (int j = 0; j < colliders.Length; j++)
+        {
+            colliders[j].enabled = true;
+        }
     }
 
     public void DisableForms()
     {
         for (int i = 1; i < forms.Count; i++) 
         {
-            forms[i].gameObject.SetActive(false); // выключаем все объекты форм кроме роя 
+            Collider2D [] colliders = forms[i].gameObject.GetComponents<Collider2D>(); // выключаем коллайдеры всех форм кроме роя
+            for (int j = 0; j < colliders.Length; j++) // используем GetComponentS на случай если на форме есть несколько коллайдеров
+            { 
+                colliders[j].enabled = false; 
+            }
         }
     }
 }
