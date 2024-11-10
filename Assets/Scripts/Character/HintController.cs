@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class HintController : MonoBehaviour
 {
-    [SerializeField] TextMeshPro hintText;
+    [SerializeField] TextMeshProUGUI hintText;
     [SerializeField] string takeTheFormOfSwarmHint = "Примите форму роя для взаимодейстия";
     [SerializeField] string pressQForVent = "Нажмите Q чтобы пробраться по вентиляции";
     [SerializeField] string pressQForObstacle = "Нажмите Q для преодоления препятствия";

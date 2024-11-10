@@ -59,7 +59,7 @@ public class MoveController : MonoBehaviour
                     oldScale.y,
                     oldScale.z);
 
-                _hintController.SetHintTextRotation(isFacingRight ? 0 : 180);
+                //_hintController.SetHintTextRotation(isFacingRight ? 0 : 180);
             }
         }
     }
