@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Cinemachine;
 
 public class CameraFollow : MonoBehaviour
 	{
@@ -13,6 +14,9 @@ public class CameraFollow : MonoBehaviour
 		public Vector3 minCamerabounds;
 		public Vector3 maxCamerabounds;
         private bool _isFacingRight = true;
+        [SerializeField] CinemachineVirtualCamera cinemachine; // если мы поставим сюда синемашину,
+                                                               // то управление камерой осуществляется через нее
+
 
     private void OnEnable()
     {
@@ -27,9 +31,20 @@ public class CameraFollow : MonoBehaviour
     public void FindAnObjectToFollow()
     {
         GameObject targetGO = GameObject.FindWithTag("Player");
-		if (targetGO != null)
-        _target = targetGO.GetComponent<Transform>();
-        _targetRG = _target.gameObject.GetComponent<Rigidbody2D>();
+        if (cinemachine == null)
+        {
+            if (targetGO != null)
+            {
+                _target = targetGO.GetComponent<Transform>();
+                _targetRG = _target.gameObject.GetComponent<Rigidbody2D>();
+            }
+        }
+        else
+        {
+            cinemachine.Follow = targetGO.GetComponent<Transform>();
+            gameObject.GetComponent<CameraFollow>().enabled = false; // выключаем этот скрипт,
+                                                                     // так как дальше камерой управляет синемашина
+        }
     }
 
     public void ChangeOffsetX(float targetX)
