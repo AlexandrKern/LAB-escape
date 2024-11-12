@@ -135,6 +135,7 @@ public class InterceptorAttackState : IEnemyState
     /// </summary>
     private void StopColorSwitching()
     {
+        _interceptor.laserMove.laser.StopBlinking();
         _interceptor.laserMove.laser.isColorSwitching = false;
     }
 }

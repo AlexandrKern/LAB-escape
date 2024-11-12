@@ -75,9 +75,11 @@ public class EnemyAttack : MonoBehaviour
         interceptor.laserMove.isLooking = true; 
 
         yield return new WaitForSeconds(_timeLaserFollowsPlayer); 
-        interceptor.laserMove.isLooking = false; 
+        interceptor.laserMove.isLooking = false;
+        interceptor.laserMove.laser.StartBlinking();
 
-        yield return new WaitForSeconds(_delayBeforeFiring); 
+        yield return new WaitForSeconds(_delayBeforeFiring);
+        interceptor.laserMove.laser.StopBlinking();
         interceptor.laserMove.laser.isColorSwitching = false;
         if (interceptor.laserMove.laser.isPlayerVisible && !interceptor.animatorController.isMeleeAttack)
         {
@@ -91,6 +93,7 @@ public class EnemyAttack : MonoBehaviour
     /// <param name="interceptor"></param>
     public void InitiateMeleeAttack(Interceptor interceptor)
     {
+        interceptor.laserMove.laser.StopBlinking();
         interceptor.laserMove.laser.isColorSwitching = false; 
         interceptor.animatorController.animator.SetTrigger("Attack"); 
         CheckPlayerInAttackRange(interceptor); 

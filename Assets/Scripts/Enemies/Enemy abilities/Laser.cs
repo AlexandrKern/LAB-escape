@@ -18,11 +18,15 @@ public class Laser : MonoBehaviour
     [SerializeField] private Color _defaultColor;
     [SerializeField] private Color _playerVisibleColor;
     [SerializeField] private float _colorLerpTime = 0.5f;
+    [SerializeField] private float _blinkInterval = 0.5f; // Интервал мигания
     private MeshFilter _meshFilter;
     private MeshRenderer _meshRenderer;
     private Transform _transform;
     [HideInInspector] public bool isColorSwitching;
     [HideInInspector] public bool isPlayerVisible;
+
+    private bool _isBlinking;
+    private Coroutine _blinkCoroutine;
 
     List<int> _triangles = new List<int>();
     List<Vector3> _vertices = new List<Vector3>();
@@ -105,6 +109,7 @@ public class Laser : MonoBehaviour
                 _endRayPoint.Add(_dir[i] * maxDistance);
             }
         }
+
         _vertices.Add(_rayStart.localPosition - _rayStart.up * _startWidth / 2);
         _vertices.Add(_endRayPoint[0]);
         for (int i = 1; i < _endRayPoint.Count; i++)
@@ -127,6 +132,7 @@ public class Laser : MonoBehaviour
             float yUV = maxDistance / Vector2.SqrMagnitude(_endRayPoint[i]);
             _UVs.Add(new Vector2((float)i / _endRayPoint.Count, yUV));
         }
+
         _UVs.Add(Vector2.one);
         _meshFilter.mesh.vertices = _vertices.ToArray();
         _meshFilter.mesh.uv = _UVs.ToArray();
@@ -144,6 +150,35 @@ public class Laser : MonoBehaviour
         _meshRenderer.material.SetColor("_Color", Color.Lerp(_defaultColor, _playerVisibleColor, _colorLerpT));
     }
 
+    public void StartBlinking()
+    {
+        if (_isBlinking) return;
+        _isBlinking = true;
+        _blinkCoroutine = StartCoroutine(BlinkRoutine());
+    }
+
+    public void StopBlinking()
+    {
+        if (_blinkCoroutine != null)
+        {
+            _isBlinking = false;
+            StopCoroutine(_blinkCoroutine);
+            _blinkCoroutine = null;
+            _meshRenderer.material.SetColor("_Color", _defaultColor); // Возвращаем лазер к исходному цвету
+        }
+    }
+
+    private IEnumerator BlinkRoutine()
+    {
+        while (_isBlinking)
+        {
+            _meshRenderer.material.SetColor("_Color", _playerVisibleColor);
+            yield return new WaitForSeconds(_blinkInterval);
+            _meshRenderer.material.SetColor("_Color", _defaultColor);
+            yield return new WaitForSeconds(_blinkInterval);
+        }
+    }
+
     public void ResetDistance()
     {
         maxDistance = _startMaxDistance;
@@ -154,5 +189,7 @@ public class Laser : MonoBehaviour
         endWidth = _startEndWidth;
     }
 }
+
+
 
 
