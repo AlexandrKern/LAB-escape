@@ -56,11 +56,9 @@ public class LaserMove : MonoBehaviour
             endLaser.position = transformPlayer.position;
             lastPlayerPosition = transformPlayer.position;
             laser.isColorSwitching = true;
-
         }
         else
         {
-           
             endLaser.position = lastPlayerPosition;
             SetLaserDistance(lastPlayerPosition);
         }
