@@ -16,6 +16,7 @@ public class InterceptorIdleState : IEnemyState
         _interceptor.animatorController.animator.SetBool("IsMoving", false);
         _idleTimer = 0f;
         _detectionTimer = 0f;
+        _interceptor.laserMove.laser.StopBlinking();
     }
 
     public void Execute()

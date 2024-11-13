@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c67368b2f21e834bbe9117501aada03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSoundRadius: 20
+  _maxSoundRadius: 10
   _soundVolume: 0.5
   noiseLevelBar: {fileID: 1240962579623771219}
 --- !u!58 &9020946211616537722
@@ -1061,7 +1061,7 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
