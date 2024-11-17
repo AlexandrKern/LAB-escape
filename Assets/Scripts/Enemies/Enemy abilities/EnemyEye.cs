@@ -27,23 +27,29 @@ public class EnemyEye : MonoBehaviour
     /// </summary>
     public bool DetectPlayer()
     {
-        float distanceToPlayer = Vector2.Distance(_transform.position, _transformPlayer.position);
+        return _playerIsDetected;
+    }
 
-        if (distanceToPlayer <= viewRadius && IsPlayerInFieldOfView() && !IsPlayerBehindObstacle())
+    private void Update()
+    {
+        float sqrDistanceToPlayer = Vector2.SqrMagnitude(_transform.position - _transformPlayer.position);
+
+        if (sqrDistanceToPlayer <= viewRadius * viewRadius && /*IsPlayerInFieldOfView() &&*/ !IsPlayerBehindObstacle())
         {
             if (!_playerIsDetected)
             {
                 _playerIsDetected = true;
                 Character.Instance.OnDetection(this);
             }
-            return true;
         }
-        if (_playerIsDetected)
+        else
         {
-            _playerIsDetected = false;
-            Character.Instance.OnMiss(this);
+            if (_playerIsDetected)
+            {
+                _playerIsDetected = false;
+                Character.Instance.OnMiss(this);
+            }
         }
-        return false; 
     }
 
     private bool IsPlayerInFieldOfView()

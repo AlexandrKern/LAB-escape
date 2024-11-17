@@ -64,7 +64,7 @@ public class Interceptor : MonoBehaviour
         {
             case InterceptorStates.WaitState:
                 ChangeState(new InterceptorWaitState(this));
-                isActiv = Data.IsHammerFormAvailable;
+                //isActiv = Data.IsHammerFormAvailable;
                 break;
             case InterceptorStates.PatrolState:
                 ChangeState(new InterceptorPatrolState(this));
