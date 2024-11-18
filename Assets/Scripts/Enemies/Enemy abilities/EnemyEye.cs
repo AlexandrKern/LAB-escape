@@ -34,7 +34,7 @@ public class EnemyEye : MonoBehaviour
     {
         float sqrDistanceToPlayer = Vector2.SqrMagnitude(_transform.position - _transformPlayer.position);
 
-        if (sqrDistanceToPlayer <= viewRadius * viewRadius && /*IsPlayerInFieldOfView() &&*/ !IsPlayerBehindObstacle())
+        if (sqrDistanceToPlayer <= viewRadius * viewRadius && IsPlayerInFieldOfView() && !IsPlayerBehindObstacle())
         {
             if (!_playerIsDetected)
             {
