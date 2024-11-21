@@ -10,7 +10,7 @@ public class LaserMove : MonoBehaviour
     [HideInInspector] public Transform transformPlayer;
     [HideInInspector] public bool isLooking;
     private bool _isLoocAtPlayer;
-    private Vector3 lastPlayerPosition;
+    public Vector3 lastPlayerPosition;
 
     private void Start()
     {
