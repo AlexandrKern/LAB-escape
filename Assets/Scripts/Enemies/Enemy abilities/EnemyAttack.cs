@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
+    [SerializeField] private GameObject _hitPrefub;
+
     [Header("Damage")]
     [SerializeField] private int _meleeDamage = 100;
     [SerializeField] private int _longRangeDamage = 100;
@@ -81,10 +83,21 @@ public class EnemyAttack : MonoBehaviour
         yield return new WaitForSeconds(_delayBeforeFiring);
         interceptor.laserMove.laser.StopBlinking();
         interceptor.laserMove.laser.isColorSwitching = false;
+        InstantiateLaserHit(interceptor);
         if (interceptor.laserMove.laser.isPlayerVisible && !interceptor.animatorController.isMeleeAttack)
         {
             _characterHealth.TakeDamage(_longRangeDamage);
         }
+    }
+
+    private void InstantiateLaserHit(Interceptor interceptor)
+    {
+        if (interceptor.laserMove.laser.isPlayerVisible)
+        {
+            GameObject go = Instantiate(_hitPrefub, interceptor.laserMove.lastPlayerPosition, Quaternion.identity);
+            Destroy(go, 2);
+        }
+        
     }
 
     /// <summary>
