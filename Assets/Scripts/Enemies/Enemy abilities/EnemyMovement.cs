@@ -5,9 +5,9 @@ public class EnemyMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private LaserMove laserMove;
-     public float speed = 2f;
-     public float chaseSpeed = 5f;
-     public float patrolDistance = 10f;
+    public float speed = 2f;
+    public float chaseSpeed = 5f;
+    public float patrolDistance = 10f;
 
     [Header("Timing Settings")]
     public float searchTime = 10;
@@ -42,7 +42,6 @@ public class EnemyMovement : MonoBehaviour
     /// <returns></returns>
     public float GetDistanceToPlayer() => Vector2.Distance(transform.position, transformPlayer.position);
 
-
     public bool Patrol(EnemyEye eye)
     {
         HandlePatrolEnd(eye);
@@ -74,11 +73,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveEnemy()
     {
-        Vector2 force = _movingRight ? Vector2.right : Vector2.left;
-        _rb.AddForce(force * speed * Time.fixedDeltaTime, ForceMode2D.Impulse);
-        LookInDirection(force);
+        Vector2 velocity = _movingRight ? Vector2.right * speed : Vector2.left * speed;
+        _rb.velocity = new Vector2(velocity.x, _rb.velocity.y);
+        LookInDirection(velocity);
     }
-
 
     /// <summary>
     /// ѕровер€ет достижение границ патрулировани€
@@ -116,31 +114,18 @@ public class EnemyMovement : MonoBehaviour
         }
 
         LookInDirection(direction);
-        LimitSpeed();
     }
 
     private void MoveTowardsTarget(Vector2 direction)
     {
         direction.y = 0;
-        _rb.AddForce(direction * chaseSpeed * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        _rb.velocity = direction * chaseSpeed;
 
         if (direction.x > 0 != _movingRight)
         {
             _movingRight = direction.x > 0;
         }
     }
-
-    /// <summary>
-    /// ќграничивает скорост движени€
-    /// </summary>
-    private void LimitSpeed()
-    {
-        if (Mathf.Abs(_rb.velocity.x) > speed)
-        {
-            _rb.velocity = new Vector2(Mathf.Sign(_rb.velocity.x) * speed, _rb.velocity.y);
-        }
-    }
-
 
     /// <summary>
     /// ѕоворачивает врага в нужном направлении
@@ -174,7 +159,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     public void StopMovement()
     {
-        speed = 0;
+        _rb.velocity = Vector2.zero;
     }
 
     /// <summary>
@@ -192,3 +177,5 @@ public class EnemyMovement : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * patrolDistance);
     }
 }
+
+

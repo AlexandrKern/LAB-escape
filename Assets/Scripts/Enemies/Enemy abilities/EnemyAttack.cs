@@ -83,21 +83,17 @@ public class EnemyAttack : MonoBehaviour
         yield return new WaitForSeconds(_delayBeforeFiring);
         interceptor.laserMove.laser.StopBlinking();
         interceptor.laserMove.laser.isColorSwitching = false;
-        InstantiateLaserHit(interceptor);
         if (interceptor.laserMove.laser.isPlayerVisible && !interceptor.animatorController.isMeleeAttack)
         {
+            InstantiateLaserHit(interceptor);
             _characterHealth.TakeDamage(_longRangeDamage);
         }
     }
 
     private void InstantiateLaserHit(Interceptor interceptor)
     {
-        if (interceptor.laserMove.laser.isPlayerVisible)
-        {
             GameObject go = Instantiate(_hitPrefub, interceptor.laserMove.lastPlayerPosition, Quaternion.identity);
             Destroy(go, 2);
-        }
-        
     }
 
     /// <summary>
@@ -169,6 +165,11 @@ public class EnemyAttack : MonoBehaviour
                 toggleRechargeMelee = false; 
             }
         }
+    }
+
+    public void StopLongRangeAttack()
+    {
+        StopAllCoroutines();
     }
 
     private void OnDrawGizmos()

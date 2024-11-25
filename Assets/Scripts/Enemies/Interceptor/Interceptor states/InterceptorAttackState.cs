@@ -19,6 +19,7 @@ public class InterceptorAttackState : IEnemyState
 
     public void Exit()
     {
+        _interceptor.attack.StopLongRangeAttack();
         StopColorSwitching();
         SetAttackAnimationState(false);
     }
@@ -89,6 +90,7 @@ public class InterceptorAttackState : IEnemyState
     /// </summary>
     private void PerformMeleeAttack()
     {
+        _interceptor.attack.StopLongRangeAttack();
         if (!_interceptor.attack.toggleRechargeMelee)
         {
             _interceptor.attack.InitiateMeleeAttack(_interceptor);
@@ -126,7 +128,6 @@ public class InterceptorAttackState : IEnemyState
     /// </summary>
     private void ResetSpeedAndChase()
     {
-        _interceptor.movement.RestoreDefaultSpeed();
         _interceptor.ChangeState(new InterceptorChaseState(_interceptor));
     }
 
