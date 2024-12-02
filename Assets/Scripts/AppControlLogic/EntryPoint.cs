@@ -1,27 +1,36 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class EntryPoint : MonoBehaviour
 {
     SceneLoader sceneLoader = new SceneLoader();
+    public static UnityEvent StartButtonPushed = new UnityEvent();
 
     private void Awake()
     {
-        // временный код пока нет стартрового меню
+        // временный код длф работы без стартрового меню
         // по необходимости раскомментировать чтобы прогресс загружался
-        DataTerminals.LoadData();
-        Data.LoadData();
-        DataItem.LoadData();
+        //DataTerminals.LoadData();
+        //Data.LoadData();
+        //DataItem.LoadData();
     }
 
     private void Start()
     {
-        StartButton.StartButtonPushed.AddListener(GameStart);
+        MMButtonsBeh.ContButtonPushed.AddListener(GameCont);
+        MMButtonsBeh.NGButtonPushed.AddListener(NewGame);
     }
 
-    public void GameStart()
+    public void GameCont()
     {
         DataTerminals.LoadData();
         Data.LoadData();
-        sceneLoader.LoadSceneAsync("Game_Scene");
+        DataItem.LoadData();
+        sceneLoader.LoadSceneAsync("Biom1"); // исправить
+    }
+
+    public void NewGame()
+    {
+        sceneLoader.LoadSceneAsync("Biom1"); // исправить
     }
 }
