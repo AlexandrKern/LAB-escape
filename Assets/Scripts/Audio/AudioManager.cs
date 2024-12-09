@@ -43,6 +43,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
     private void Start()
     {
         _musicDictionary = _musicSounds.ToDictionary(s => s.name);
@@ -54,7 +55,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        SaveAllVolumes();
+        //SaveAllVolumes();
     }
 
     /// <summary>
@@ -218,10 +219,22 @@ public class AudioManager : MonoBehaviour
         _musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1f); 
         _sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME, 1f); 
         _voiceVolume = PlayerPrefs.GetFloat(VOICE_TRACK_VOLUME, 1f); 
-        _masterVolume = PlayerPrefs.GetFloat(MASTER_VOLUME, 1f); 
+        _masterVolume = PlayerPrefs.GetFloat(MASTER_VOLUME, 0.5f); 
 
         _currentMusicVolume = _musicVolume; 
 
         ApplyMasterVolume(); 
+    }
+
+    /// <summary>
+    /// —ьрасывает настройки звука
+    /// </summary>
+    public void AudioToDefault()
+    {
+        PlayerPrefs.SetFloat(MUSIC_VOLUME, 1f);
+        PlayerPrefs.SetFloat(SFX_VOLUME, 1f);
+        PlayerPrefs.SetFloat(VOICE_TRACK_VOLUME, 1f);
+        PlayerPrefs.SetFloat(MASTER_VOLUME, 0.5f);
+        PlayerPrefs.Save();
     }
 }

@@ -13,6 +13,16 @@ public class DataTerminals
 
     private static readonly string _filePath = Path.Combine(Application.persistentDataPath, "DataTerminals.json");
 
+    // проверка наличия сохранений (нужно для доступности кнопок в главном меню)
+    public static bool IsFirstTerminalWasFirstTimeVisit()
+    {
+        if (File.Exists(_filePath))
+        { 
+            return true;
+        }
+        else { return false; }
+    }
+
     public static bool IsTerminalFirstTimeVisit(int terminalNumber)
     {
         return _isTerminalFirstTimeVisit.ContainsKey(terminalNumber) && !_isTerminalFirstTimeVisit[terminalNumber];

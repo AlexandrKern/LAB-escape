@@ -10,7 +10,7 @@ public class UIAudioController : MonoBehaviour
 
     [SerializeField] private Toggle _audioToggle;
 
-    private void Start()
+    private void OnEnable()
     {
         InitializeSliders();
     }
@@ -61,6 +61,11 @@ public class UIAudioController : MonoBehaviour
        AudioManager.Instance.VoiceTrackVolume(_voiceTrackSlider.value);
     }
 
+    public void SaveAudioSettings()
+    {
+        AudioManager.Instance.SaveAllVolumes();
+    }
+
     /// <summary>
     /// ”станавливает положение слайдеров при загрузке
     /// </summary>
@@ -85,5 +90,11 @@ public class UIAudioController : MonoBehaviour
                 _audioToggle.isOn = PlayerPrefs.GetInt(AudioManager.MUTE) == 1;
             }
         }
+    }
+
+    public void AudioToDefault()
+    {
+        AudioManager.Instance.AudioToDefault();
+        InitializeSliders();
     }
 }
