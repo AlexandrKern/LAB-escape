@@ -46,7 +46,7 @@ public class InterceptorIdleState : IEnemyState
         _idleTimer += Time.deltaTime;
         if (_idleTimer >= _interceptor.movement.idleTimer)
         {
-            _interceptor.ChangeState(new InterceptorPatrolState(_interceptor));
+            _interceptor.ChangeState(new InterceptorTurnState(_interceptor));
         }
     }
 }
