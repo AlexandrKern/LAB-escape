@@ -8,16 +8,24 @@ public class InterceptorAnimatorController : MonoBehaviour
     [HideInInspector] public bool isMeleeAttack;
     [HideInInspector] public bool isLongRangeAttack;
 
+    public bool isTurn;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
-
     public void OnMeleeAttack()
     {
         isMeleeAttack  = true;
     }
-
+    public void OnTurn()
+    {
+        isTurn = true;
+    }
+    public void OffTurn()
+    {
+        isTurn = false;
+    }
     public void OffMeleeAttack()
     {
         isMeleeAttack = false;
