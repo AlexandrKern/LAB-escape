@@ -7,9 +7,14 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 {
     [SerializeField] Button button;
     [SerializeField] ButtonsType buttonsNumber;
+    [SerializeField] bool isButtonAnimated;
     public static UnityEvent ContButtonPushed = new UnityEvent();
+    public static UnityEvent LoadsButtonPushed = new UnityEvent();
     public static UnityEvent NGButtonPushed = new UnityEvent();
     public static UnityEvent SettingsButtonPushed = new UnityEvent();
+    public static UnityEvent AchievmentsButtonPushed = new UnityEvent();
+    public static UnityEvent CreditButtonPushed = new UnityEvent();
+    public static UnityEvent ExitButtonPushed = new UnityEvent();
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -18,10 +23,18 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         if (buttonsNumber == ButtonsType.cont)
             ContButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.loads)
+            LoadsButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.start)
             NGButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.sett)
             SettingsButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.achievments)
+            AchievmentsButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.credits)
+            CreditButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.exit)
+            ExitButtonPushed.Invoke();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -29,8 +42,11 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (!button.IsInteractable())
             return;
 
-        PlayHoverEffect();
-        gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1);
+        if (isButtonAnimated)
+        {
+            PlayHoverEffect();
+            gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
