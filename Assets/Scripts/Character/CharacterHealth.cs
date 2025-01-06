@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,7 +12,7 @@ public class CharacterHealth : MonoBehaviour
     public int MaxHealth => _maxHealth;
     public int CurrentHealth => _currentHealth;
 
-    [HideInInspector] public UnityEvent<int> OnHealthChanged;
+    [HideInInspector] public Action<int> OnHealthChanged;
     [HideInInspector] public UnityEvent OnDeath;
 
     public Swarm swarm;

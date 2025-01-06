@@ -305,9 +305,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 400
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1385,6 +1382,7 @@ GameObject:
   - component: {fileID: 578985102955582872}
   - component: {fileID: 4168825103487161233}
   - component: {fileID: 2543016101816128414}
+  - component: {fileID: 4878999973120489103}
   m_Layer: 6
   m_Name: T
   m_TagString: Player
@@ -1657,6 +1655,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 0.47352934}
   m_EdgeRadius: 0
+--- !u!114 &4878999973120489103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507375522291003716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb45311664859db40bbf601e72c3f636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterHealth: {fileID: 5577675138353676496}
+  _sprites:
+  - {fileID: 21300000, guid: c55448f60fd10c141977faf113d1df4a, type: 3}
+  - {fileID: 21300000, guid: c24e4d5a8e417d948ab99f67f4aa6d41, type: 3}
+  - {fileID: 21300000, guid: 3e32023347653014b932c9691a369755, type: 3}
 --- !u!1 &7401418619737871715
 GameObject:
   m_ObjectHideFlags: 0
