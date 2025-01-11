@@ -1,15 +1,20 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 {
-    [SerializeField] int terminalNumber; // нумеруем таки с единицы
-    [SerializeField] GameObject terminalMenu;
+    [SerializeField] int terminalNumber; // нумеруем с единицы
+    [SerializeField] SpriteRenderer terminalMenu;
+    [SerializeField] SpriteRenderer map;
+
     Character character;
+
     public async UniTask Interact()
     {
-        if(character == null)
+        ScreensOn();
+        if (character == null)
         character = FindObjectOfType<Character>();
         if (character.GetCharacterForm() == FormType.Base)
         {
@@ -20,6 +25,19 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
         {
             character.gameObject.GetComponent<HintController>().HintTakeTheFormOfSwarm();
         }
+    }
+
+    private void ScreensOn()
+    {
+        terminalMenu.DOFade(1, 0.5f);
+        map.DOFade(1, 0.5f);
+    }
+
+    private void ScreensOff()
+    {
+        terminalMenu.DOFade(0, 0f);
+        map.DOFade(0, 0f);
+
     }
 
     private void StepOne()
