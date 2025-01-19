@@ -8,11 +8,13 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
     [SerializeField] int terminalNumber; // нумеруем с единицы
     [SerializeField] SpriteRenderer terminalMenu;
     [SerializeField] SpriteRenderer map;
+    [SerializeField] GameObject virtualCamera;
 
     Character character;
 
     public async UniTask Interact()
     {
+        virtualCamera.gameObject.SetActive(true);
         ScreensOn();
         if (character == null)
         character = FindObjectOfType<Character>();
