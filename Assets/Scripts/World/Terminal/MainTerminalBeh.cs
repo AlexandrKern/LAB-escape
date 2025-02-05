@@ -11,22 +11,38 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
     [SerializeField] GameObject virtualCamera;
 
     Character character;
+    GameObject mainTerminalMenu;
 
     public async UniTask Interact()
     {
         virtualCamera.gameObject.SetActive(true);
         ScreensOn();
         if (character == null)
-        character = FindObjectOfType<Character>();
+            character = FindObjectOfType<Character>();
+        if (mainTerminalMenu == null)
+            mainTerminalMenu = GameObject.Find("MainTerminalMenu"); // не получится найти выключенный объект
+
+        int delayBeforeActivateMenu = 1500;
+        await UniTask.Delay(delayBeforeActivateMenu);
+
         if (character.GetCharacterForm() == FormType.Base)
         {
             Debug.Log("Terminal Interact");
+            mainTerminalMenu.transform.DOScale(1, 0.3f);
             StepOne();
         }
         else
         {
             character.gameObject.GetComponent<HintController>().HintTakeTheFormOfSwarm();
         }
+
+        MMButtonsBeh.ExitButtonPushed.AddListener(() => CloseTerminal().Forget());
+    }
+
+    public async UniTask CloseTerminal()
+    {
+        ScreensOff();
+        virtualCamera.gameObject.SetActive(true);
     }
 
     private void ScreensOn()
@@ -37,9 +53,10 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 
     private void ScreensOff()
     {
+        mainTerminalMenu.SetActive(false);
         terminalMenu.DOFade(0, 0f);
         map.DOFade(0, 0f);
-
+        mainTerminalMenu.transform.DOScale(0, 0f);
     }
 
     private void StepOne()

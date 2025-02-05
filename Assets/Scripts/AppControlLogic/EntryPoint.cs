@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Video;
 
 public class EntryPoint : MonoBehaviour
 {
     SceneLoader sceneLoader = new SceneLoader();
     public static UnityEvent StartButtonPushed = new UnityEvent();
+    [SerializeField] VideoPlayer videoPlayer;
 
     private void Awake()
     {
@@ -31,6 +34,8 @@ public class EntryPoint : MonoBehaviour
 
     public void NewGame()
     {
-        sceneLoader.LoadSceneAsync("Biom1"); // исправить
+        videoPlayer.gameObject.SetActive(true);
+        videoPlayer.Play();
+        sceneLoader.LoadSceneAsync(videoPlayer, "Biom1"); // исправить
     }
 }

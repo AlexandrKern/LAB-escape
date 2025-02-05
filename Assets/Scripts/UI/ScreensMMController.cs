@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -26,12 +27,19 @@ public class ScreensMMController : MonoBehaviour
         };
 
         MMButtonsBeh.ContButtonPushed.AddListener(() => ShowScreen(loadingScreen));
-        MMButtonsBeh.NGButtonPushed.AddListener(() => ShowScreen(loadingScreen));
+        MMButtonsBeh.NGButtonPushed.AddListener(() => ShowScreenWithDelay(loadingScreen, 1f));
         MMButtonsBeh.LoadsButtonPushed.AddListener(() => ToggleScreen(chooseWhatToLoadScreen));
         MMButtonsBeh.SettingsButtonPushed.AddListener(() => ToggleScreen(settingsScreen));
         MMButtonsBeh.AchievmentsButtonPushed.AddListener(() => ToggleScreen(achievmentsScreen));
         MMButtonsBeh.CreditButtonPushed.AddListener(() => ToggleScreen(creditsScreen));
     }
+
+    async void ShowScreenWithDelay(GameObject screen, float delayInSeconds)
+    {
+        await UniTask.Delay((int)(delayInSeconds * 1000));
+        ShowScreen(screen);
+    }
+
 
     void ShowScreen(GameObject screen)
     {

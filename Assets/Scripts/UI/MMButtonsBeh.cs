@@ -16,6 +16,11 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public static UnityEvent CreditButtonPushed = new UnityEvent();
     public static UnityEvent ExitButtonPushed = new UnityEvent();
 
+    public static UnityEvent MapButtonPushed = new UnityEvent();
+    public static UnityEvent NotesButtonPushed = new UnityEvent();
+    public static UnityEvent CollectablesButtonPushed = new UnityEvent();
+    public static UnityEvent ExitMainTerminalButtonPushed = new UnityEvent();
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!button.IsInteractable())
@@ -35,6 +40,14 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             CreditButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.exit)
             ExitButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.map)
+            MapButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.map)
+            NotesButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.collectables)
+            CollectablesButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.exitMainTerminal)
+            ExitMainTerminalButtonPushed.Invoke();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -67,5 +80,5 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 public enum ButtonsType
 {
-    cont, loads, start, sett, credits, achievments, exit
+    cont, loads, start, sett, credits, achievments, exit, map, notes, collectables, exitMainTerminal
 }
