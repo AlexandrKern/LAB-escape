@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
 public class EntryPoint : MonoBehaviour
@@ -13,15 +14,18 @@ public class EntryPoint : MonoBehaviour
     {
         // временный код длф работы без стартрового меню
         // по необходимости раскомментировать чтобы прогресс загружался
-        //DataTerminals.LoadData();
-        //Data.LoadData();
-        //DataItem.LoadData();
+        if(SceneManager.GetActiveScene().name == "Biom1")
+        {
+            DataTerminals.LoadData();
+            Data.LoadData();
+            DataItem.LoadData();
+        }
     }
 
     private void Start()
     {
-        MMButtonsBeh.ContButtonPushed.AddListener(GameCont);
-        MMButtonsBeh.NGButtonPushed.AddListener(NewGame);
+        MMButtonsBeh.OnContButtonPushed.AddListener(GameCont);
+        MMButtonsBeh.OnNGButtonPushed.AddListener(NewGame);
     }
 
     public void GameCont()

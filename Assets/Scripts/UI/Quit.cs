@@ -5,7 +5,7 @@ public class ExitButton : MonoBehaviour
 {
     private void Start()
     {
-        MMButtonsBeh.ExitButtonPushed.AddListener(ExitApplication);
+        MMButtonsBeh.OnExitButtonPushed.AddListener(ExitApplication);
     }
 
     public void ExitApplication()

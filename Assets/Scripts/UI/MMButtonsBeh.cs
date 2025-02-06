@@ -8,18 +8,19 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] Button button;
     [SerializeField] ButtonsType buttonsNumber;
     [SerializeField] bool isButtonAnimated;
-    public static UnityEvent ContButtonPushed = new UnityEvent();
-    public static UnityEvent LoadsButtonPushed = new UnityEvent();
-    public static UnityEvent NGButtonPushed = new UnityEvent();
-    public static UnityEvent SettingsButtonPushed = new UnityEvent();
-    public static UnityEvent AchievmentsButtonPushed = new UnityEvent();
-    public static UnityEvent CreditButtonPushed = new UnityEvent();
-    public static UnityEvent ExitButtonPushed = new UnityEvent();
 
-    public static UnityEvent MapButtonPushed = new UnityEvent();
-    public static UnityEvent NotesButtonPushed = new UnityEvent();
-    public static UnityEvent CollectablesButtonPushed = new UnityEvent();
-    public static UnityEvent ExitMainTerminalButtonPushed = new UnityEvent();
+    public static UnityEvent OnContButtonPushed = new UnityEvent();
+    public static UnityEvent OnLoadsButtonPushed = new UnityEvent();
+    public static UnityEvent OnNGButtonPushed = new UnityEvent();
+    public static UnityEvent OnSettingsButtonPushed = new UnityEvent();
+    public static UnityEvent OnAchievmentsButtonPushed = new UnityEvent();
+    public static UnityEvent OnCreditButtonPushed = new UnityEvent();
+    public static UnityEvent OnExitButtonPushed = new UnityEvent();
+
+    public static UnityEvent OnMapButtonPushed = new UnityEvent();
+    public static UnityEvent OnNotesButtonPushed = new UnityEvent();
+    public static UnityEvent OnCollectablesButtonPushed = new UnityEvent();
+    public static UnityEvent OnExitMainTerminalButtonPushed = new UnityEvent();
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -27,27 +28,30 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             return;
 
         if (buttonsNumber == ButtonsType.cont)
-            ContButtonPushed.Invoke();
+            OnContButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.loads)
-            LoadsButtonPushed.Invoke();
+            OnLoadsButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.start)
-            NGButtonPushed.Invoke();
+            OnNGButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.sett)
-            SettingsButtonPushed.Invoke();
+            OnSettingsButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.achievments)
-            AchievmentsButtonPushed.Invoke();
+            OnAchievmentsButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.credits)
-            CreditButtonPushed.Invoke();
+            OnCreditButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.exit)
-            ExitButtonPushed.Invoke();
+            OnExitButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.map)
-            MapButtonPushed.Invoke();
+            OnMapButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.map)
-            NotesButtonPushed.Invoke();
+            OnNotesButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.collectables)
-            CollectablesButtonPushed.Invoke();
+            OnCollectablesButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.exitMainTerminal)
-            ExitMainTerminalButtonPushed.Invoke();
+        {
+            OnExitMainTerminalButtonPushed.Invoke();
+            Debug.Log("ExitMainTerminal");
+        }    
     }
 
     public void OnPointerEnter(PointerEventData eventData)

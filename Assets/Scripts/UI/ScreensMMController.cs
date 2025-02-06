@@ -26,12 +26,12 @@ public class ScreensMMController : MonoBehaviour
             creditsScreen
         };
 
-        MMButtonsBeh.ContButtonPushed.AddListener(() => ShowScreen(loadingScreen));
-        MMButtonsBeh.NGButtonPushed.AddListener(() => ShowScreenWithDelay(loadingScreen, 1f));
-        MMButtonsBeh.LoadsButtonPushed.AddListener(() => ToggleScreen(chooseWhatToLoadScreen));
-        MMButtonsBeh.SettingsButtonPushed.AddListener(() => ToggleScreen(settingsScreen));
-        MMButtonsBeh.AchievmentsButtonPushed.AddListener(() => ToggleScreen(achievmentsScreen));
-        MMButtonsBeh.CreditButtonPushed.AddListener(() => ToggleScreen(creditsScreen));
+        MMButtonsBeh.OnContButtonPushed.AddListener(() => ShowScreen(loadingScreen));
+        MMButtonsBeh.OnNGButtonPushed.AddListener(() => ShowScreenWithDelay(loadingScreen, 1f));
+        MMButtonsBeh.OnLoadsButtonPushed.AddListener(() => ToggleScreen(chooseWhatToLoadScreen));
+        MMButtonsBeh.OnSettingsButtonPushed.AddListener(() => ToggleScreen(settingsScreen));
+        MMButtonsBeh.OnAchievmentsButtonPushed.AddListener(() => ToggleScreen(achievmentsScreen));
+        MMButtonsBeh.OnCreditButtonPushed.AddListener(() => ToggleScreen(creditsScreen));
     }
 
     async void ShowScreenWithDelay(GameObject screen, float delayInSeconds)

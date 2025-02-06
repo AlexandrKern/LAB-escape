@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,9 +14,15 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 
     Character character;
     GameObject mainTerminalMenu;
+    MoveController moveController;
+    GameObject textSaved;
 
     public async UniTask Interact()
     {
+        if(moveController == null)
+            moveController = FindObjectOfType<MoveController>();
+        moveController.enabled = false;
+
         virtualCamera.gameObject.SetActive(true);
         ScreensOn();
         if (character == null)
@@ -22,7 +30,7 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
         if (mainTerminalMenu == null)
             mainTerminalMenu = GameObject.Find("MainTerminalMenu"); // не получится найти выключенный объект
 
-        int delayBeforeActivateMenu = 1500;
+        int delayBeforeActivateMenu = 1750;
         await UniTask.Delay(delayBeforeActivateMenu);
 
         if (character.GetCharacterForm() == FormType.Base)
@@ -30,19 +38,32 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
             Debug.Log("Terminal Interact");
             mainTerminalMenu.transform.DOScale(1, 0.3f);
             StepOne();
+            MMButtonsBeh.OnExitMainTerminalButtonPushed.AddListener(() => CloseTerminal().Forget());
+            await ShowSavedMessege(1000);
         }
         else
         {
             character.gameObject.GetComponent<HintController>().HintTakeTheFormOfSwarm();
-        }
+        } 
+    }
 
-        MMButtonsBeh.ExitButtonPushed.AddListener(() => CloseTerminal().Forget());
+    private async Task ShowSavedMessege(int delayBeforeActivateMenu)
+    {
+        await UniTask.Delay(delayBeforeActivateMenu);
+        if (textSaved == null)
+            textSaved = GameObject.Find("TextSaved");
+        textSaved.GetComponent<TextMeshProUGUI>().DOFade(1, 2f);
+        await UniTask.Delay(delayBeforeActivateMenu);
+        textSaved.GetComponent<TextMeshProUGUI>().DOFade(0, 2f);
     }
 
     public async UniTask CloseTerminal()
     {
+        Debug.Log("CloseTerminal");
         ScreensOff();
-        virtualCamera.gameObject.SetActive(true);
+        virtualCamera.gameObject.SetActive(false);
+        MMButtonsBeh.OnExitMainTerminalButtonPushed.RemoveListener(() => CloseTerminal().Forget());
+        moveController.enabled = true;
     }
 
     private void ScreensOn()
@@ -53,7 +74,6 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 
     private void ScreensOff()
     {
-        mainTerminalMenu.SetActive(false);
         terminalMenu.DOFade(0, 0f);
         map.DOFade(0, 0f);
         mainTerminalMenu.transform.DOScale(0, 0f);
@@ -120,4 +140,10 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
     /// <summary>
     /// вышеуказанные методы вешаем на UI
     /// </summary>
+    /// 
+
+    private void OnDisable()
+    {
+        MMButtonsBeh.OnExitMainTerminalButtonPushed.RemoveListener(() => CloseTerminal().Forget());
+    }
 }
