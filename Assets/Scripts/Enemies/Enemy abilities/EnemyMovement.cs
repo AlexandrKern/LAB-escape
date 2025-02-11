@@ -112,7 +112,7 @@ public class EnemyMovement : MonoBehaviour
             camePlaceOfSearch = true;
             _rb.velocity = Vector2.zero;
         }
-
+        eye.ChangeDirectionView(_movingRight);
         LookInDirection(direction);
     }
 
