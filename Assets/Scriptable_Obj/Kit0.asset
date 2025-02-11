@@ -15,5 +15,5 @@ MonoBehaviour:
   itemType: 1
   itemName: Kit1
   description: Medical kit
-  icon: {fileID: 21300000, guid: c013495c3353ab44590033bf63dade51, type: 3}
+  icon: {fileID: 21300000, guid: 6a82b6ac49c183242a841933d38ade65, type: 3}
   isPickedUp: 1
