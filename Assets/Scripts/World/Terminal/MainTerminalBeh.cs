@@ -79,7 +79,7 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
         mainTerminalMenu.transform.DOScale(0, 0f);
     }
 
-    private void StepOne()
+    private async UniTask StepOne()
     {
         Debug.Log("StepOne");
         Data.CheckpointNumber = terminalNumber;
