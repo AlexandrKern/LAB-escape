@@ -48,9 +48,9 @@ public class LaserMove : MonoBehaviour
     /// <summary>
     /// Следит за игроком
     /// </summary>
-    public void LoocAtPlayer()
+    public void LoocAtPlayer(bool isDetected)
     {
-        if (isLooking)
+        if (isLooking && isDetected)
         {
             SetLaserDistance(transformPlayer.position);
             endLaser.position = transformPlayer.position;
