@@ -1,3 +1,6 @@
+
+using UnityEngine;
+
 public class InterceptorAttackState : IEnemyState
 {
     private Interceptor _interceptor;
@@ -39,6 +42,10 @@ public class InterceptorAttackState : IEnemyState
     /// </summary>
     private void PerformAttackLogic()
     {
+        if(!_interceptor.eye.DetectPlayer())
+        {
+            _interceptor.ChangeState(new InterceptorPatrolState(_interceptor));
+        }
         if (IsWithinMeleeAttackRange())
         {
             MoveToPlayer();
@@ -103,7 +110,7 @@ public class InterceptorAttackState : IEnemyState
     /// </summary>
     private void AimAndShootLaser()
     {
-        _interceptor.laserMove.LoocAtPlayer();
+        _interceptor.laserMove.LoocAtPlayer(_interceptor.eye.DetectPlayer());
     }
 
     /// <summary>

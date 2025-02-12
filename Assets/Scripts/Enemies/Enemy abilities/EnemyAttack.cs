@@ -62,6 +62,7 @@ public class EnemyAttack : MonoBehaviour
     /// <param name="interceptor"></param>
     public void InitiateLongRangeAttack(Interceptor interceptor)
     {
+        if(!interceptor.eye.DetectPlayer())return;
         StartCoroutine(LongRangeShot(interceptor)); 
         toggleRechargeLongRange = true;
     }

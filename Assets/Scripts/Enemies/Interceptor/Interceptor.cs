@@ -19,6 +19,7 @@ public class Interceptor : MonoBehaviour
     [HideInInspector] public EnemyMovement movement;
     [HideInInspector] public EnemyAttack attack;
     [HideInInspector] public EnemyHealth health;
+    private SpriteRenderer spriteRenderer;
 
     public LaserMove laserMove;
     [SerializeField] private InterceptorStates state;
@@ -28,6 +29,7 @@ public class Interceptor : MonoBehaviour
 
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         animatorController = GetComponent<InterceptorAnimatorController>();
         health = GetComponent<EnemyHealth>();
         attack = GetComponent<EnemyAttack>();
@@ -82,6 +84,7 @@ public class Interceptor : MonoBehaviour
             {
                 _circle.gameObject.SetActive(false);
                 animatorController.animator.SetTrigger("Activate");
+                spriteRenderer.sortingOrder = 6;
 
             }
            
