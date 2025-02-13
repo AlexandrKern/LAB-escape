@@ -169,7 +169,9 @@ public partial class Swarm : MonoBehaviour
             {
                 visible = false;
             }
-            _units[i].UpdateUnit(this, _swarmPhase != SwarmPhase.Static, visible);
+            Vector3 swarmDirection = Character.Instance.moveController.CurrentDirection;
+            float swarmSpeed = Character.Instance.moveController.CurrentSpeed;
+            _units[i].UpdateUnit(this, _swarmPhase != SwarmPhase.Static, visible, swarmDirection,swarmSpeed);
         }
     }
 
