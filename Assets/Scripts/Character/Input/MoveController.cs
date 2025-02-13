@@ -34,7 +34,7 @@ public class MoveController : MonoBehaviour
     public float CurrentSpeed => _rigidbody.velocity.magnitude;
     public float SoundSpeed => HorizontalSpeed;
     #endregion
-
+    public Vector3 CurrentDirection { get; private set; }
 
     CameraFollow _cameraFollow;
 
@@ -114,6 +114,7 @@ public class MoveController : MonoBehaviour
             x = InputHorizontal * HorizontalSpeed,
             y = _rigidbody.velocity.y 
         };
+        CurrentDirection = new Vector3(_inputHorizontal, 0, 0).normalized;
     }
 
     private bool IsGrounded()

@@ -27,7 +27,7 @@ public partial class Swarm
             Destination = destinationPoint;
         }
 
-        public void UpdateUnit(Swarm swarm, bool Transation, bool visible)
+        public void UpdateUnit(Swarm swarm, bool Transation, bool visible, Vector3 swarmDirection, float swarmSpeed)
         {
             _spriteRenderer.enabled = visible;
             if (Vector3.Distance(Transform.position, Destination.Transform.position) < 0.05f)
@@ -50,8 +50,10 @@ public partial class Swarm
             {
                 Vector3 direction = Vector3.Normalize(Destination.Transform.position - Transform.position);
 
-                Transform.position = Transform.position += direction * Time.deltaTime *
-                    (_speed + Character.Instance.moveController.CurrentSpeed);
+                Transform.position += direction * Time.deltaTime * _speed; // двигаем юнита с его собственной скоростью
+
+                Transform.position += swarmDirection * Time.deltaTime * swarmSpeed; // двигаем в направлении роя
+
                 Transform.right = direction;
             }
 
