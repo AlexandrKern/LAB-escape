@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class ScreensMMController : MonoBehaviour
 {
     [SerializeField] GameObject buttons;
+    [SerializeField] GameObject nameScreen;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] GameObject chooseWhatToLoadScreen;
     [SerializeField] GameObject settingsScreen;
@@ -19,6 +20,7 @@ public class ScreensMMController : MonoBehaviour
     {
         _allMenus = new List<GameObject>
         {
+            nameScreen,
             loadingScreen,
             chooseWhatToLoadScreen,
             settingsScreen,
@@ -31,6 +33,7 @@ public class ScreensMMController : MonoBehaviour
         MMButtonsBeh.OnLoadsButtonPushed.AddListener(() => ToggleScreen(chooseWhatToLoadScreen));
         MMButtonsBeh.OnSettingsButtonPushed.AddListener(() => ToggleScreen(settingsScreen));
         MMButtonsBeh.OnAchievmentsButtonPushed.AddListener(() => ToggleScreen(achievmentsScreen));
+        MMButtonsBeh.OnStartMenuButtonPushed.AddListener(() => ToggleScreen(nameScreen));
         MMButtonsBeh.OnCreditButtonPushed.AddListener(() => ToggleScreen(creditsScreen));
     }
 

@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class DataTerminals
 {
-    // добавляем в словарь новые терминалы
+    // добавляем в словарь новые терминалы (руками прямо тут)
     private static Dictionary<int, bool> _isTerminalFirstTimeVisit = new Dictionary<int, bool>
     {
         { 1, false },
         { 2, false }
     };
 
-    private static readonly string _filePath = Path.Combine(Application.persistentDataPath, "DataTerminals.json");
+    private static string _filePathDataTerminals = Path.Combine(Application.persistentDataPath, $"DataTerminals{DataUsername.UserName}.json");
+
+    private static string FilePathDataTerminals
+    {
+        get { return Path.Combine(Application.persistentDataPath, $"DataTerminals{DataUsername.UserName}.json"); }
+    }
 
     // проверка наличия сохранений (нужно для доступности кнопок в главном меню)
     public static bool IsFirstTerminalWasFirstTimeVisit()
     {
-        if (File.Exists(_filePath))
+        if (File.Exists(_filePathDataTerminals))
         { 
             return true;
         }
@@ -49,14 +54,14 @@ public class DataTerminals
         };
 
         string json = JsonUtility.ToJson(dataContainer, true);
-        File.WriteAllText(_filePath, json);
+        File.WriteAllText(FilePathDataTerminals, json);
     }
 
     public static void LoadData()
     {
-        if (File.Exists(_filePath))
+        if (File.Exists(FilePathDataTerminals))
         {
-            string json = File.ReadAllText(_filePath);
+            string json = File.ReadAllText(FilePathDataTerminals);
             DataTerminalsContainer dataContainer = JsonUtility.FromJson<DataTerminalsContainer>(json);
 
             _isTerminalFirstTimeVisit = new Dictionary<int, bool>();

@@ -11,6 +11,7 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public static UnityEvent OnContButtonPushed = new UnityEvent();
     public static UnityEvent OnLoadsButtonPushed = new UnityEvent();
+    public static UnityEvent OnStartMenuButtonPushed = new UnityEvent();
     public static UnityEvent OnNGButtonPushed = new UnityEvent();
     public static UnityEvent OnSettingsButtonPushed = new UnityEvent();
     public static UnityEvent OnAchievmentsButtonPushed = new UnityEvent();
@@ -31,6 +32,8 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             OnContButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.loads)
             OnLoadsButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.startMenu)
+            OnStartMenuButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.start)
             OnNGButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.sett)
@@ -48,10 +51,7 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (buttonsNumber == ButtonsType.collectables)
             OnCollectablesButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.exitMainTerminal)
-        {
-            OnExitMainTerminalButtonPushed.Invoke();
-            Debug.Log("ExitMainTerminal");
-        }    
+            OnExitMainTerminalButtonPushed.Invoke(); 
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -84,5 +84,5 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 public enum ButtonsType
 {
-    cont, loads, start, sett, credits, achievments, exit, map, notes, collectables, exitMainTerminal
+    cont, loads, start, startMenu, sett, credits, achievments, exit, map, notes, collectables, exitMainTerminal
 }

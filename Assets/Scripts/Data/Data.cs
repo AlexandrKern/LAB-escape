@@ -17,7 +17,7 @@ public static class Data
     private static bool _isMirrorFormAvailable;
 
     // Путь к файлу для сохранения данных
-    private static string _filePath = Path.Combine(Application.persistentDataPath, "Data.json");
+    private static string _filePathData = Path.Combine(Application.persistentDataPath, $"Data{DataUsername.UserName}.json");
 
     public static int FullHP
     {
@@ -85,7 +85,7 @@ public static class Data
             IsMirrorFormAvailable = _isMirrorFormAvailable,
         }, true);
 
-        File.WriteAllText(_filePath, json);
+        File.WriteAllText(_filePathData, json);
     }
 
     /// <summary>
@@ -93,9 +93,9 @@ public static class Data
     /// </summary>
     public static void LoadData()
     {
-        if (File.Exists(_filePath))
+        if (File.Exists(_filePathData))
         {
-            string json = File.ReadAllText(_filePath);
+            string json = File.ReadAllText(_filePathData);
             DataContainer dataContainer = JsonUtility.FromJson<DataContainer>(json);
             HP = dataContainer.HP;
             FullHP = dataContainer.FullHP;

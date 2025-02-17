@@ -11,7 +11,7 @@ public static class DataItem
 {
     public static Dictionary<string, Item> items = new Dictionary<string, Item>();
 
-    private static string _filePath = Path.Combine(Application.persistentDataPath, "DataItem.json");
+    private static string _filePathDataItem = Path.Combine(Application.persistentDataPath, $"DataItem{DataUsername.UserName}.json");
 
     /// <summary>
     /// Получение предмета по ключу.
@@ -41,9 +41,9 @@ public static class DataItem
     /// </summary>
     public static void LoadData()
     {
-        if (File.Exists(_filePath))
+        if (File.Exists(_filePathDataItem))
         {
-            string json = File.ReadAllText(_filePath);
+            string json = File.ReadAllText(_filePathDataItem);
             SerializableDictionary<string, Item> serializableDictionary = JsonConvert.DeserializeObject<SerializableDictionary<string, Item>>(json);
             items = serializableDictionary?.ToDictionary() ?? new Dictionary<string, Item>();
         }
@@ -60,6 +60,6 @@ public static class DataItem
     {
         SerializableDictionary<string, Item> serializableDictionary = new SerializableDictionary<string, Item>(items);
         string json = JsonConvert.SerializeObject(serializableDictionary, Formatting.Indented);
-        File.WriteAllText(_filePath, json);
+        File.WriteAllText(_filePathDataItem, json);
     }
 }
