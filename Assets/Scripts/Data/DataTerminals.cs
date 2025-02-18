@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class DataTerminals
     // проверка наличия сохранений (нужно для доступности кнопок в главном меню)
     public static bool IsFirstTerminalWasFirstTimeVisit()
     {
-        if (File.Exists(FilePathDataTerminals))
+        if (File.Exists(FilePathDataTerminals) || !String.IsNullOrEmpty(DataUsername.UserName))
         { 
             return true;
         }

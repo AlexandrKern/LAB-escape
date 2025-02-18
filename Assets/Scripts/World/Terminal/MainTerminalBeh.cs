@@ -144,6 +144,6 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 
     private void OnDisable()
     {
-        MMButtonsBeh.OnExitMainTerminalButtonPushed.RemoveListener(() => CloseTerminal().Forget());
+        CloseTerminal();
     }
 }
