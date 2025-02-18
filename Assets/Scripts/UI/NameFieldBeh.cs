@@ -17,17 +17,17 @@ public class NameFieldBeh : MonoBehaviour
         if (string.IsNullOrEmpty(playerInputField.text))
         {
             buttonStartTheGame.gameObject.SetActive(false);
-            Debug.Log("строка пустая");
         }
         else
         {
             buttonStartTheGame.gameObject.SetActive(true);
-            Debug.Log("строка не пустая");
         }
     }
 
     void SetUsername()
     {
         DataUsername.UserName = playerInputField.text;
+        Debug.Log(DataUsername.UserName);
+        DataUsername.SaveUsername();
     }
 }

@@ -21,7 +21,7 @@ public class DataTerminals
     // проверка наличия сохранений (нужно для доступности кнопок в главном меню)
     public static bool IsFirstTerminalWasFirstTimeVisit()
     {
-        if (File.Exists(_filePathDataTerminals))
+        if (File.Exists(FilePathDataTerminals))
         { 
             return true;
         }
