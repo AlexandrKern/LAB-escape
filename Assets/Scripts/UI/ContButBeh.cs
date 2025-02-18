@@ -8,7 +8,6 @@ public class ContButBeh : MonoBehaviour
     void Start()
     {
         DataUsername.LoadUsername();
-        Debug.Log(DataUsername.UserName);
 
         Debug.Log(DataTerminals.IsFirstTerminalWasFirstTimeVisit());
         if (DataTerminals.IsFirstTerminalWasFirstTimeVisit())
