@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraLaserMove : MonoBehaviour
 {
-    [HideInInspector] public Laser laser;
+    public Laser laser;
     [SerializeField] private Transform endLaser;
     private PlayerSpawnLocations _player;
     [HideInInspector] public Transform TransformPlayer;
@@ -20,8 +20,6 @@ public class CameraLaserMove : MonoBehaviour
             TransformPlayer = _player._transformPlayer.transform;
             _targetPosition = endLaser.position;
         }
-
-        laser = GetComponent<Laser>();
     }
 
     private void Update()
