@@ -37,6 +37,8 @@ public class Laser : MonoBehaviour
 
     private float _colorLerpT;
 
+    private bool _isOff = false;
+
     private void Awake()
     {
         _startEndWidth = endWidth;
@@ -61,11 +63,13 @@ public class Laser : MonoBehaviour
 
     private void Update()
     {
+        if(_isOff)return;
         _transform.rotation = Quaternion.identity;
     }
 
     private void FixedUpdate()
     {
+        if (_isOff) return;
         _transform.rotation = Quaternion.identity;
         _rayStart.forward = _rayEnd.position - _rayStart.position;
 
@@ -193,6 +197,16 @@ public class Laser : MonoBehaviour
     {
         this.endWidth = endWidth;
     }
+
+    public void Stop()
+    {
+        _isOff = true;
+    }
+    public void Play()
+    {
+        _isOff = false;
+    }
+
 }
 
 

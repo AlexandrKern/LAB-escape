@@ -10,8 +10,9 @@ public class VideoCameraObserveState : IEnemyState
         if (_videoCamera.laserMove.laser != null)
         {
             _videoCamera.laserMove.laser.SetEndWidth(_videoCamera.eye.GetViewWidth());
+            _videoCamera.laserMove.laser.isColorSwitching = false;
         }
-        _videoCamera.laserMove.laser.isColorSwitching = false;
+        
         _videoCamera.eye.StartAutoRotation();
     }
 

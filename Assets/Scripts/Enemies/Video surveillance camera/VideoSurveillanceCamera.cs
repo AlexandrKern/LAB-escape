@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VideoSurveillanceCamera : MonoBehaviour
@@ -9,6 +7,7 @@ public class VideoSurveillanceCamera : MonoBehaviour
     [HideInInspector] public EnemyEye eye;
     public CameraLaserMove laserMove;
 
+    private bool isOff = false;
 
     private void Start()
     {
@@ -19,6 +18,7 @@ public class VideoSurveillanceCamera : MonoBehaviour
 
     private void Update()
     {
+        if (isOff) return;
         if (currentState != null)
         {
             currentState.Execute();
@@ -35,6 +35,22 @@ public class VideoSurveillanceCamera : MonoBehaviour
         currentState = newState;
         currentState.Enter();
     }
+
+
+    public void OffCamera()
+    {
+        isOff = true;
+        eye.StopAutoRotation();
+        laserMove.laser.Stop();
+    }
+
+    private void OnCamera()
+    {
+        isOff = false;
+        eye.StartAutoRotation();
+        laserMove.laser.Play();
+    }
+
 
     
 }
