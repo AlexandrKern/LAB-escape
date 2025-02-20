@@ -188,6 +188,11 @@ public class Laser : MonoBehaviour
     {
         endWidth = _startEndWidth;
     }
+
+    public void SetEndWidth(float endWidth)
+    {
+        this.endWidth = endWidth;
+    }
 }
 
 

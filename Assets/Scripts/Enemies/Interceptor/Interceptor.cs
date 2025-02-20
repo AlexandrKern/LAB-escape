@@ -21,7 +21,7 @@ public class Interceptor : MonoBehaviour
     [HideInInspector] public EnemyHealth health;
     private SpriteRenderer spriteRenderer;
 
-    public LaserMove laserMove;
+    public InterceptorLaserMove laserMove;
     [SerializeField] private InterceptorStates state;
     [HideInInspector] public bool isActiv = true;
 
