@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private LaserMove laserMove;
+    [SerializeField] private InterceptorLaserMove laserMove;
     public float speed = 2f;
     public float chaseSpeed = 5f;
     public float patrolDistance = 10f;

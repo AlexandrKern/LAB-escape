@@ -15,7 +15,7 @@ public class CharacterHealth : MonoBehaviour
     [HideInInspector] public Action<int> OnHealthChanged;
     [HideInInspector] public UnityEvent OnDeath;
 
-    public Swarm swarm;
+    private Swarm swarm;
 
     private bool isDead = false;
 

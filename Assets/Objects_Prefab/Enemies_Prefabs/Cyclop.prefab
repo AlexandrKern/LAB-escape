@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -134,7 +134,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 4.7, y: -2.55}
+  m_Offset: {x: 4.699997, y: -6.1134186}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -145,7 +145,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 122.85307, y: 38.49218}
+  m_Size: {x: 122.85307, y: 45.61902}
   m_EdgeRadius: 0
 --- !u!1 &3430055007211628662
 GameObject:
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 4352239109566539889}
   - component: {fileID: 511152054295788869}
   - component: {fileID: 4645915972589237928}
-  - component: {fileID: 8791355914397452656}
+  - component: {fileID: 2190470543234814732}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -322,7 +322,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 4294967295
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -332,6 +332,7 @@ MonoBehaviour:
   _defaultColor: {r: 0.8584906, g: 0.77345145, b: 0.77345145, a: 0}
   _playerVisibleColor: {r: 1, g: 0, b: 0, a: 1}
   _colorLerpTime: 0
+  _blinkInterval: 0.01
   isColorSwitching: 0
   isPlayerVisible: 0
 --- !u!210 &4645915972589237928
@@ -344,9 +345,9 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
-  m_SortAtRoot: 0
---- !u!114 &8791355914397452656
+  m_SortingOrder: 5
+  m_SortAtRoot: 1
+--- !u!114 &2190470543234814732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,14 +356,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4368862005065764236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b24c230e5351684a8fba918c7503501, type: 3}
+  m_Script: {fileID: 11500000, guid: 86e3caf3e7bce4b4a927e8351ce2da04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser: {fileID: 511152054295788869}
+  laser: {fileID: 0}
   endLaser: {fileID: 4284396704391666366}
   laserTransform: {fileID: 7426817571109553858}
   transformPlayer: {fileID: 0}
   isLooking: 0
+  lastPlayerPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &5971450684753598486
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +387,7 @@ GameObject:
   - component: {fileID: 4409926768760393009}
   m_Layer: 7
   m_Name: Cyclop
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -447,7 +449,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 4c3359083564fb94d873ce8cad2adf0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -517,12 +519,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df702bb66dc239149a3083d0a7611d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewAngle: 182
-  viewRadius: 13.23
-  detectionTimer: 2
+  _viewAngle: 180
+  viewRadius: 18.4
+  detectionTimer: 0.5
   _obstacleMask:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 13312
+  _rotationAngle: 0
+  _canRotate: 0
+  _rotationRange: 45
+  _rotationSpeed: 30
 --- !u!50 &5002327704153246367
 Rigidbody2D:
   serializedVersion: 4
@@ -562,12 +568,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0026b10dd789b354e8f874d3830932ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserMove: {fileID: 8791355914397452656}
+  laserMove: {fileID: 2190470543234814732}
   speed: 2
   chaseSpeed: 5
-  patrolDistance: 10
+  patrolDistance: 5.31
   searchTime: 10
-  idleTimer: 3
+  idleTimer: 1
   transformPlayer: {fileID: 0}
   camePlaceOfSearch: 0
 --- !u!114 &5267642568907863055
@@ -582,16 +588,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6305712608f71de4aaa34fed5086240b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meleeDamage: 100
-  _longRangeDamage: 100
-  longRangeAttackDistance: 9.21
-  meleeAttackDistance: 6.73
+  _hitPrefub: {fileID: 6757685114697075779, guid: 24344a7c247326342b9f619f7334a037, type: 3}
+  _meleeDamage: 1
+  _longRangeDamage: 1
+  longRangeAttackDistance: 12.48
+  meleeAttackDistance: 5.64
   _rechargeLongRangeAttackTime: 7
   _rechargeMeleeAttackTime: 5
   toggleRechargeLongRange: 0
   toggleRechargeMelee: 0
   _timeLaserFollowsPlayer: 2
-  _delayBeforeFiring: 1
+  _delayBeforeFiring: 3
 --- !u!70 &6944925875677625156
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -645,8 +652,8 @@ MonoBehaviour:
   movement: {fileID: 0}
   attack: {fileID: 0}
   health: {fileID: 0}
-  laserMove: {fileID: 8791355914397452656}
-  state: 0
+  laserMove: {fileID: 2190470543234814732}
+  state: 1
   isActiv: 1
   _circle: {fileID: 36339631031368567}
 --- !u!114 &4409926768760393009
@@ -664,6 +671,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   isMeleeAttack: 0
   isLongRangeAttack: 0
+  isTurn: 0
 --- !u!1 &6818426690562580741
 GameObject:
   m_ObjectHideFlags: 0
