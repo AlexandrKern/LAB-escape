@@ -1,11 +1,14 @@
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyEye))]
 public class VideoSurveillanceCamera : MonoBehaviour
 {
     private IEnemyState currentState;
 
     [HideInInspector] public EnemyEye eye;
     public CameraLaserMove laserMove;
+    public SpawnHunter spawnHunter;
+    public Transform _hunterSpawnPoint;
 
     private bool isOff = false;
 

@@ -14,12 +14,12 @@ public class EntryPoint : MonoBehaviour
     {
         // временный код длф работы без стартрового меню
         // по необходимости раскомментировать чтобы прогресс загружался
-        if (SceneManager.GetActiveScene().name == "Biom1")
-        {
-            DataTerminals.LoadData();
-            Data.LoadData();
-            DataItem.LoadData();
-        }
+        //if (SceneManager.GetActiveScene().name == "Biom1")
+        //{
+        //    DataTerminals.LoadData();
+        //    Data.LoadData();
+        //    DataItem.LoadData();
+        //}
     }
 
     private void Start()

@@ -148,8 +148,11 @@ public class EnemyMovement : MonoBehaviour
     {
         _movingRight = !_movingRight;
         _rb.velocity = Vector2.zero;
-
-        laserMove.SetLaserPos(_movingRight);
+        if(laserMove!=null)
+        {
+            laserMove.SetLaserPos(_movingRight);
+        }
+        
 
         eye.ChangeDirectionView(_movingRight);
     }

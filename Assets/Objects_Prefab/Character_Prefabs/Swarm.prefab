@@ -517,7 +517,6 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  swarm: {fileID: 0}
 --- !u!1 &581735179846480625
 GameObject:
   m_ObjectHideFlags: 0
