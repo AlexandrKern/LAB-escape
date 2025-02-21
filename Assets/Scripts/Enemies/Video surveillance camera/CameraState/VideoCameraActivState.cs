@@ -29,7 +29,7 @@ public class VideoCameraActivState : IEnemyState
         _timer += Time.deltaTime;
         if (_timer >= _videoCamera.eye.detectionTimer)
         {
-            Debug.Log("Вызываем охотника");
+            _videoCamera.spawnHunter.Spawn(_videoCamera._hunterSpawnPoint);
             _timer = 0;
         }
         if (!_videoCamera.eye.DetectPlayer())
