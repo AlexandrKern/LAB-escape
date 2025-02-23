@@ -33,6 +33,7 @@ public class ItemCollector : MonoBehaviour
 
                 Data.IsHammerFormAvailable = true;
                 gameObject.GetComponent<Character>().UpdateStates();
+                gameObject.GetComponent<FormsUI>().CheckHammerAvailable();
                 RegisterItem(itemController, collision);
                 break;
 

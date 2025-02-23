@@ -30,6 +30,8 @@ public class Character : MonoBehaviour
 
     public static Character Instance { get; private set; }
 
+    [SerializeField] private FormsUI formsUI;
+
     public float InputHorizontal 
     {
         set
@@ -84,6 +86,8 @@ public class Character : MonoBehaviour
             swarm.DisableForms(); // если возвращаемся в рой, то выключаем объекты других форм
         
         _stateMachine.EnterState(form);
+
+        formsUI.CheckColor();
     }
 
     void Awake()

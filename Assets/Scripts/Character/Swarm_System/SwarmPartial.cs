@@ -4,9 +4,7 @@ using UnityEngine;
 
 public partial class Swarm : MonoBehaviour
 {
-    [SerializeField]
-    private List<FormType> formOrder;
-
+    [SerializeField] private List<FormType> formOrder;
     public void SetForm(FormType form)
     {
         int index = formOrder.IndexOf(form);
