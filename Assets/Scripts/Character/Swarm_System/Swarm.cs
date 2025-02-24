@@ -55,6 +55,22 @@ public partial class Swarm : MonoBehaviour
     public event System.Action EndTranslatinCallback; //Callback завершения перехода. Данный Callback стоит использовать для возвращения пользователю контродля после перехода.
     public event System.Action OnMoveFromTempObject;
 
+    
+    /// <summary>
+    /// для открытия механическиз дверей
+    /// </summary>
+    /// <param name="index"></param>
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    Debug.Log(collision.gameObject.name);
+    //    MechanicalDoor mechanicalDoor = collision.gameObject.GetComponent<MechanicalDoor>();
+    //    if (mechanicalDoor != null)
+    //    {
+    //        mechanicalDoor.Open(); 
+    //    }
+
+    //}
+
     public void SetFormIndex(int index)//Принять форму с соответствующим индексом из массива forms.
     {
         _currentFormIndex = index;

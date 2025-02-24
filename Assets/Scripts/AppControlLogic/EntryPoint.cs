@@ -12,8 +12,8 @@ public class EntryPoint : MonoBehaviour
 
     private void Awake()
     {
-        // временный код длф работы без стартрового меню
-        // по необходимости раскомментировать чтобы прогресс загружался
+        ////временный код длф работы без стартрового меню
+        ////по необходимости раскомментировать чтобы прогресс загружался
         //if (SceneManager.GetActiveScene().name == "Biom1")
         //{
         //    DataTerminals.LoadData();
