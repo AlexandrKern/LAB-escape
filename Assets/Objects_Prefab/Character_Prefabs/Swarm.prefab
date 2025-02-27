@@ -489,16 +489,16 @@ MonoBehaviour:
   - {fileID: 4491210065854739435}
   - {fileID: 3061070413278996377}
   - {fileID: 6919006140139992467}
-  maxNumberOfUnits: 400
-  minNumberOfUnits: 100
+  maxNumberOfUnits: 100
+  minNumberOfUnits: 25
   unitPrefab: {fileID: 657731969208746378, guid: 3af76e85eead18b4eb43947aeacf326f, type: 3}
   pointPrefab: {fileID: 4305447601698794152, guid: 31cb4b789ca65e9439aca24b85a2ec00, type: 3}
   minSpeed: 1
   maxSpeed: 2
-  minTranslationSpeed: 5
-  maxTranslationSpeed: 4
-  minSize: 0.05
-  maxSize: 0.1
+  minTranslationSpeed: 7
+  maxTranslationSpeed: 6
+  minSize: 0.075
+  maxSize: 0.15
   maxDistance: 1
   formOrder: 000000000400000002000000030000000100000005000000
 --- !u!50 &4686832029146100282
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a21cb77c3c2314fa8d2089d590064a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HorizontalSpeed: 5
+  HorizontalSpeed: 8
   GroundCheckLocalPoint: {x: 0, y: -1.29, z: 0}
   groundCheckAreaRadius: 0.2
   JumpSpeed: 30
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3d7a7e33c0e2e4a945a15934ed6c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 400
+  _maxHealth: 100
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
