@@ -322,7 +322,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 32511
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewAngle: 180
-  viewRadius: 18.4
+  viewRadius: 47.2
   detectionTimer: 0.5
   _obstacleMask:
     serializedVersion: 2
@@ -570,7 +570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserMove: {fileID: 2190470543234814732}
   speed: 2
-  chaseSpeed: 5
+  chaseSpeed: 3
   patrolDistance: 5.31
   searchTime: 10
   idleTimer: 1
@@ -599,6 +599,7 @@ MonoBehaviour:
   toggleRechargeMelee: 0
   _timeLaserFollowsPlayer: 2
   _delayBeforeFiring: 3
+  isStartLongRangeAttack: 0
 --- !u!70 &6944925875677625156
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

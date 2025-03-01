@@ -7,8 +7,7 @@ public class InterceptorAnimatorController : MonoBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public bool isMeleeAttack;
     [HideInInspector] public bool isLongRangeAttack;
-
-    public bool isTurn;
+    [HideInInspector] public bool isTurn;
 
     private void Awake()
     {

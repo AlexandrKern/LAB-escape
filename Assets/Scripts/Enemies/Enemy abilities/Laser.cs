@@ -8,13 +8,12 @@ public class Laser : MonoBehaviour
 {
     [SerializeField] private float _startWidth;
     public float endWidth;
-    private float _startEndWidth;
     [SerializeField] private Transform _rayStart;
     [SerializeField] private Transform _rayEnd;
     [SerializeField] private ContactFilter2D _contactFilter;
     [SerializeField] private int _rayCount = 20;
+    [HideInInspector] public float maxDistanceVisible = 5;
     [HideInInspector] public float maxDistance = 5;
-    private float _startMaxDistance;
     [SerializeField] private Color _defaultColor;
     [SerializeField] private Color _playerVisibleColor;
     [SerializeField] private float _colorLerpTime = 0.5f;
@@ -39,11 +38,6 @@ public class Laser : MonoBehaviour
 
     private bool _isOff = false;
 
-    private void Awake()
-    {
-        _startEndWidth = endWidth;
-        _startMaxDistance = maxDistance;
-    }
 
     void Start()
     {
@@ -95,7 +89,7 @@ public class Laser : MonoBehaviour
 
             isPlayerVisible = false;
 
-            if (0 < Physics2D.Raycast(_origin[i], _dir[i], _contactFilter, hits, maxDistance))
+            if (0 < Physics2D.Raycast(_origin[i], _dir[i], _contactFilter, hits, maxDistanceVisible))
             {
                 _endRayPoint.Add(hits[0].point - _origin[i]);
                 for (int j = 0; j < hits.Count; j++)
@@ -110,7 +104,7 @@ public class Laser : MonoBehaviour
             }
             else
             {
-                _endRayPoint.Add(_dir[i] * maxDistance);
+                _endRayPoint.Add(_dir[i] * maxDistanceVisible);
             }
         }
 
@@ -133,7 +127,7 @@ public class Laser : MonoBehaviour
 
         for (int i = 0; i < _endRayPoint.Count; i++)
         {
-            float yUV = maxDistance / Vector2.SqrMagnitude(_endRayPoint[i]);
+            float yUV = maxDistanceVisible / Vector2.SqrMagnitude(_endRayPoint[i]);
             _UVs.Add(new Vector2((float)i / _endRayPoint.Count, yUV));
         }
 
@@ -183,15 +177,6 @@ public class Laser : MonoBehaviour
         }
     }
 
-    public void ResetDistance()
-    {
-        maxDistance = _startMaxDistance;
-    }
-
-    public void ResetWidth()
-    {
-        endWidth = _startEndWidth;
-    }
 
     public void SetEndWidth(float endWidth)
     {

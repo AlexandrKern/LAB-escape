@@ -11,6 +11,7 @@ public class InterceptorLaserMove : MonoBehaviour
     [HideInInspector] public bool isLooking;
     private bool _isLoocAtPlayer;
     [HideInInspector] public Vector3 lastPlayerPosition;
+    public float _offsetDistance;
 
     private void Start()
     {
@@ -70,6 +71,9 @@ public class InterceptorLaserMove : MonoBehaviour
     public void SetLaserDistance(Vector3 endPosition)
     {
         float dictance = Vector3.Distance(laserTransform.position, endPosition);
-        laser.maxDistance = dictance;
+        _offsetDistance = 0.823f * Mathf.Pow(dictance, 0.846f);
+        laser.maxDistanceVisible = dictance - _offsetDistance;
     }
+
+    
 }

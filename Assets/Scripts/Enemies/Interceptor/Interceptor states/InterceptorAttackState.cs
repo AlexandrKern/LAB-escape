@@ -49,20 +49,25 @@ public class InterceptorAttackState : IEnemyState
         if (IsWithinMeleeAttackRange())
         {
             MoveToPlayer();
+            _interceptor.movement.StopMovement();
             PerformMeleeAttack();
         }
 
-        else if (IsWithinLongRangeAttackRange())
+        else if (IsWithinLongRangeAttackRange()&& _interceptor.eye.DetectPlayer())
         {
             _interceptor.movement.StopMovement();
-            AimAndShootLaser();
             PerformLongRangeAttack();
         }
-
-        else
+        if (_interceptor.attack.isStartLongRangeAttack)
+        {
+            
+            AimAndShootLaser();
+        }
+        if(!IsWithinMeleeAttackRange()&& !IsWithinLongRangeAttackRange()&& !_interceptor.attack.isStartLongRangeAttack)
         {
             ResetSpeedAndChase();
         }
+
     }
 
     /// <summary>
