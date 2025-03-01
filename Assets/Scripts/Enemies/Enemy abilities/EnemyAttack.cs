@@ -7,7 +7,6 @@ public class EnemyAttack : MonoBehaviour
 
     [Header("Damage")]
     [SerializeField] private int _meleeDamage = 100;
-    [SerializeField] private int _longRangeDamage = 100;
 
     [Header("Attack Distances")]
     public float longRangeAttackDistance = 5f;
@@ -32,6 +31,7 @@ public class EnemyAttack : MonoBehaviour
     private CharacterHealth _characterHealth; 
 
     private bool _isPlayerInAttackRange;
+    public bool isStartLongRangeAttack;
 
     private void Start()
     {
@@ -62,7 +62,6 @@ public class EnemyAttack : MonoBehaviour
     /// <param name="interceptor"></param>
     public void InitiateLongRangeAttack(Interceptor interceptor)
     {
-        if(!interceptor.eye.DetectPlayer())return;
         StartCoroutine(LongRangeShot(interceptor)); 
         toggleRechargeLongRange = true;
     }
@@ -74,6 +73,8 @@ public class EnemyAttack : MonoBehaviour
     /// <returns></returns>
     private IEnumerator LongRangeShot(Interceptor interceptor)
     {
+        if (isStartLongRangeAttack) yield break;
+        isStartLongRangeAttack = true;
         interceptor.animatorController.animator.SetTrigger("LongRangeAttack");
         interceptor.laserMove.isLooking = true; 
 
@@ -84,17 +85,17 @@ public class EnemyAttack : MonoBehaviour
         yield return new WaitForSeconds(_delayBeforeFiring);
         interceptor.laserMove.laser.StopBlinking();
         interceptor.laserMove.laser.isColorSwitching = false;
-        if (interceptor.laserMove.laser.isPlayerVisible && !interceptor.animatorController.isMeleeAttack)
+        if ( !interceptor.animatorController.isMeleeAttack)
         {
             InstantiateLaserHit(interceptor);
-            _characterHealth.TakeDamage(_longRangeDamage);
         }
+        isStartLongRangeAttack = false;
     }
 
     private void InstantiateLaserHit(Interceptor interceptor)
     {
             GameObject go = Instantiate(_hitPrefub, interceptor.laserMove.lastPlayerPosition, Quaternion.identity);
-            Destroy(go, 2);
+            Destroy(go,0.6f);
     }
 
     /// <summary>
@@ -106,7 +107,6 @@ public class EnemyAttack : MonoBehaviour
         interceptor.laserMove.laser.StopBlinking();
         interceptor.laserMove.laser.isColorSwitching = false; 
         interceptor.animatorController.animator.SetTrigger("Attack"); 
-        CheckPlayerInAttackRange(interceptor); 
     }
 
     /// <summary>
@@ -170,6 +170,7 @@ public class EnemyAttack : MonoBehaviour
 
     public void StopLongRangeAttack()
     {
+        isStartLongRangeAttack = false;
         StopAllCoroutines();
     }
 
