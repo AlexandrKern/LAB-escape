@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Cysharp.Threading.Tasks;
 
 public class CharacterHealth : MonoBehaviour
 {
     SceneLoader loader = new SceneLoader();
 
     [SerializeField] private int _maxHealth = 400;
+    [SerializeField] private GameObject bloodScreen;
     private int _currentHealth;
 
     public int MaxHealth => _maxHealth;
@@ -38,7 +40,9 @@ public class CharacterHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isDead) return; 
+        if (isDead) return;
+
+        DamageEffect().Forget();
 
         _currentHealth -= damage;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
@@ -64,5 +68,12 @@ public class CharacterHealth : MonoBehaviour
         swarm.SetUnitCount(_currentHealth);
         Data.HP = _currentHealth;
         isDead = false;
+    }
+
+    async UniTask DamageEffect()
+    {
+        bloodScreen?.gameObject.SetActive(true);
+        await UniTask.Delay(500);
+        bloodScreen?.gameObject.SetActive(false);
     }
 }

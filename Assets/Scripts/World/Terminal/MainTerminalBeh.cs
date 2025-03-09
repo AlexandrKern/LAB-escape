@@ -61,8 +61,9 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
     {
         Debug.Log("CloseTerminal");
         ScreensOff();
-        virtualCamera.gameObject.SetActive(false);
+        virtualCamera?.gameObject.SetActive(false);
         MMButtonsBeh.OnExitMainTerminalButtonPushed.RemoveListener(() => CloseTerminal().Forget());
+        if(moveController != null)
         moveController.enabled = true;
     }
 
@@ -74,10 +75,11 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
 
     private void ScreensOff()
     {
-        terminalMenu.DOFade(0, 0f);
-        map.DOFade(0, 0f);
-        mainTerminalMenu.transform.DOScale(0, 0f);
+        terminalMenu?.DOFade(0, 0f);
+        map?.DOFade(0, 0f);
+        mainTerminalMenu?.transform.DOScale(0, 0f);
     }
+
 
     private async UniTask StepOne()
     {

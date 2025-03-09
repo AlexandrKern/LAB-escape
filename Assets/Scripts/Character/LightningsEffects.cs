@@ -16,7 +16,7 @@ public class RandomSpriteFlasher : MonoBehaviour
             //spriteRenderers[randomIndex].enabled = true;
             //await UniTask.Delay(500);
             //spriteRenderers[randomIndex].enabled = false;
-            animatorThunder.SetTrigger("ThunderEffect");
+            animatorThunder?.SetTrigger("ThunderEffect");
         }
     }
 }
