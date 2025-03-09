@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -17,34 +18,39 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
     MoveController moveController;
     GameObject textSaved;
 
+    CancellationTokenSource updateCTS;
+
     public async UniTask Interact()
     {
-        if(moveController == null)
+        if (character == null)
+            character = FindObjectOfType<Character>();
+
+        if (character.GetCharacterForm() != FormType.Base)
+        {
+            character.gameObject.GetComponent<HintController>().HintTakeTheFormOfSwarm();
+            return;
+        }
+
+        if (moveController == null)
             moveController = FindObjectOfType<MoveController>();
+
         moveController.enabled = false;
 
         virtualCamera.gameObject.SetActive(true);
         ScreensOn();
-        if (character == null)
-            character = FindObjectOfType<Character>();
+
         if (mainTerminalMenu == null)
             mainTerminalMenu = GameObject.Find("MainTerminalMenu"); // не получится найти выключенный объект
 
         int delayBeforeActivateMenu = 1750;
         await UniTask.Delay(delayBeforeActivateMenu);
 
-        if (character.GetCharacterForm() == FormType.Base)
-        {
-            Debug.Log("Terminal Interact");
-            mainTerminalMenu.transform.DOScale(1, 0.3f);
-            StepOne();
-            MMButtonsBeh.OnExitMainTerminalButtonPushed.AddListener(() => CloseTerminal().Forget());
-            await ShowSavedMessege(1000);
-        }
-        else
-        {
-            character.gameObject.GetComponent<HintController>().HintTakeTheFormOfSwarm();
-        } 
+        Debug.Log("Terminal Interact");
+        mainTerminalMenu.transform.DOScale(1, 0.3f);
+        StepOne();
+        MMButtonsBeh.OnExitMainTerminalButtonPushed.AddListener(() => CloseTerminal().Forget());
+        StartUniTaskUpdate();
+        await ShowSavedMessege(1000);
     }
 
     private async Task ShowSavedMessege(int delayBeforeActivateMenu)
@@ -57,14 +63,46 @@ public class MainTerminalBeh : MonoBehaviour, IInteractableTerminal
         textSaved.GetComponent<TextMeshProUGUI>().DOFade(0, 2f);
     }
 
+
+    private async UniTaskVoid UniTaskUpdate(CancellationToken token)
+    {
+        while (true)
+        {
+            await UniTask.Yield(PlayerLoopTiming.Update);
+
+            if (Input.GetKeyDown(KeyCode.JoystickButton1))
+            {
+                CloseTerminal().Forget();
+            }
+        }
+    }
+
     public async UniTask CloseTerminal()
     {
+        StopUniTaskUpdate();
         Debug.Log("CloseTerminal");
         ScreensOff();
         virtualCamera?.gameObject.SetActive(false);
         MMButtonsBeh.OnExitMainTerminalButtonPushed.RemoveListener(() => CloseTerminal().Forget());
         if(moveController != null)
         moveController.enabled = true;
+    }
+
+    private void StartUniTaskUpdate()
+    {
+        StopUniTaskUpdate();
+        updateCTS = new CancellationTokenSource();
+        UniTaskUpdate(updateCTS.Token).Forget();
+    }
+
+    private void StopUniTaskUpdate()
+    {
+        if (updateCTS != null)
+        {
+            updateCTS.Cancel();
+            updateCTS.Dispose();
+            updateCTS = null;
+        }
     }
 
     private void ScreensOn()

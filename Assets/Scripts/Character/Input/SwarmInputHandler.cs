@@ -61,19 +61,33 @@ public class SwarmInputHandler : MonoBehaviour
         {
             if (Input.GetKeyDown(formsKeyboardKeys[i].Key))
             {
+                Debug.Log(i);
                 _character.ChangeForm(formsKeyboardKeys[i].Form);
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.JoystickButton4))
+        {
+            _character.ChangeForm(formsKeyboardKeys[0].Form); // здесь нужно не ставить конкретные индексы повышать и понижать,
+                                                              // но нужен геймпад для тестов
+        }
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton5))
+        {
+            _character.ChangeForm(formsKeyboardKeys[1].Form); // здесь тоже нужно не ставить конкретные индексы повышать и понижать,
+                                                              // но нужен геймпад для тестов
+        }
+
+
         _character.InputHorizontal = Input.GetAxis("Horizontal");
         _character.InputVertical = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(interactQKeyboardKey))
+        if (Input.GetKeyDown(interactQKeyboardKey) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
             _character.QInteract();
         }
 
-        if (Input.GetKeyDown(interactEKeyboardKey))
+        if (Input.GetKeyDown(interactEKeyboardKey) || Input.GetKeyDown(KeyCode.JoystickButton3))
         {
             _character.EInteract();
         }

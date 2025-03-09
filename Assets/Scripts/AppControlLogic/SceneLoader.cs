@@ -35,9 +35,12 @@ public class SceneLoader
     // ѕерегрузка метода с ожиданием конца видео
     public async void LoadSceneAsync(VideoPlayer videoPlayer, string sceneName)
     {
-        await WaitForVideoEnd(videoPlayer);
+        var videoEndTask = WaitForVideoEnd(videoPlayer);
+        var keyPressTask = UniTask.WaitUntil(() => Input.anyKeyDown);
+        await UniTask.WhenAny(videoEndTask, keyPressTask);
         await LoadNextScene(CancellationToken.None, sceneName);
     }
+
 
     // ћетод ожидани€ завершени€ воспроизведени€ видео
     private async UniTask WaitForVideoEnd(VideoPlayer videoPlayer)

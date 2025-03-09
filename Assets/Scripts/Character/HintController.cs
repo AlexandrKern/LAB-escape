@@ -14,6 +14,28 @@ public class HintController : MonoBehaviour
     [SerializeField] string columnCanBeCrushed = "Колонна не выглядит очень прочной";
     [SerializeField] string realGame = "The real lab escape starts here";
 
+    void Start()
+    {
+        string[] connectedJoysticks = Input.GetJoystickNames();
+
+        if (connectedJoysticks.Length > 0)
+        {
+            foreach (string joystickName in connectedJoysticks)
+            {
+                if (!string.IsNullOrEmpty(joystickName))
+                {
+                    pressQForVent = "Нажмите X чтобы пробраться по вентиляции";
+                    pressQForObstacle = "Нажмите X для преодоления препятствия";
+                    hummerHintPress2 = "Нажмите RB для превращения в молот\nНажмите LB для превращения в рой\nНажмите Y, приняв форму роя,\nдля взаимодействия с терминалом";
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Геймпад не подключен.");
+        }
+    }
+
     public void SetHintTextRotation(float value)
     {
         Vector3 hintTextRotation = hintText.transform.rotation.eulerAngles;
