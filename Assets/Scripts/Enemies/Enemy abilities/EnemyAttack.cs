@@ -106,7 +106,8 @@ public class EnemyAttack : MonoBehaviour
     {
         interceptor.laserMove.laser.StopBlinking();
         interceptor.laserMove.laser.isColorSwitching = false; 
-        interceptor.animatorController.animator.SetTrigger("Attack"); 
+        interceptor.animatorController.animator.SetTrigger("Attack");
+        //CheckPlayerInAttackRange(interceptor);
     }
 
     /// <summary>
@@ -130,7 +131,7 @@ public class EnemyAttack : MonoBehaviour
     /// </summary>
     public void ApplyMeleeAttackDamage()
     {
-        if (_isPlayerInAttackRange)
+        if (Vector3.Distance(transform.position, _swarm.transform.position) <= meleeAttackDistance)
         {
             _characterHealth.TakeDamage(_meleeDamage);
         }
