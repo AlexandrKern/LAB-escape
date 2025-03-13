@@ -10,6 +10,42 @@ public class NameFieldBeh : MonoBehaviour
     private void Start()
     {
         MMButtonsBeh.OnNGButtonPushed.AddListener(SetUsername);
+        MMButtonsBeh.OnNameRandomizerButtonPushed.AddListener(GenerateNewName);
+    }
+
+    string[] minoanNames = new string[]
+    {
+    "Минос",
+    "Ариадна",
+    "Пасифая",
+    "Дедал",
+    "Икар",
+    "Европа",
+    "Радамант",
+    "Астерион",
+    "Талос",
+    "Сарпедон",
+    "Крес",
+    "Мартинос",
+    "Евгенос",
+    "Иннасеида",
+    "Валентинос",
+    "Сергиос",
+    "Шизикус",
+    "Никос",
+    "Александр",
+    "Идоминеус",
+    "Федра",
+    "Бритомартис",
+    "Ида",
+    "Диктис",
+    "Кносс"
+    };
+
+    private void GenerateNewName()
+    {
+        int index = Random.Range(0, minoanNames.Length);
+        playerInputField.text = minoanNames[index];
     }
 
     public void NewChar()

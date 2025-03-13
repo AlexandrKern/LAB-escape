@@ -16,6 +16,7 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public static UnityEvent OnSettingsButtonPushed = new UnityEvent();
     public static UnityEvent OnAchievmentsButtonPushed = new UnityEvent();
     public static UnityEvent OnCreditButtonPushed = new UnityEvent();
+    public static UnityEvent OnNameRandomizerButtonPushed = new UnityEvent();
     public static UnityEvent OnExitButtonPushed = new UnityEvent();
 
     public static UnityEvent OnMapButtonPushed = new UnityEvent();
@@ -51,7 +52,9 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (buttonsNumber == ButtonsType.collectables)
             OnCollectablesButtonPushed.Invoke();
         if (buttonsNumber == ButtonsType.exitMainTerminal)
-            OnExitMainTerminalButtonPushed.Invoke(); 
+            OnExitMainTerminalButtonPushed.Invoke();
+        if (buttonsNumber == ButtonsType.nameRandomizer)
+            OnNameRandomizerButtonPushed.Invoke();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -84,5 +87,5 @@ public class MMButtonsBeh : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 public enum ButtonsType
 {
-    cont, loads, start, startMenu, sett, credits, achievments, exit, map, notes, collectables, exitMainTerminal
+    cont, loads, start, startMenu, sett, credits, achievments, exit, map, notes, collectables, exitMainTerminal, nameRandomizer
 }
