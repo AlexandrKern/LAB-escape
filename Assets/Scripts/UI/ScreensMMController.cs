@@ -68,11 +68,20 @@ public class ScreensMMController : MonoBehaviour
 
     void HideAllScreens()
     {
+        if (_allMenus == null)
+        {
+            return;
+        }
+
         foreach (var menu in _allMenus)
         {
-            menu.SetActive(false);
+            if (menu != null)
+            {
+                menu.SetActive(false);
+            }
         }
     }
+
 
     void HideButtons()
     {
