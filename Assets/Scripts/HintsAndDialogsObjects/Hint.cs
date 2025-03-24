@@ -83,6 +83,6 @@ public class ColumnHint : MonoBehaviour
         hammerPress2,
         canBeDestroyed,
         columntNotStrong,
-        realGameStartHere
+        realGameStartHere,
     }
 }

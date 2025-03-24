@@ -6,5 +6,6 @@ public enum ItemType
 {
     HammerForm,
     Kit,
-    Plot
+    Plot,
+    BurglarForm
 }

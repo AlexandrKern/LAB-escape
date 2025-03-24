@@ -15,7 +15,6 @@ public class BottleneckDetector : MonoBehaviour
         {
             if (collision.gameObject.layer == 3 || collision.gameObject.layer == 12)
             {
-                Debug.Log("в молот нельзя");
                 _character.ChangeForm(0);
                 CanWeChangeTheForm = false;
             }
@@ -26,7 +25,6 @@ public class BottleneckDetector : MonoBehaviour
     {
         if (collision.gameObject.layer == 3 || collision.gameObject.layer == 12)
         {
-            Debug.Log("в молот можно");
             CanWeChangeTheForm = true;
         }
     }

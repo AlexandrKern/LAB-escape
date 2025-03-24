@@ -34,7 +34,7 @@ public partial class Swarm
             {
                 _spriteRenderer.sortingOrder = _sortingOrder;
                 Destination.IsFree = true;
-                var destenationPoint = swarm.GetRandomEmptyPoint(this);
+                var destenationPoint = swarm.GetRandomEmptyPoint(this); // тут ArgumentOutOfRangeException
                 destenationPoint.IsFree = false;
                 SetDestenation(destenationPoint);
                 if (Transation)

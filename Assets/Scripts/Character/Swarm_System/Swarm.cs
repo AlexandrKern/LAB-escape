@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -128,7 +129,7 @@ public partial class Swarm : MonoBehaviour
         switch (_swarmPhase)
         {
             case SwarmPhase.Static:
-                return GetEmptyPoint(forms[_currentFormIndex].GetDestenationPoints(), unit);
+                return GetEmptyPoint(forms[_currentFormIndex].GetDestenationPoints(), unit); // тут ArgumentOutOfRangeException
             case SwarmPhase.MoveToTempObject:
                 if (AllPointsIsFree(_lastPoints))
                 {
@@ -180,18 +181,19 @@ public partial class Swarm : MonoBehaviour
     {
         for (int i = 0; i < _units.Count; i++)
         {
-            bool visible = true;
-            if (i > numberOfUnits)
-            {
-                visible = false;
-            }
+            // Если индекс вышел за numberOfUnits, ставим visible = false
+            bool visible = i < numberOfUnits;
+
             Vector3 swarmDirection = Character.Instance.moveController.CurrentDirection;
             float swarmSpeed = Character.Instance.moveController.CurrentSpeed;
-            _units[i].UpdateUnit(this, _swarmPhase != SwarmPhase.Static, visible, swarmDirection,swarmSpeed);
+
+            //Debug.Log(i);
+            _units[i].UpdateUnit(this, _swarmPhase != SwarmPhase.Static, visible, swarmDirection, swarmSpeed); // тут ArgumentOutOfRangeException
         }
     }
 
-    List <SpriteRenderer> beatles; 
+
+    List<SpriteRenderer> beatles; 
 
     private void GenerateUnits()
     {
@@ -244,14 +246,13 @@ public partial class Swarm : MonoBehaviour
         }
         return true;
     }
-    
+
     private DestinationPoint GetEmptyPoint(List<DestinationPoint> points, Unit unit)
     {
-
         for (int i = 0; i < 100; i++)
         {
             int index = UnityEngine.Random.Range(0, points.Count);
-            if (points[index].IsFree && (Vector3.Distance(points[index].Transform.position, unit.Transform.position) < maxDistance || i==99))
+            if (points[index].IsFree && (Vector3.Distance(points[index].Transform.position, unit.Transform.position) < maxDistance || i == 99)) // тут ArgumentOutOfRangeException
             {
                 points[index].IsFree = false;
                 return points[index];
@@ -259,7 +260,8 @@ public partial class Swarm : MonoBehaviour
         }
         return points[0];
     }
-    
+
+
     private DestinationPoint GetEmptyPoint(List<DestinationPoint> points)
     {
         while (true)

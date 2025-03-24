@@ -52,7 +52,7 @@ public class SwarmInputHandler : MonoBehaviour
         }
 
         _character.StateMachineUpdater();
-        _swarm.SwarmUpdater();
+        _swarm.SwarmUpdater(); // тут ArgumentOutOfRangeException
     }
 
     private void HandleInput()
@@ -61,7 +61,7 @@ public class SwarmInputHandler : MonoBehaviour
         {
             if (Input.GetKeyDown(formsKeyboardKeys[i].Key))
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 _character.ChangeForm(formsKeyboardKeys[i].Form);
             }
         }

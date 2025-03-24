@@ -21,7 +21,7 @@ public class SwarmForm : SwarmFormBase
         Rect spriteLocationInAtlas = spriteRenderer.sprite.rect;
         texture = new Texture2D((int)spriteLocationInAtlas.width, 
             (int)spriteLocationInAtlas.height);
-        texture.SetPixels(spriteRenderer.sprite.texture.GetPixels((int)spriteLocationInAtlas.x, 
+            texture.SetPixels(spriteRenderer.sprite.texture.GetPixels((int)spriteLocationInAtlas.x, 
             (int)spriteLocationInAtlas.y, (int)spriteLocationInAtlas.width, 
             (int)spriteLocationInAtlas.height));
 
@@ -36,7 +36,6 @@ public class SwarmForm : SwarmFormBase
             Vector2 point;
             bool validPoint = false;
 
-            // Попытка найти случайную видимую точку
             while (!validPoint)
             {
                 point = GetRandomPointInSprite();

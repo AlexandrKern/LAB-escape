@@ -55,6 +55,14 @@ public class ItemCollector : MonoBehaviour
                 RegisterItem(itemController, collision);
 
                 break;
+
+            case ItemType.BurglarForm:
+
+                Data.IsBurglarFormAvailable = true;
+                gameObject.GetComponent<Character>().UpdateStates();
+                gameObject.GetComponent<FormsUI>().CheckBurlgarAvailable();
+                RegisterItem(itemController, collision);
+                break;
         }
     }
 

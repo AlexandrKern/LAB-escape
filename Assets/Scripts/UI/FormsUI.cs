@@ -54,6 +54,11 @@ public class FormsUI : MonoBehaviour
          gameObjectFormsUI.SetActive(Data.IsHammerFormAvailable);
     }
 
+    public void CheckBurlgarAvailable()
+    {
+        burglarFormIconColor.gameObject.SetActive(true);
+    }
+
     public void CheckColor()
     {
         var currentForm = character.GetCharacterForm();
